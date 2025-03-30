@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct GoogleButton: View {
+    let action: ()-> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button {
+            action()
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 24).stroke(style: StrokeStyle(lineWidth: 2))
+                    .frame(height: 56)
+                HStack {
+                    Image("googleIcon")
+                    Text("Continue with Google")
+                }
+            }
+        }
+        .buttonStyle(.plain)
     }
 }
 
 #Preview {
-    GoogleButton()
+    GoogleButton(action: {})
 }
