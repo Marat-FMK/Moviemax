@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct CustomTF: View {
+    @Binding var answer: String
+    let title: String
+    let tfBGtext: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack( alignment: .leading) {
+            Text(title)
+                .foregroundStyle(.gray)
+                .font(.system(size: 14))
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: 24)
+                    .frame(height: 56)
+                    .foregroundStyle(.tf)
+                TextField(tfBGtext, text: $answer)
+                    .padding(.horizontal, 15)
+            }
+            
+        }
     }
 }
 
 #Preview {
-    CustomTF()
+    CustomTF(answer: .constant(""), title: "Email", tfBGtext: "Enter your email")
 }
