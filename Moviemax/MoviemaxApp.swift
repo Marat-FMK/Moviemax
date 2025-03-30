@@ -11,7 +11,7 @@ import SwiftUI
 struct MoviemaxApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
