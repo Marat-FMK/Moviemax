@@ -8,11 +8,27 @@
 import SwiftUI
 
 struct LongPurpleButton: View {
+    let title: String
+    let action: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 16) {
+            Button {
+                action()
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 24)
+                        .frame(height: 56)
+                        .foregroundStyle(.buttonPurple)
+                    
+                    Text(title)
+                        .foregroundStyle(.white)
+                }
+            }
+            .buttonStyle(.plain)
+        }
     }
 }
-
 #Preview {
-    LongPurpleButton()
+    LongPurpleButton(title: "Sign In", action: {} )
 }
