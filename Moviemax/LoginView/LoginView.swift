@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+//enum LoginPath {
+//    case signUP
+//    case logIn
+//}
+
 struct LoginView: View {
-    
     @StateObject var viewModel = LoginViewViewModel()
+    
+    @State var presentSignUP = false
+    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 
                 Text("Login")
@@ -48,7 +55,7 @@ struct LoginView: View {
                         
                         
                     //google button
-                       
+                        GoogleButton(action: viewModel.authWithGoogle)
                     }
                     .padding(.top, 50)
                 }
@@ -59,18 +66,20 @@ struct LoginView: View {
                 HStack {
                     Text("Don't have an account?")
                     
-                    NavigationLink {
-                        SignUpView()
+                   Button {
+                       presentSignUP.toggle()
                     } label: {
                         Text("Sign up")
                             .foregroundStyle(.forgot)
                     }
                 }
                 .padding(.bottom, 20)
-                
-                
             }
             .padding(.horizontal, 24)
+            .navigationDestination(isPresented: $presentSignUP) {
+                SignUpView()
+            }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
