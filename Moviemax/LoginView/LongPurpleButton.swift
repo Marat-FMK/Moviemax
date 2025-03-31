@@ -1,0 +1,34 @@
+//
+//  LongPurpleButton.swift
+//  Moviemax
+//
+//  Created by Marat Fakhrizhanov on 31.03.2025.
+//
+
+import SwiftUI
+
+struct LongPurpleButton: View {
+    let title: String
+    let action: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            Button {
+                action()
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 24)
+                        .frame(height: 56)
+                        .foregroundStyle(.buttonPurple)
+                    
+                    Text(title)
+                        .foregroundStyle(.white)
+                }
+            }
+            .buttonStyle(.plain)
+        }
+    }
+}
+#Preview {
+    LongPurpleButton(title: "Sign In", action: {} )
+}
