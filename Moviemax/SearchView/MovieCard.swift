@@ -95,9 +95,10 @@ struct MovieCard: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 20)
-                    .foregroundStyle(movie.favorite ? .heartFill : .gray)
+                    .foregroundStyle(movie.favorite ? .buttonPurple : .gray)
             }
         }
+        .padding(.vertical, 10)
     }
 }
 

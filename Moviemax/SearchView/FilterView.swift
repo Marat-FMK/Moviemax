@@ -9,7 +9,33 @@ import SwiftUI
 
 struct FilterView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 15) {
+            
+            HStack{
+                Image(systemName: "xmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame( height: 12)
+                Text("Filter")
+                    .font(.system(size: 18))
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Text("Reset Filters")
+                        .font(.system(size: 14))
+                }
+            }
+            
+            Text("Categories")
+                .font(.system(size: 16))
+                .bold()
+            
+            HStack{
+                
+            }
+        }
+        .padding(.horizontal, 30)
     }
 }
 

@@ -66,6 +66,7 @@ struct SearchView: View {
                     ForEach(viewModel.currentCategoryMovies, id: \.title ) { movie in
                         MovieCard(movie: movie, changeFavorite: viewModel.changeFavorite)
                     }
+                    .padding(.bottom, 80)
                 }
                 .padding(.horizontal, 24)
                 
