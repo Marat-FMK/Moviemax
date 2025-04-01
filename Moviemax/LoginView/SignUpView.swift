@@ -9,10 +9,16 @@ import SwiftUI
 
 struct SignUpView: View {
     @StateObject var viewModel = LoginViewViewModel()
+    
     @State private var seePassword = false
     @State private var seeConfirmPassword = false
+    
     @Environment(\.dismiss) var dismiss
     @State var presentLogin = false
+    
+    @State private var alert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     
     var body: some View {
         VStack {
@@ -23,13 +29,44 @@ struct SignUpView: View {
                 Spacer()
                 
                 CustomTF(answer: $viewModel.firstName, title: "First name", tfBGtext: "Enter your name")
-                CustomTF(answer: $viewModel.firstName, title: "Last name", tfBGtext: "Enter your surname")
-                CustomTF(answer: $viewModel.firstName, title: "Email", tfBGtext: "Enter your address")
+                CustomTF(answer: $viewModel.lastName, title: "Last name", tfBGtext: "Enter your surname")
+                CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
                 
                 CustomSecretPasswordTFView(visible: $seePassword, answer: $viewModel.userPassword, title: "Password")
+                
                 CustomSecretPasswordTFView(visible: $seeConfirmPassword, answer: $viewModel.confirmPassword, title: "Confirm password")
                 
-                LongPurpleButton(title: "Sign Up", action: viewModel.signUp)
+                // SignUP Button
+                VStack(spacing: 16) {
+                    
+                    Button {
+                        if viewModel.checkPassword() {
+                            viewModel.signUp { result in
+                                if result {
+                                    presentLogin.toggle()
+                                } else {
+                                    alertTitle = "Please, try again"
+                                    alertMessage = "server error"
+                                    alert.toggle()
+                                }
+                            }
+                        } else {
+                            alertTitle = "Please, check password"
+                            alertMessage = "6+ characters"
+                            alert = true
+                        }
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 24)
+                                .frame(height: 56)
+                                .foregroundStyle(.buttonPurple)
+                            
+                            Text("Sign Up")
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
                 
                 Spacer()
             }
@@ -46,6 +83,19 @@ struct SignUpView: View {
                 .buttonStyle(.plain)
             }
         }
+        .onAppear {
+            viewModel.clearUserInfo()
+        }
+        .alert(alertTitle, isPresented: $alert, actions: {
+            Button {
+                viewModel.userPassword = ""
+                viewModel.confirmPassword = ""
+            } label: {
+                Text("OK")
+            }
+        }, message: {
+            Text(alertMessage)
+        })
         .navigationDestination(isPresented: $presentLogin, destination: {
             LoginView()
         })

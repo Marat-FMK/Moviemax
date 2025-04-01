@@ -21,15 +21,30 @@
 		6CC90F602D9AAB65007EE2CD /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6CC90F5F2D9AAB65007EE2CD /* FirebaseMessaging */; };
 		6CC90F622D9AAB65007EE2CD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6CC90F612D9AAB65007EE2CD /* FirebaseStorage */; };
 		6CC90F642D9AAB65007EE2CD /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 6CC90F632D9AAB65007EE2CD /* FirebaseStorageCombine-Community */; };
+		6CF977272D9AF02B008271FF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF977262D9AF02B008271FF /* GoogleSignIn */; };
+		6CF977292D9AF02B008271FF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6CF977282D9AF02B008271FF /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6CFF266D2D99BCF80050AD12 /* Moviemax.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moviemax.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6CF9772D2D9AFEA6008271FF /* Exceptions for "Moviemax" folder in "Moviemax" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6CFF266C2D99BCF80050AD12 /* Moviemax */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6CFF266F2D99BCF80050AD12 /* Moviemax */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6CF9772D2D9AFEA6008271FF /* Exceptions for "Moviemax" folder in "Moviemax" target */,
+			);
 			path = Moviemax;
 			sourceTree = "<group>";
 		};
@@ -43,8 +58,10 @@
 				6CC90F602D9AAB65007EE2CD /* FirebaseMessaging in Frameworks */,
 				6CC90F542D9AAB65007EE2CD /* FirebaseDatabase in Frameworks */,
 				6CC90F582D9AAB65007EE2CD /* FirebaseFirestoreCombine-Community in Frameworks */,
+				6CF977292D9AF02B008271FF /* GoogleSignInSwift in Frameworks */,
 				6CC90F4A2D9AAB65007EE2CD /* FirebaseAppCheck in Frameworks */,
 				6CC90F5C2D9AAB65007EE2CD /* FirebaseFunctionsCombine-Community in Frameworks */,
+				6CF977272D9AF02B008271FF /* GoogleSignIn in Frameworks */,
 				6CC90F5A2D9AAB65007EE2CD /* FirebaseFunctions in Frameworks */,
 				6CC90F522D9AAB65007EE2CD /* FirebaseCore in Frameworks */,
 				6CC90F5E2D9AAB65007EE2CD /* FirebaseInAppMessaging-Beta in Frameworks */,
@@ -110,6 +127,8 @@
 				6CC90F5F2D9AAB65007EE2CD /* FirebaseMessaging */,
 				6CC90F612D9AAB65007EE2CD /* FirebaseStorage */,
 				6CC90F632D9AAB65007EE2CD /* FirebaseStorageCombine-Community */,
+				6CF977262D9AF02B008271FF /* GoogleSignIn */,
+				6CF977282D9AF02B008271FF /* GoogleSignInSwift */,
 			);
 			productName = Moviemax;
 			productReference = 6CFF266D2D99BCF80050AD12 /* Moviemax.app */;
@@ -141,6 +160,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6CC90F482D9AAB65007EE2CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6CF977252D9AF02B008271FF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6CFF266E2D99BCF80050AD12 /* Products */;
@@ -303,6 +323,7 @@
 				DEVELOPMENT_TEAM = D3BJGB736B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Moviemax/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -332,6 +353,7 @@
 				DEVELOPMENT_TEAM = D3BJGB736B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Moviemax/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -380,6 +402,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 11.10.0;
+			};
+		};
+		6CF977252D9AF02B008271FF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -454,6 +484,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6CC90F482D9AAB65007EE2CD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		6CF977262D9AF02B008271FF /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CF977252D9AF02B008271FF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		6CF977282D9AF02B008271FF /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CF977252D9AF02B008271FF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
