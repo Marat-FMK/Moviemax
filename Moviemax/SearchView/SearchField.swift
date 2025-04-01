@@ -8,59 +8,61 @@
 import SwiftUI
 
 struct SearchField: View {
+    
     @Binding var searchText: String
     @Binding var presentFilter: Bool
     let action: () -> Void // start search
     
     var body: some View {
-        
-        
-        ZStack{
-            RoundedRectangle(cornerRadius: 24).stroke(style: StrokeStyle(lineWidth: 2))
-                .foregroundStyle(.buttonPurple)
-                .frame(height: 52)
-            HStack{
-                Button{
-                    action()
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 18)
-                }
-                .buttonStyle(.plain)
-                
-                TextField("SearchText", text: $searchText)
-                    .onSubmit {
+            ZStack{
+                RoundedRectangle(cornerRadius: 24).stroke(style: StrokeStyle(lineWidth: 2))
+                    .foregroundStyle(.buttonPurple)
+                    .frame(height: 52)
+                HStack{
+                    Button{
                         action()
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 18)
                     }
-                
-                Button{
-                    searchText = ""
-                } label: {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .scaledToFit()
+                    .buttonStyle(.plain)
+                    
+                    TextField("SearchText", text: $searchText)
+                        .onSubmit {
+                            action()
+                        }
+                    
+                    Button{
+                        searchText = ""
+                    } label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 18)
+                    }
+                    .buttonStyle(.plain)
+                    
+                    Divider()
                         .frame(height: 18)
+                    
+                    
+                    NavigationLink {
+                        FilterView()
+                    } label: {
+                        Image(systemName: "slider.horizontal.3")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 18)
+                            .foregroundStyle(.black)
+                        
+                    }
+                    
+                    
                 }
-                .buttonStyle(.plain)
-                
-                Divider()
-                    .frame(height: 18)
-                
-                Button{
-                    presentFilter.toggle()
-                } label: {
-                    Image(systemName: "slider.horizontal.3")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 18)
-                }
-                .buttonStyle(.plain)
+                .padding(.horizontal,15)
             }
-            .padding(.horizontal,15)
-        }
-        
     }
 }
 

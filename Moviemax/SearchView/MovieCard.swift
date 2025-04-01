@@ -38,52 +38,15 @@ struct MovieCard: View {
                     .font(.system(size: 18))
                     .foregroundStyle(.black)
                     .bold()
+                
                 //TIME
-                HStack(spacing: 5) {
-                    Image(systemName: "clock.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 16)
-                        .foregroundStyle(.infoIcon)
-                    Text(movie.time)
-                        .font(.system(size: 12))
-                        .foregroundStyle(.gray)
-                    Text("Minutes")
-                        .font(.system(size: 12))
-                        .foregroundStyle(.gray)
-                }
+                MovieTime(time: movie.time)
+                
                 //DATE
-                HStack(spacing: 5) {
-                    Image(systemName: "calendar")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 16)
-                        .foregroundStyle(.infoIcon)
-                    Text(movie.date)
-                        .font(.system(size: 12))
-                        .foregroundStyle(.gray)
-                }
+                MovieDate(date: movie.date)
+                
                 //TRAILER BUTTON
-                HStack(spacing: 5) {
-                    Image(systemName: "film.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 16)
-                        .foregroundStyle(.infoIcon)
-                    Button{
-                        // play trailer in youTube
-                    } label: {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 6)
-                                .frame( width: 65,height: 24)
-                                .foregroundStyle(.buttonPurple)
-                            Text(movie.category)
-                                .font(.system(size: 10))
-                                .foregroundStyle(.white)
-                        }
-                    }
-                    .buttonStyle(.plain)
-                }
+                MovieCardPlayButton(category: movie.category, action: {} ) // action - play trailer action
             }
             
             Spacer()

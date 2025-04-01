@@ -43,7 +43,7 @@ struct ForgotPasswordView: View {
             
             Spacer()
             
-            LongPurpleButton(title: "Submit", action: viewModel.passwordСhange)
+            PurpleButton(title: "Submit", action: viewModel.passwordСhange)
                 .padding(.bottom, 20)
         }
         .navigationBarBackButtonHidden(true)

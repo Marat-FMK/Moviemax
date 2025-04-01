@@ -40,10 +40,10 @@ class SearchViewModel: ObservableObject {
         ]
     
     //FILTER
-    @Published var selectedCategories = ["Action", "All", "Adventure", "Others"]
+    @Published var selectedCategories = ["All", "Adventure"]
+    @Published var temporaryCategories: [String] = []
     @Published var chooseCategory = "All"
     @Published var startRating = 1
-    let categories = ["All", "Action", "Adventure", "Mystery", "Fantasy", "Others"]
     
     
     func searchFilms() {
@@ -51,7 +51,9 @@ class SearchViewModel: ObservableObject {
     }
     
     func resetFilters() {
+        temporaryCategories = []
         selectedCategories = ["All"]
+        chooseCategory = "All"
         startRating = 4
     }
     
@@ -59,9 +61,7 @@ class SearchViewModel: ObservableObject {
         presentFilter = false
     }
     
-    func checkCategoryName(category: String) -> Bool {
-        chooseCategory == category
-    }
+   
     
     func chooseCategory(category: String) {
         chooseCategory = category
@@ -70,5 +70,34 @@ class SearchViewModel: ObservableObject {
     func changeFavorite(id: UUID) {
         //
     }
+    
+    // FILTER
+    func checkCategoryName(category: String) -> Bool {
+           chooseCategory == category
+       }
+       
+    func checkFilterCategory(category: String) -> Bool {
+        if temporaryCategories.isEmpty {
+            temporaryCategories = selectedCategories
+            return temporaryCategories.contains(category)
+        } else {
+            return temporaryCategories.contains(category)
+        }
+    }
+       
+    func addOrRemoveSelectedCategory(category: String) {
+        if temporaryCategories.contains(category) {
+            let result = temporaryCategories.filter{$0 != category}
+            temporaryCategories = result
+            } else {
+                temporaryCategories.append(category)
+            }
+    }
+    
+    func applyFilters() {
+        selectedCategories = temporaryCategories
+        temporaryCategories = []
+    }
+    
 }
 

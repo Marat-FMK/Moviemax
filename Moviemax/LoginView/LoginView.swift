@@ -36,7 +36,7 @@ struct LoginView: View {
                     
                     //BUTTONs
                     VStack(spacing: 16) {
-                        LongPurpleButton(title: "Sign In", action: viewModel.signIn)
+                        PurpleButton(title: "Sign In", action: viewModel.signIn)
                     //divider
                         HStack {
                             Rectangle()
