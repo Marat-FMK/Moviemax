@@ -40,6 +40,7 @@ struct CategoryFilterButton: View {
             }
         }
         .buttonStyle(.plain)
+        .padding(.trailing, 5)
     }
 }
 
