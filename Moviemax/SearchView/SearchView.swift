@@ -76,6 +76,11 @@ struct SearchView: View {
                 }
                 
             }
+            .blur(radius: viewModel.presentFilter ? 4 : 0)
+            .sheet(isPresented: $viewModel.presentFilter) {
+                FilterView(viewModel: viewModel)
+                    .presentationDetents([.medium])
+            }
         }
     }
 }
