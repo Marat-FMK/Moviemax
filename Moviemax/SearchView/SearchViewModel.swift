@@ -74,6 +74,9 @@ class SearchViewModel: ObservableObject {
         temporaryCategories = ["All"]
         selectedCategories = ["All"]
         chooseCategory = "All"
+        
+        temporaryRating = [4]
+        selectedRating = [4]
         chooseRating = 4
     }
     
@@ -85,12 +88,24 @@ class SearchViewModel: ObservableObject {
             selectedCategories = temporaryCategories
             chooseCategory = selectedCategories[0]
         }
+        
+        if temporaryRating.isEmpty {
+            selectedRating = [4]
+            chooseRating = 4
+        } else {
+            selectedRating = temporaryRating
+            chooseRating = selectedRating[0]
+        }
+        
         print(selectedCategories)
-        print((chooseRating))
+        print(selectedRating)
+        print(chooseCategory)
+        print(chooseRating)
     }
     
-    func setTemporaryCategories() {
+    func setTemporaryFilterArrays() {
         temporaryCategories = selectedCategories
+        temporaryRating = selectedRating
     }
     
     func checkFilterCategory(category: String) -> Bool {

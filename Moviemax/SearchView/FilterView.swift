@@ -41,6 +41,7 @@ struct FilterView: View {
             Text("Categories")
                 .font(.system(size: 16))
                 .bold()
+                .padding(.bottom,15)
             
             HStack{
                 CategoryFilterButton(title: "All", value: viewModel.checkFilterCategory(category: "All"), action: viewModel.addOrRemoveSelectedCategory)
@@ -57,16 +58,17 @@ struct FilterView: View {
             Text("Star Rating")
                 .font(.system(size: 16))
                 .bold()
+                .padding(.bottom,20)
             
             HStack{
                 StarRatingButton(starCount: 1, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
-                StarRatingButton(starCount: 2, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
-                StarRatingButton(starCount: 3, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 2, value: viewModel.checkRatint(rating: 2), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 3, value: viewModel.checkRatint(rating: 3), action: viewModel.addOrRemoveSelectedRating)
             }
 
             HStack{
-                StarRatingButton(starCount: 4, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
-                StarRatingButton(starCount: 5, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 4, value: viewModel.checkRatint(rating: 4), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 5, value: viewModel.checkRatint(rating: 5), action: viewModel.addOrRemoveSelectedRating)
             }
             
             PurpleButton(title: "Apply Filters", action: viewModel.applyFilters)
@@ -76,7 +78,7 @@ struct FilterView: View {
             
         }
         .onAppear {
-            viewModel.setTemporaryCategories()
+            viewModel.setTemporaryFilterArrays()
         }
         .navigationBarBackButtonHidden(true)
         .padding(.horizontal, 30)
