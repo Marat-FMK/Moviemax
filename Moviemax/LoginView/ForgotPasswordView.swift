@@ -35,7 +35,7 @@ struct ForgotPasswordView: View {
                 
                 
                 
-                Text("Forgot your password?")
+                Text("Forgot your password")
                     .padding(.leading, 35) // ???
             }
             

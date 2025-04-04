@@ -17,13 +17,19 @@ struct CustomTF: View {
             Text(title)
                 .foregroundStyle(.loginTitle)
                 .font(.system(size: 14))
+//                .minimumScaleFactor(0.5)
             
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
                     .frame(height: 56)
                     .foregroundStyle(.tf)
                 TextField(tfBGtext, text: $answer)
+                    .textInputAutocapitalization(.never)
                     .padding(.horizontal, 15)
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 24).stroke(lineWidth: 1)
+                    .foregroundStyle(.tfOverlay)
             }
             
         }
