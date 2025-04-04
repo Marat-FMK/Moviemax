@@ -19,7 +19,7 @@ struct SearchView: View {
                     .padding(.bottom, 30)
                 
                 VStack(spacing: 20) {
-                    SearchField(searchText: $viewModel.searchText, presentFilter: $viewModel.presentFilter, action: viewModel.searchFilms)
+                    SearchField(viewModel: viewModel, searchText: $viewModel.searchText, presentFilter: $viewModel.presentFilter, action: viewModel.searchFilms)
                         .padding(.horizontal, 24)
                     
                     //CATEGORIES

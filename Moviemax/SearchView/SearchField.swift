@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchField: View {
-    
+    @ObservedObject var viewModel: SearchViewModel
     @Binding var searchText: String
     @Binding var presentFilter: Bool
     let action: () -> Void // start search
@@ -49,7 +49,7 @@ struct SearchField: View {
                     
                     
                     NavigationLink {
-                        FilterView()
+                        FilterView(viewModel: viewModel)
                     } label: {
                         Image(systemName: "slider.horizontal.3")
                             .resizable()
@@ -66,6 +66,6 @@ struct SearchField: View {
     }
 }
 
-#Preview {
-    SearchField(searchText: .constant("Drifting"), presentFilter: .constant(false), action: { print("start search preview")})
-}
+//#Preview {
+//    SearchField(searchText: .constant("Drifting"), presentFilter: .constant(false), action: { print("start search preview")})
+//}
