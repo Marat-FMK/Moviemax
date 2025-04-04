@@ -25,6 +25,16 @@ class SearchViewModel: ObservableObject {
   
     @Published var searchText = ""
     @Published var presentFilter = false
+    
+    //FILTER
+    @Published var selectedCategories = ["All", "Adventure"]
+    @Published var temporaryCategories: [String] = []
+    @Published var chooseCategory = "All"
+    
+    @Published var selectedRating = [2,3]
+    @Published var temporaryRating = [Int]()
+    @Published var chooseRating = 4
+    
     var foundMovies: [Movie] = [
         Movie(title: "DriftingHome", time: "148", date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5, category: "All", castAndCrew: "no no"),
         Movie(title: "Luck", time: "150", date: "19 Nov 1992", image: "luck", urlTrailer: "", favorite: false, rating: 3, category: "Action", castAndCrew: "no no no"),
@@ -39,50 +49,52 @@ class SearchViewModel: ObservableObject {
         Movie(title: "Jurassic world", time: "215", date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no")
         ]
     
-    //FILTER
-    @Published var selectedCategories = ["All", "Adventure"]
-    @Published var temporaryCategories: [String] = []
-    @Published var chooseCategory = "All"
-    @Published var startRating = 1
-    
-    
     func searchFilms() {
-        // go to network for array of movies with selectedCategories
+        // go to network for array of movies with choosedCategory
     }
-    
-    func resetFilters() {
-        temporaryCategories = []
-        selectedCategories = ["All"]
-        chooseCategory = "All"
-        startRating = 4
-    }
-    
-    func closeFilters() {
-        presentFilter = false
-    }
-    
-   
     
     func chooseCategory(category: String) {
         chooseCategory = category
+        //search films with choose categoty
+        //currentCategoryMovies = searchedFilms
     }
     
     func changeFavorite(id: UUID) {
         //
     }
     
+    
     // FILTER
+
     func checkCategoryName(category: String) -> Bool {
            chooseCategory == category
        }
        
-    func checkFilterCategory(category: String) -> Bool {
+    func resetFilters() {
+        temporaryCategories = ["All"]
+        selectedCategories = ["All"]
+        chooseCategory = "All"
+        chooseRating = 4
+    }
+    
+    func applyFilters() {
         if temporaryCategories.isEmpty {
-            temporaryCategories = selectedCategories
-            return temporaryCategories.contains(category)
+            selectedCategories = ["All"]
+            chooseCategory = "All"
         } else {
-            return temporaryCategories.contains(category)
+            selectedCategories = temporaryCategories
+            chooseCategory = selectedCategories[0]
         }
+        print(selectedCategories)
+        print((chooseRating))
+    }
+    
+    func setTemporaryCategories() {
+        temporaryCategories = selectedCategories
+    }
+    
+    func checkFilterCategory(category: String) -> Bool {
+        temporaryCategories.contains(category)
     }
        
     func addOrRemoveSelectedCategory(category: String) {
@@ -94,9 +106,17 @@ class SearchViewModel: ObservableObject {
             }
     }
     
-    func applyFilters() {
-        selectedCategories = temporaryCategories
-        temporaryCategories = []
+    func checkRatint( rating: Int) -> Bool {
+        temporaryRating.contains(rating)
+    }
+    
+    func addOrRemoveSelectedRating(rating: Int) {
+        if temporaryRating.contains(rating) {
+            let result = temporaryRating.filter{$0 != rating}
+            temporaryRating = result
+            } else {
+                temporaryRating.append(rating)
+            }
     }
     
 }
