@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StarRetingButton: View {
+struct StarRatingButton: View {
     let starCount: Int
     let value: Bool
     let action: (Int)-> Void
@@ -39,5 +39,5 @@ struct StarRetingButton: View {
 }
 
 #Preview {
-    StarRetingButton(starCount: 4, value: false, action: { _ in })
+    StarRatingButton(starCount: 4, value: false, action: { _ in })
 }

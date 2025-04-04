@@ -15,7 +15,7 @@ struct CustomTF: View {
     var body: some View {
         VStack( alignment: .leading) {
             Text(title)
-                .foregroundStyle(.gray)
+                .foregroundStyle(.loginTitle)
                 .font(.system(size: 14))
             
             ZStack {

@@ -59,14 +59,14 @@ struct FilterView: View {
                 .bold()
             
             HStack{
-                StarRetingButton(starCount: 1, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
-                StarRetingButton(starCount: 2, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
-                StarRetingButton(starCount: 3, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 1, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 2, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 3, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
             }
 
             HStack{
-                StarRetingButton(starCount: 4, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
-                StarRetingButton(starCount: 5, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 4, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRatingButton(starCount: 5, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
             }
             
             PurpleButton(title: "Apply Filters", action: viewModel.applyFilters)
