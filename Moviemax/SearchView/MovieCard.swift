@@ -36,7 +36,7 @@ struct MovieCard: View {
             VStack(alignment: .leading, spacing: 15) {
                 Text(movie.title)
                     .font(.system(size: 18))
-                    .foregroundStyle(.filmInfoGray)
+                    .foregroundStyle(.filterCategoriesText)
                     .bold()
                 
                 //TIME
