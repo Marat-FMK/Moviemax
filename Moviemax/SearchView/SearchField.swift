@@ -46,6 +46,7 @@ struct SearchField: View {
                     
                     Divider()
                         .frame(height: 18)
+                        .foregroundStyle(.divider)
                     
                     
                     Button {
@@ -55,9 +56,9 @@ struct SearchField: View {
                             .resizable()
                             .scaledToFit()
                             .frame(height: 18)
-                            .foregroundStyle(.black)
-                        
+                            .foregroundStyle(.filterCategoriesText)
                     }
+                    .buttonStyle(.plain)
                 }
                 .padding(.horizontal,15)
             }

@@ -65,7 +65,7 @@ class SearchViewModel: ObservableObject {
     
     
     // FILTER
-
+    
     func checkCategoryName(category: String) -> Bool {
            chooseCategory == category
        }

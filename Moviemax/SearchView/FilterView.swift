@@ -22,9 +22,10 @@ struct FilterView: View {
                     Image(systemName: "xmark")
                         .resizable()
                         .scaledToFit()
-                        .foregroundStyle(.black)
+//                        .foregroundStyle(.black)
                         .frame( height: 12)
                 }
+                .buttonStyle(.plain)
                 Text("Filter")
                     .font(.system(size: 18))
                 Spacer()
@@ -35,6 +36,7 @@ struct FilterView: View {
                         .foregroundStyle(.buttonPurple)
                         .font(.system(size: 14))
                 }
+                .buttonStyle(.plain)
             }
             
             //CATEGORIES

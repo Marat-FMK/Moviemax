@@ -19,7 +19,7 @@ struct CategoryFilterButton: View {
             if value {
                 Text(title)
                     .font(.system(size: 12))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.filterCategoriesText)
                     .padding(.horizontal,20)
                     .padding(.vertical, 12)
                     .background {
@@ -28,7 +28,7 @@ struct CategoryFilterButton: View {
                     }
             } else {
                 Text(title)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.filterCategoriesText)
                     .font(.system(size: 12))
                     .padding(.horizontal,20)
                     .padding(.vertical, 12)

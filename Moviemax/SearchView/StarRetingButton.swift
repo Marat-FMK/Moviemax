@@ -39,5 +39,5 @@ struct StarRatingButton: View {
 }
 
 #Preview {
-    StarRatingButton(starCount: 4, value: false, action: { _ in })
+    StarRatingButton(starCount: 4, value: true, action: { _ in })
 }

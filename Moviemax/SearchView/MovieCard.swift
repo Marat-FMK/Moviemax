@@ -21,7 +21,7 @@ struct MovieCard: View {
                         RoundedRectangle.init(cornerRadius: 16)
                     )
             } placeholder: {
-                Image("jurassic")
+                Image("jurassic") // Shimmer
                     .resizable()
                     .frame(width: 120, height: 160)
                     .clipShape(
@@ -36,7 +36,7 @@ struct MovieCard: View {
             VStack(alignment: .leading, spacing: 15) {
                 Text(movie.title)
                     .font(.system(size: 18))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.filmInfoGray)
                     .bold()
                 
                 //TIME
@@ -58,7 +58,7 @@ struct MovieCard: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 20)
-                    .foregroundStyle(movie.favorite ? .buttonPurple : .categoryTitle)
+                    .foregroundStyle(movie.favorite ? .buttonPurple : .heartNoFill)
             }
         }
         .padding(.vertical, 10)
