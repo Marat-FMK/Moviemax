@@ -32,7 +32,7 @@ struct FilterView: View {
                     viewModel.resetFilters()
                 } label: {
                     Text("Reset Filters")
-                        .foregroundStyle(.forgot)
+                        .foregroundStyle(.buttonPurple)
                         .font(.system(size: 14))
                 }
             }

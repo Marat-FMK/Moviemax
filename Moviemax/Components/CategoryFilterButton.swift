@@ -34,7 +34,7 @@ struct CategoryFilterButton: View {
                     .padding(.vertical, 12)
                     .overlay {
                         RoundedRectangle(cornerRadius: 24).stroke(style: StrokeStyle(lineWidth: 1))
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(.liteGray)
                             .frame(height: 34)
                     }
             }

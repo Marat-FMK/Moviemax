@@ -21,7 +21,7 @@ struct MovieTime: View {
                                 .foregroundStyle(.gray)
                             Text("Minutes")
                                 .font(.system(size: 12))
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.filmInfoGray)
                         }
     }
 }

@@ -19,7 +19,7 @@ struct MovieDate: View {
                 .foregroundStyle(.infoIcon)
             Text(date)
                 .font(.system(size: 12))
-                .foregroundStyle(.gray)
+                .foregroundStyle(.filmInfoGray)
         }
     }
 }

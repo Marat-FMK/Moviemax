@@ -78,7 +78,7 @@ struct SignUpView: View {
                     presentLogin.toggle()
                 } label: {
                     Text("Login")
-                        .foregroundStyle(.forgot)
+                        .foregroundStyle(.toogle)
                 }
                 .buttonStyle(.plain)
             }

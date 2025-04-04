@@ -48,10 +48,10 @@ struct SearchView: View {
                                     } label: {
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 24).stroke(style: StrokeStyle(lineWidth: 1))
-                                                .foregroundStyle(.gray)
+                                                .foregroundStyle(.liteGray)
                                                 .frame(height: 34)
                                             Text(category)
-                                                .foregroundStyle(.gray)
+                                                .foregroundStyle(.categoryTitle)
                                                 .padding(.horizontal,24)
                                         }
                                         .padding(1)

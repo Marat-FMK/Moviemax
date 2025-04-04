@@ -29,7 +29,7 @@ struct StarRetingButton: View {
             .overlay {
                 RoundedRectangle(cornerRadius: 24).stroke(style: StrokeStyle(lineWidth: 2))
                     .frame(height: 32)
-                    .foregroundStyle(value ? .buttonPurple : .gray)
+                    .foregroundStyle(value ? .buttonPurple : .liteGray)
             }
         }
         .buttonStyle(.plain)
@@ -39,5 +39,5 @@ struct StarRetingButton: View {
 }
 
 #Preview {
-    StarRetingButton(starCount: 4, value: true, action: { _ in })
+    StarRetingButton(starCount: 4, value: false, action: { _ in })
 }
