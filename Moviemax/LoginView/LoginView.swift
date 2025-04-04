@@ -27,7 +27,7 @@ struct LoginView: View {
                 
                 Spacer()
                 
-                VStack (alignment: . leading, spacing: 10) {
+                VStack (alignment: .leading, spacing: 10) {
                     CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
                     CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password")
                     
@@ -70,15 +70,17 @@ struct LoginView: View {
                        presentSignUP.toggle()
                     } label: {
                         Text("Sign up")
-                            .foregroundStyle(.forgot)
+                            .foregroundStyle(.toogle)
                     }
                 }
                 .padding(.bottom, 20)
             }
             .padding(.horizontal, 24)
-            .navigationDestination(isPresented: $presentSignUP) {
-                SignUpView()
-            }
+            .sheet(isPresented: $presentSignUP, onDismiss: {
+                viewModel.clearUserInfo()
+            }, content: {
+                SignUpView(viewModel: viewModel)
+            })
             .navigationBarBackButtonHidden(true)
         }
     }
