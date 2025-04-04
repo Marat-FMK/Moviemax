@@ -48,8 +48,8 @@ struct SearchField: View {
                         .frame(height: 18)
                     
                     
-                    NavigationLink {
-                        FilterView(viewModel: viewModel)
+                    Button {
+                        viewModel.presentFilter.toggle()
                     } label: {
                         Image(systemName: "slider.horizontal.3")
                             .resizable()
@@ -58,8 +58,6 @@ struct SearchField: View {
                             .foregroundStyle(.black)
                         
                     }
-                    
-                    
                 }
                 .padding(.horizontal,15)
             }

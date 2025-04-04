@@ -64,7 +64,6 @@ struct SearchView: View {
                     }
                     
                     //MOVIECARDS
-                    
                     ScrollView(showsIndicators: false) {
                         ForEach(viewModel.currentCategoryMovies, id: \.title ) { movie in
                             MovieCard(movie: movie, changeFavorite: viewModel.changeFavorite)

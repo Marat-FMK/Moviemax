@@ -24,9 +24,9 @@ struct Movie {
 class SearchViewModel: ObservableObject {
   
     @Published var searchText = ""
-    @Published var presentFilter = false
     
     //FILTER
+    @Published var presentFilter = false
     @Published var selectedCategories = ["All", "Adventure"]
     @Published var temporaryCategories: [String] = []
     @Published var chooseCategory = "All"
