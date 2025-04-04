@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct FilterView: View {
-    @StateObject var viewModel = SearchViewModel()
+//    @StateObject var viewModel = SearchViewModel()
+    @ObservedObject var viewModel: SearchViewModel
     @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             
@@ -30,15 +32,16 @@ struct FilterView: View {
                     viewModel.resetFilters()
                 } label: {
                     Text("Reset Filters")
+                        .foregroundStyle(.forgot)
                         .font(.system(size: 14))
                 }
             }
             
+            //CATEGORIES
             Text("Categories")
                 .font(.system(size: 16))
                 .bold()
             
-            //CATEGORIES
             HStack{
                 CategoryFilterButton(title: "All", value: viewModel.checkFilterCategory(category: "All"), action: viewModel.addOrRemoveSelectedCategory)
                 CategoryFilterButton(title: "Action", value: viewModel.checkFilterCategory(category: "Action"), action: viewModel.addOrRemoveSelectedCategory)
@@ -51,17 +54,29 @@ struct FilterView: View {
             }
             
             //STAR RATING
+            Text("Star Rating")
+                .font(.system(size: 16))
+                .bold()
             
             HStack{
-                
+                StarRetingButton(starCount: 1, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRetingButton(starCount: 2, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRetingButton(starCount: 3, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
             }
 
             HStack{
-                
+                StarRetingButton(starCount: 4, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
+                StarRetingButton(starCount: 5, value: viewModel.checkRatint(rating: 1), action: viewModel.addOrRemoveSelectedRating)
             }
             
             PurpleButton(title: "Apply Filters", action: viewModel.applyFilters)
+                .onSubmit {
+                    dismiss()
+                }
             
+        }
+        .onAppear {
+            viewModel.setTemporaryCategories()
         }
         .navigationBarBackButtonHidden(true)
         .padding(.horizontal, 30)
@@ -69,5 +84,5 @@ struct FilterView: View {
 }
 
 #Preview {
-    FilterView()
+    FilterView(viewModel: SearchViewModel())
 }
