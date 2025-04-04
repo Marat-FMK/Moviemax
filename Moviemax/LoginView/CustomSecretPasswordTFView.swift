@@ -17,6 +17,7 @@ struct CustomSecretPasswordTFView: View {
             Text(title)
                 .foregroundStyle(.gray)
                 .font(.system(size: 14))
+//                .minimumScaleFactor(0.5)
             
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
@@ -25,6 +26,7 @@ struct CustomSecretPasswordTFView: View {
                 if visible {
                     HStack {
                         TextField("Enter your password", text: $answer)
+                            .textInputAutocapitalization(.never)
                         
                         Button{
                             visible.toggle()
@@ -41,6 +43,7 @@ struct CustomSecretPasswordTFView: View {
                 } else {
                     HStack{
                         SecureField("Enter your password", text: $answer)
+                            .textInputAutocapitalization(.never)
                         
                         Button{
                             visible.toggle()
@@ -55,6 +58,10 @@ struct CustomSecretPasswordTFView: View {
                     }
                     .padding(.horizontal, 15)
                 }
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 24).stroke(lineWidth: 1)
+                    .foregroundStyle(.tfOverlay)
             }
         }
     }
