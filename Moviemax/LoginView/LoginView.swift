@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-//enum LoginPath {
-//    case signUP
-//    case logIn
-//}
-
 struct LoginView: View {
     @StateObject var viewModel = LoginViewViewModel()
     
@@ -22,8 +17,7 @@ struct LoginView: View {
             VStack {
                 
                 Text("Login")
-                    .font(.system(size: 24))
-                    .bold()
+                    .customFont(name: .plusJacartaSemiBold, size: 24)
                 
                 Spacer()
                 
