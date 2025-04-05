@@ -38,6 +38,7 @@ struct LoginView: View {
                                 .foregroundStyle(.divider)
                             
                             Text("Or continue with")
+                                .customFont(name: .plusJacartaSemiBold, size: 14)
                                 .frame(width: 150)
                                 .foregroundStyle(.divider)
                             

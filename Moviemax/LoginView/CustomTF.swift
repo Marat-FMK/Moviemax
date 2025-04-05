@@ -16,7 +16,7 @@ struct CustomTF: View {
         VStack( alignment: .leading) {
             Text(title)
                 .foregroundStyle(.loginTitle)
-                .font(.system(size: 14))
+                .customFont(name: .plusJacartaSemiBold, size: 14)
 //                .minimumScaleFactor(0.5)
             
             ZStack {

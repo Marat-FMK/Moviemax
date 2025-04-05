@@ -33,9 +33,8 @@ struct ForgotPasswordView: View {
                 }
                 .buttonStyle(.plain)
                 
-                
-                
                 Text("Forgot your password")
+                    .customFont(name: .plusJacartaSemiBold, size: 18)
                     .padding(.leading, 35) // ???
             }
             

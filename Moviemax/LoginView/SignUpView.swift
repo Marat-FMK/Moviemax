@@ -24,7 +24,7 @@ struct SignUpView: View {
         ScrollView(showsIndicators: false) {
         VStack {
             Text("Sign Up")
-                .bold()
+                .customFont(name: .plusJacartaBold, size: 24)
             
             VStack (spacing: 20){
                 Spacer()

@@ -22,6 +22,7 @@ struct PurpleButton: View {
                         .foregroundStyle(.buttonPurple)
                     
                     Text(title)
+                        .customFont(name: .plusJacartaSemiBold, size: 16)
                         .foregroundStyle(.white)
                 }
             }
