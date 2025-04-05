@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LongPurpleButton: View {
+struct PurpleButton: View {
     let title: String
     let action: () -> Void
     
@@ -22,6 +22,7 @@ struct LongPurpleButton: View {
                         .foregroundStyle(.buttonPurple)
                     
                     Text(title)
+                        .customFont(name: .plusJacartaSemiBold, size: 16)
                         .foregroundStyle(.white)
                 }
             }
@@ -30,5 +31,5 @@ struct LongPurpleButton: View {
     }
 }
 #Preview {
-    LongPurpleButton(title: "Sign In", action: {} )
+    PurpleButton(title: "Sign In", action: {} )
 }

@@ -13,5 +13,12 @@
 			</array>
 		</dict>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PlusJakartaSans-ExtraBold.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+		<string>PlusJakartaSans-Regular.ttf</string>
+		<string>PlusJakartaSans-SemiBold.ttf</string>
+	</array>
 </dict>
 </plist>

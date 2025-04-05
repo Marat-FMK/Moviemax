@@ -33,9 +33,8 @@ struct ForgotPasswordView: View {
                 }
                 .buttonStyle(.plain)
                 
-                
-                
-                Text("Forgot your password?")
+                Text("Forgot your password")
+                    .customFont(name: .plusJacartaSemiBold, size: 18)
                     .padding(.leading, 35) // ???
             }
             
@@ -43,7 +42,7 @@ struct ForgotPasswordView: View {
             
             Spacer()
             
-            LongPurpleButton(title: "Submit", action: viewModel.passwordСhange)
+            PurpleButton(title: "Submit", action: viewModel.passwordСhange)
                 .padding(.bottom, 20)
         }
         .navigationBarBackButtonHidden(true)

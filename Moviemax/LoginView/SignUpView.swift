@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @StateObject var viewModel = LoginViewViewModel()
+    @ObservedObject var viewModel: LoginViewViewModel
+    @Environment(\.dismiss) var dismiss
     
     @State private var seePassword = false
     @State private var seeConfirmPassword = false
     
-    @Environment(\.dismiss) var dismiss
     @State var presentLogin = false
     
     @State private var alert = false
@@ -21,9 +21,10 @@ struct SignUpView: View {
     @State private var alertMessage = ""
     
     var body: some View {
+        ScrollView(showsIndicators: false) {
         VStack {
             Text("Sign Up")
-                .bold()
+                .customFont(name: .plusJacartaBold, size: 24)
             
             VStack (spacing: 20){
                 Spacer()
@@ -75,14 +76,17 @@ struct SignUpView: View {
                 Text("Already have an account?")
                 
                 Button{
-                    presentLogin.toggle()
+                    viewModel.clearUserInfo()
+                    dismiss()
                 } label: {
                     Text("Login")
-                        .foregroundStyle(.forgot)
+                        .foregroundStyle(.toogle)
                 }
                 .buttonStyle(.plain)
             }
         }
+    }
+        .scrollBounceBehavior(.basedOnSize)
         .onAppear {
             viewModel.clearUserInfo()
         }
@@ -96,9 +100,9 @@ struct SignUpView: View {
         }, message: {
             Text(alertMessage)
         })
-        .navigationDestination(isPresented: $presentLogin, destination: {
-            LoginView()
-        })
+//        .navigationDestination(isPresented: $presentLogin, destination: {
+//            LoginView()
+//        })
         .navigationBarBackButtonHidden(true)
         .padding(.horizontal,24)
         .padding(.bottom,20)
@@ -106,5 +110,5 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView()
+    SignUpView(viewModel: LoginViewViewModel())
 }

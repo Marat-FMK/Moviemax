@@ -24,7 +24,7 @@ struct RememberHStackView: View {
                 ForgotPasswordView()
             } label: {
                 Text("Forgot password?")
-                    .foregroundStyle(.forgot)
+                    .foregroundStyle(.toogle)
             }
         }
     }

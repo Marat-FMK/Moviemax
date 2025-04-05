@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-//enum LoginPath {
-//    case signUP
-//    case logIn
-//}
-
 struct LoginView: View {
     @StateObject var viewModel = LoginViewViewModel()
     
@@ -22,12 +17,11 @@ struct LoginView: View {
             VStack {
                 
                 Text("Login")
-                    .font(.system(size: 24))
-                    .bold()
+                    .customFont(name: .plusJacartaSemiBold, size: 24)
                 
                 Spacer()
                 
-                VStack (alignment: . leading, spacing: 10) {
+                VStack (alignment: .leading, spacing: 10) {
                     CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
                     CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password")
                     
@@ -36,7 +30,7 @@ struct LoginView: View {
                     
                     //BUTTONs
                     VStack(spacing: 16) {
-                        LongPurpleButton(title: "Sign In", action: viewModel.signIn)
+                        PurpleButton(title: "Sign In", action: viewModel.signIn)
                     //divider
                         HStack {
                             Rectangle()
@@ -44,6 +38,7 @@ struct LoginView: View {
                                 .foregroundStyle(.divider)
                             
                             Text("Or continue with")
+                                .customFont(name: .plusJacartaSemiBold, size: 14)
                                 .frame(width: 150)
                                 .foregroundStyle(.divider)
                             
@@ -70,15 +65,17 @@ struct LoginView: View {
                        presentSignUP.toggle()
                     } label: {
                         Text("Sign up")
-                            .foregroundStyle(.forgot)
+                            .foregroundStyle(.toogle)
                     }
                 }
                 .padding(.bottom, 20)
             }
             .padding(.horizontal, 24)
-            .navigationDestination(isPresented: $presentSignUP) {
-                SignUpView()
-            }
+            .sheet(isPresented: $presentSignUP, onDismiss: {
+                viewModel.clearUserInfo()
+            }, content: {
+                SignUpView(viewModel: viewModel)
+            })
             .navigationBarBackButtonHidden(true)
         }
     }

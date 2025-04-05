@@ -20,6 +20,7 @@ struct GoogleButton: View {
                 HStack {
                     Image("googleIcon")
                     Text("Continue with Google")
+                        .customFont(name: .plusJacartaSemiBold, size: 16)
                 }
             }
         }
