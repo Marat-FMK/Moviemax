@@ -21,7 +21,7 @@ struct MovieCard: View {
                         RoundedRectangle.init(cornerRadius: 16)
                     )
             } placeholder: {
-                Image("jurassic") // Shimmer
+                Image("luck") // Shimmer
                     .resizable()
                     .frame(width: 120, height: 160)
                     .clipShape(
@@ -35,7 +35,7 @@ struct MovieCard: View {
             
             VStack(alignment: .leading, spacing: 15) {
                 Text(movie.title)
-                    .font(.system(size: 18))
+                    .customFont(name: .plusJacartaBold, size: 18)
                     .foregroundStyle(.filterCategoriesText)
                     .bold()
                 

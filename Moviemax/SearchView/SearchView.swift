@@ -14,8 +14,7 @@ struct SearchView: View {
         NavigationView {
             VStack {
                 Text("Search")
-                    .font(.system(size: 18))
-                    .bold()
+                    .customFont(name: .plusJacartaSemiBold, size: 18)
                     .padding(.bottom, 30)
                 
                 VStack(spacing: 20) {
@@ -36,6 +35,7 @@ struct SearchView: View {
                                                 .foregroundStyle(.buttonPurple)
                                                 .frame(height: 34)
                                             Text(category)
+                                                .customFont(name: .plusJacartaRegular, size: 12)
                                                 .foregroundStyle(.white)
                                                 .padding(.horizontal,24)
                                         }

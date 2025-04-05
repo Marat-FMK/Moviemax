@@ -27,22 +27,21 @@ struct FilterView: View {
                 }
                 .buttonStyle(.plain)
                 Text("Filter")
-                    .font(.system(size: 18))
+                    .customFont(name: .plusJacartaSemiBold, size: 18)
                 Spacer()
                 Button {
                     viewModel.resetFilters()
                 } label: {
                     Text("Reset Filters")
                         .foregroundStyle(.buttonPurple)
-                        .font(.system(size: 14))
+                        .customFont(name: .montserrat, size: 12)
                 }
                 .buttonStyle(.plain)
             }
             
             //CATEGORIES
             Text("Categories")
-                .font(.system(size: 16))
-                .bold()
+                .customFont(name: .plusJacartaSemiBold, size: 16)
                 .padding(.bottom,15)
             
             HStack{
@@ -58,8 +57,7 @@ struct FilterView: View {
             
             //STAR RATING
             Text("Star Rating")
-                .font(.system(size: 16))
-                .bold()
+                .customFont(name: .plusJacartaSemiBold, size: 16)
                 .padding(.bottom,20)
             
             HStack{

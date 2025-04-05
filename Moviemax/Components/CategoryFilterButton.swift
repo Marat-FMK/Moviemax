@@ -18,7 +18,7 @@ struct CategoryFilterButton: View {
         } label: {
             if value {
                 Text(title)
-                    .font(.system(size: 12))
+                    .customFont(name: .plusJacartaRegular, size: 12)
                     .foregroundStyle(.filterCategoriesText)
                     .padding(.horizontal,20)
                     .padding(.vertical, 12)
@@ -29,7 +29,7 @@ struct CategoryFilterButton: View {
             } else {
                 Text(title)
                     .foregroundStyle(.filterCategoriesText)
-                    .font(.system(size: 12))
+                    .customFont(name: .plusJacartaRegular, size: 12)
                     .padding(.horizontal,20)
                     .padding(.vertical, 12)
                     .overlay {

@@ -11,18 +11,18 @@ struct MovieTime: View {
     let time: String
     var body: some View {
         HStack(spacing: 5) {
-                            Image(systemName: "clock.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 16)
-                                .foregroundStyle(.infoIcon)
-                            Text(time)
-                                .font(.system(size: 12))
-                                .foregroundStyle(.filmInfoGray)
-                            Text("Minutes")
-                                .font(.system(size: 12))
-                                .foregroundStyle(.filmInfoGray)
-                        }
+            Image(systemName: "clock.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 16)
+                .foregroundStyle(.infoIcon)
+            Text(time)
+                .customFont(name: .montserrat, size: 12)
+                .foregroundStyle(.filmInfoGray)
+            Text("Minutes")
+                .customFont(name: .montserrat, size: 12)
+                .foregroundStyle(.filmInfoGray)
+        }
     }
 }
 

@@ -26,7 +26,7 @@ struct MovieCardPlayButton: View {
                         .frame( width: 65,height: 24)
                         .foregroundStyle(.buttonPurple)
                     Text(category)
-                        .font(.system(size: 10))
+                        .customFont(name: .montserrat, size: 10)
                         .foregroundStyle(.white)
                 }
             }
