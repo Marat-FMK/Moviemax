@@ -23,6 +23,7 @@ struct BackButtonView: View {
 					.resizable()
 					.scaledToFit()
 					.frame(height: 14)
+					.foregroundStyle(.textBlack)
 			}
 		}
 		.buttonStyle(.plain)

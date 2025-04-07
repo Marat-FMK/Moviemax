@@ -27,6 +27,7 @@ struct DetailView: View {
                         .frame(width: screenWidth * 0.75 , height: screenWidth)
                         .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
                     Text(viewModel.film.title)
+						.foregroundStyle(.textBlack)
                         .padding(.top, -24)
                     HStack(alignment: .center, spacing: 20) {
                         MovieTimeView(time: viewModel.film.timing)
@@ -41,14 +42,16 @@ struct DetailView: View {
                         Text("Story Line")
                             .font(.system(size: 16, weight: .semibold))
                             .padding(.bottom, 16)
-                        
+							.foregroundStyle(.textBlack)
+
                         ExpandableText(viewModel.film.description, lineLimit: 6)
                             .font(.system(size: 14, weight: .medium))
-                            .foregroundStyle(.gray)
+							.foregroundStyle(.subtextGray)
                             .padding(.bottom, 24)
                         Text("Cast and Crew")
                             .font(.system(size: 16, weight: .semibold))
                             .padding(.bottom, 16)
+							.foregroundStyle(.textBlack)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(viewModel.film.castCrew, id: \.self) { crewMember in
@@ -68,15 +71,23 @@ struct DetailView: View {
                 ToolbarItem(placement: .principal) {
                     Text("Movie Detail")
                         .font(.system(size: 18, weight: .bold))
+						.foregroundStyle(.textBlack)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        
+						viewModel.changeFavorite()
                     } label: {
-                        Image(systemName: "heart")
+						Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+							.foregroundColor(viewModel.isFavorite ? .accentPurple : Color.textBlack)
                     }
                 }
+				ToolbarItem(placement: .topBarLeading) {
+					BackButtonView(action: {
+						dismiss()
+					})
+				}
             }
+			.background(.whiteBackground)
             .safeAreaInset(edge: .bottom) {
                 MiddleButtonView(action: {}, label: "Watch now")
                     .padding(20)
@@ -84,6 +95,9 @@ struct DetailView: View {
                     .background(.whiteBackground)
                     .shadow(radius: 60)
             }
+			.onAppear {
+				viewModel.isFavorite = UserDefaults.standard.isFavorite(filmID: viewModel.film.id.uuidString)
+			}
         }
     }
 }
@@ -153,7 +167,7 @@ struct ExpandableText: View {
                     }
                 }, label: {
                     Text(moreLessText)
-                        .foregroundStyle(.onboardingBackground)
+						.foregroundStyle(.accentPurple)
                 })
             }
         }

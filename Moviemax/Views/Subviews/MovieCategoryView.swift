@@ -19,7 +19,7 @@ struct MovieCategoryView: View {
 				.foregroundStyle(.infoIcon)
 			Text(category)
 				.font(.system(size: 12))
-				.foregroundStyle(.gray)
+				.foregroundStyle(.subtextGray)
 		}
     }
 }

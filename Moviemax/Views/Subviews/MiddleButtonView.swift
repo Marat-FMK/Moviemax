@@ -19,7 +19,7 @@ struct MiddleButtonView: View {
 				.fontWeight(.semibold)
 				.padding(16)
 				.frame(maxWidth: .infinity)
-				.background(.onboardingBackground)
+				.background(.accentPurple)
 				.cornerRadius(24
 				)
 		}

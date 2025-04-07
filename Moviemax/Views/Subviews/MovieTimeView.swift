@@ -19,7 +19,7 @@ struct MovieTimeView: View {
 				.foregroundStyle(.infoIcon)
 			Text(String.localizedStringWithFormat("%d Minute%@", time, time == 1 ? "" : "s"))
 				.font(.system(size: 12))
-				.foregroundStyle(.gray)
+				.foregroundStyle(.subtextGray)
 		}
     }
 }

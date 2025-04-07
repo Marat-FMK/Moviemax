@@ -8,6 +8,7 @@
 import Foundation
 
 struct FilmModel {
+	let id: UUID
 	let image: String
 	let title: String
 	let date: Date
