@@ -17,7 +17,7 @@ struct MovieDateVIew: View {
 				.frame(height: 16)
 				.foregroundStyle(.infoIcon)
 			Text(date, format: Date.FormatStyle(date: .abbreviated, time: .omitted))
-				.font(.system(size: 12))
+				.customFont(name: .montserrat, size: 12)
 				.foregroundStyle(.subtextGray)
 		}
     }

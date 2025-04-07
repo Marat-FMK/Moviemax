@@ -15,8 +15,7 @@ struct MiddleButtonView: View {
 		Button(action: action) {
 			Text(label)
 				.foregroundColor(.white)
-				.font(.callout)
-				.fontWeight(.semibold)
+				.customFont(name: .plusJacartaSemiBold, size: 16)
 				.padding(16)
 				.frame(maxWidth: .infinity)
 				.background(.accentPurple)

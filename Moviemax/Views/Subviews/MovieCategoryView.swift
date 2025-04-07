@@ -18,7 +18,7 @@ struct MovieCategoryView: View {
 				.frame(height: 16)
 				.foregroundStyle(.infoIcon)
 			Text(category)
-				.font(.system(size: 12))
+				.customFont(name: .montserrat, size: 12)
 				.foregroundStyle(.subtextGray)
 		}
     }

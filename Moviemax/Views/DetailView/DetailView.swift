@@ -29,6 +29,7 @@ struct DetailView: View {
                     Text(viewModel.film.title)
 						.foregroundStyle(.textBlack)
                         .padding(.top, -24)
+						.customFont(name: .plusJacartaBold, size: 24)
                     HStack(alignment: .center, spacing: 20) {
                         MovieTimeView(time: viewModel.film.timing)
                         MovieDateVIew(date: viewModel.film.date)
@@ -40,16 +41,16 @@ struct DetailView: View {
                     
                     VStack(alignment: .leading) {
                         Text("Story Line")
-                            .font(.system(size: 16, weight: .semibold))
+							.customFont(name: .plusJacartaSemiBold, size: 16)
                             .padding(.bottom, 16)
 							.foregroundStyle(.textBlack)
 
                         ExpandableText(viewModel.film.description, lineLimit: 6)
-                            .font(.system(size: 14, weight: .medium))
+							.customFont(name: .plusJacartaRegular, size: 14)
 							.foregroundStyle(.subtextGray)
                             .padding(.bottom, 24)
                         Text("Cast and Crew")
-                            .font(.system(size: 16, weight: .semibold))
+							.customFont(name: .plusJacartaSemiBold, size: 16)
                             .padding(.bottom, 16)
 							.foregroundStyle(.textBlack)
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -70,7 +71,7 @@ struct DetailView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Movie Detail")
-                        .font(.system(size: 18, weight: .bold))
+						.customFont(name: .plusJacartaBold, size: 18)
 						.foregroundStyle(.textBlack)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -112,9 +113,9 @@ struct CrewMemberView: View {
             Image(image)
             VStack(alignment: .leading) {
                 Text(name)
-                    .font(.system(size: 14, weight: .semibold))
+					.customFont(name: .plusJacartaSemiBold, size: 14)
                 Text(role)
-                    .font(.system(size: 10, weight: .medium))
+					.customFont(name: .plusJacartaRegular, size: 10)
                     .foregroundStyle(.gray)
             }
         }
