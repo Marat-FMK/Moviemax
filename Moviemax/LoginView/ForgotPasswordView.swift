@@ -16,25 +16,11 @@ struct ForgotPasswordView: View {
         VStack(alignment: .leading, spacing: 50) {
             
             HStack {
-                Button {
+				BackButtonView(action: {
                     viewModel.emailForPasswordChange =  ""
                     dismiss()
-                } label: {
-                    ZStack{
-                        Circle()
-                            .frame(width: 48, height: 48)
-                            .foregroundStyle(.backButtonBG)
-                        
-                        Image(systemName: "arrow.left")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 14)
-                    }
-                }
-                .buttonStyle(.plain)
-                
-                
-                
+                })
+
                 Text("Forgot your password?")
                     .padding(.leading, 35) // ???
             }
