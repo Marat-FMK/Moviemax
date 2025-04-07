@@ -67,6 +67,7 @@ struct DetailView: View {
                 .padding(.horizontal, 30)
                 .padding(.bottom, 20)
             }
+			.scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
