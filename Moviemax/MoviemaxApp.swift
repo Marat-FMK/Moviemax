@@ -23,8 +23,7 @@ struct MoviemaxApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            LoginView()
-			DetailView()
+            LoginView()
         }
     }
 }

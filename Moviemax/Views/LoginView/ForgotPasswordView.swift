@@ -19,19 +19,7 @@ struct ForgotPasswordView: View {
 				BackButtonView(action: {
                     viewModel.emailForPasswordChange =  ""
                     dismiss()
-                } label: {
-                    ZStack{
-                        Circle()
-                            .frame(width: 48, height: 48)
-                            .foregroundStyle(.backButtonBG)
-                        
-                        Image(systemName: "arrow.left")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 14)
-                    }
-                }
-                .buttonStyle(.plain)
+                })
                 
                 Text("Forgot your password")
                     .customFont(name: .plusJacartaSemiBold, size: 18)
