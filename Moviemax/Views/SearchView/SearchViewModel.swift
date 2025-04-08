@@ -27,7 +27,7 @@ class SearchViewModel: ObservableObject {
     
     //FILTER
     @Published var presentFilter = false
-    @Published var selectedCategories = ["All", "Adventure"]
+    @Published var selectedCategories = ["All", "Action", "Adventure", "Mystery", "Fantasy", "Others"]
     @Published var temporaryCategories: [String] = []
     @Published var chooseCategory = "All"
     
@@ -62,7 +62,6 @@ class SearchViewModel: ObservableObject {
     func changeFavorite(id: UUID) {
         //
     }
-    
     
     // FILTER
     
