@@ -14,6 +14,9 @@ struct RecentWatchView: View {
     var body: some View {
         NavigationView {
             VStack {
+//                CategoryButtonsScroll(categories: viewModel.categories, valueCheckAction: viewModel.checkChooseCategory, chooseCategoryAction: viewModel.chooseCategory)
+//                    .padding(.vertical, 10)
+                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(viewModel.categories, id: \.self) { category in
@@ -29,9 +32,7 @@ struct RecentWatchView: View {
                 ScrollView( showsIndicators: false) {
                     VStack( spacing: 10) {
                         ForEach(viewModel.chooseCategoryMovies, id: \.id) { movie in
-                            
                             MovieCard(movie: movie, changeFavorite: viewModel.changeFavorite)
-                            
                         }
                     }
                 }
