@@ -25,39 +25,7 @@ struct SearchView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(viewModel.selectedCategories, id: \.self) { category in
-                                
-                                if viewModel.checkCategoryName(category: category) {
-                                    Button{
-                                        viewModel.chooseCategory(category: category)
-                                    } label: {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 24)
-                                                .foregroundStyle(.buttonPurple)
-                                                .frame(height: 34)
-                                            Text(category)
-                                                .customFont(name: .plusJacartaRegular, size: 12)
-                                                .foregroundStyle(.white)
-                                                .padding(.horizontal,24)
-                                        }
-                                        .padding(1)
-                                    }
-                                    .buttonStyle(.plain)
-                                } else {
-                                    Button{
-                                        viewModel.chooseCategory(category: category)
-                                    } label: {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 24).stroke(style: StrokeStyle(lineWidth: 1))
-                                                .foregroundStyle(.liteGray)
-                                                .frame(height: 34)
-                                            Text(category)
-                                                .foregroundStyle(.categoryTitle)
-                                                .padding(.horizontal,24)
-                                        }
-                                        .padding(1)
-                                    }
-                                    .buttonStyle(.plain)
-                                }
+								FilterCategoriesButton(categryIsChosen: viewModel.checkCategoryName(category: category), categoryName: category, action: viewModel.chooseCategory)
                             }
                         }
                         .padding(.leading,24)

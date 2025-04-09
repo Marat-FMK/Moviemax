@@ -66,5 +66,5 @@ struct MovieCard: View {
 }
 
 #Preview {
-    MovieCard(movie: Movie(title: "Jurassic world", time: "215", date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no"), changeFavorite: {_ in })
+	MovieCard(movie: Movie(title: "Jurassic world", time: 215, date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no", responders: 115), changeFavorite: {_ in })
 }
