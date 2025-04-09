@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct GenderButton: View {
-    @Binding var tempGender: Gender?
-    let userGender: Gender?
+    @Binding var gender: String
     let genderName: Gender
-    let action: (Gender) -> Void
     
     var body: some View {
             Button {
-                tempGender = genderName
+                gender = genderName.rawValue
             } label: {
                 HStack {
-                    if userGender != genderName {
+                    if gender != genderName.rawValue{
                         Circle()
                             .stroke(lineWidth: 1)
                             .frame(width: 24, height: 24)
@@ -60,6 +58,6 @@ struct GenderButton: View {
     }
 }
 
-#Preview {
-    GenderButton(tempGender: .constant(Gender.male), userGender: nil, genderName: Gender.famale, action: {_ in})
-}
+//#Preview {
+//    GenderButton(trigger: .constant(false), tempGender: .constant(Gender.male), userGender: nil, genderName: Gender.famale, action: {_ in})
+//}

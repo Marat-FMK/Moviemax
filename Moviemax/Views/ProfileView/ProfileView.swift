@@ -6,40 +6,183 @@
 //
 
 import SwiftUI
+//import PhotosUI
 
 enum Gender: String {
     case male = "Male"
     case famale = "Female"
 }
 
+struct User: Identifiable {
+    let id: String
+    var firstName: String
+    var lastName: String
+    let password: String
+    var email: String
+    let dateOfBirth: String
+    let gender: String
+    let location: String
+}
+
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
-    @State private var temporaryGender: Gender? = nil
+    @Environment(\.dismiss) var dismiss
+    @State private var trigger = false
+    
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @State private var email = ""
+    @State private var dateOfBirdth = ""
+    @State private var gender = ""
+    @State private var location = ""
+    
+    @State private var presentAlert = false
+    @State private var blurValue = 0
+    
+//    @State private var pickerItem: PhotosPickerItem?
+//    @State private var selectedImage: Image? = Image(systemName: "square.and.arrow.up.circle.fill")
+        
+    //                    // PHOTOPICKER
+    //                    PhotosPicker(selection: $pickerItem) {
+    //                                        selectedImage?
+    //                                            .resizable()
+    //                                            .scaledToFill()
+    //                                            .foregroundStyle(.liteGray)
+    //                                            .clipShape(Circle())
+    //                                            .overlay(content: {
+    //                                                Circle().stroke(lineWidth: 7)
+    //                                                    .foregroundStyle(.white)
+    //                                                    .shadow(color: .gray.opacity(0.5), radius: 5)
+    //                                            })
+    //                                    }
+    //                                    .frame(width:105, height: 105)
+    //                                    .padding(.vertical,10)
+    //                                    .onChange(of: pickerItem) { oldValue, newValue in
+    //                                        Task {
+    //                                            selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
+    //                                        }
+    //                                    }
     
     var body: some View {
         NavigationView {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 20) {
+            
+            ZStack{
+                if presentAlert {
                     
-                    CustomTF(answer: $viewModel.firstName, title: "First Name", tfBGtext: "Enter your name", isProfileView: true)
-                    CustomTF(answer: $viewModel.lastName, title: "Last Name", tfBGtext: "Enter your surname", isProfileView: true)
-                    CustomTF(answer: $viewModel.email, title: "Email", tfBGtext: "Enter your e-mail", isProfileView: true)
-                    
-                    
-                    
-                    Text("Gender")
-                        .customFont(name: .plusJacartaSemiBold, size: 14)
-                        .foregroundStyle(.gray) // FONT
-                    
-                    HStack {
-                        GenderButton(tempGender: $temporaryGender, userGender: temporaryGender, genderName: .male, action: { _ in } )
-                        Spacer()
-                        GenderButton(tempGender: $temporaryGender, userGender: temporaryGender, genderName: .famale, action: {_ in })
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 24)
+                            .foregroundStyle(.white)
+                        
+                        Text("Change your picture")
+                            .customFont(name: .plusJacartaSemiBold, size: 20)
                     }
+                    .frame(width: 328, height: 340)
+                    
                 }
-                .navigationTitle("Profile")
-                .navigationBarTitleDisplayMode(.inline)
-                .padding(.horizontal, 24)
+                ScrollView(showsIndicators: false) {
+                    
+                    Button {
+                        presentAlert.toggle()
+                        blurValue = 4
+                    } label: {
+                        Image(systemName: "square.and.arrow.up.circle.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .foregroundStyle(.liteGray)
+                            .clipShape(Circle())
+                            .overlay(content: {
+                                Circle().stroke(lineWidth: 7)
+                                    .foregroundStyle(.white)
+                                    .shadow(color: .gray.opacity(0.5), radius: 5)
+                            })
+                    }
+                    .frame(width:105, height: 105)
+                    .padding(.top, 40)
+                    
+                    
+                    VStack(alignment: .leading, spacing: 20) {
+                        
+                        // TFIELDS
+                        ProfileTextFields(trigger: $trigger, answer: $firstName, title: "FirstName", tfBGtext: "Enter your name")
+                        ProfileTextFields(trigger: $trigger, answer: $lastName, title: "LastName", tfBGtext: "Enter your surname")
+                        ProfileTextFields(trigger: $trigger, answer: $email, title: "Email", tfBGtext: "Enter your email")
+                        
+                        // Calendar
+                        
+                        //                    DatePicker
+                        
+                        //GENDER
+                        Text("Gender")
+                            .customFont(name: .plusJacartaSemiBold, size: 14)
+                            .foregroundStyle(.loginTitle)
+                        
+                        HStack {
+                            GenderButton(gender: $gender, genderName: .male)
+                            Spacer()
+                            GenderButton(gender: $gender, genderName: .famale)
+                        }
+                        
+                        Text("Location")
+                            .customFont(name: .plusJacartaSemiBold, size: 14)
+                            .foregroundStyle(.loginTitle)
+                            .padding(.top, 10)
+                        
+                        TextEditor( text: $viewModel.location)
+                            .padding(15)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 24)
+                                    .stroke(lineWidth: 1)
+                                    .foregroundStyle(.onboardingBackground)
+                            }
+                        
+                        Spacer(minLength: 50)
+                        
+                        if viewModel.checkCangeInProfile(name: firstName, surname: lastName, emailAdress: email, birthday: dateOfBirdth, gend: gender, loc: location) {
+                            VStack(spacing: 16) {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .frame(height: 56)
+                                        .foregroundStyle(.liteGray)  /// ???
+                                    
+                                    Text("Save Changes")
+                                        .customFont(name: .plusJacartaSemiBold, size: 16)
+                                        .foregroundStyle(.loginTFText)
+                                }
+                            }
+                        } else {
+                            VStack(spacing: 16) {
+                                Button {
+                                    viewModel.saveChanges(name: firstName, surname: lastName, emailAdress: email, birthday: dateOfBirdth, gend: gender, loc: location)
+                                    
+                                    dismiss()
+                                } label: {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 24)
+                                            .frame(height: 56)
+                                            .foregroundStyle(.buttonPurple)
+                                        
+                                        Text("Save Changes")
+                                            .customFont(name: .plusJacartaSemiBold, size: 16)
+                                            .foregroundStyle(.white)
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    }
+                    .onAppear {
+                        firstName = viewModel.firstName
+                        lastName = viewModel.lastName
+                        email = viewModel.email
+                        dateOfBirdth = viewModel.dateOfBirth
+                        gender = viewModel.gender
+                        location = viewModel.location
+                    }
+                    .navigationTitle("Profile")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .padding(.horizontal, 24)
+                }
+                .blur(radius: CGFloat(blurValue))
             }
         }
     }

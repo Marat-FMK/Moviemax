@@ -1,18 +1,18 @@
 //
-//  CustomTF.swift
+//  ProfileTextFields.swift
 //  Moviemax
 //
-//  Created by Marat Fakhrizhanov on 30.03.2025.
+//  Created by Marat Fakhrizhanov on 09.04.2025.
 //
 
 import SwiftUI
 
-struct CustomTF: View {
+struct ProfileTextFields: View {
+    @Binding var trigger: Bool
     @Binding var answer: String
     let title: String
     let tfBGtext: String
-    
-    let isProfileView: Bool
+
     
     var body: some View {
         VStack( alignment: .leading) {
@@ -28,10 +28,11 @@ struct CustomTF: View {
                 TextField(tfBGtext, text: $answer)
                     .textInputAutocapitalization(.never)
                     .padding(.horizontal, 15)
+                    
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 24).stroke(lineWidth: 1)
-                    .foregroundStyle( isProfileView ? .onboardingBackground : .tfOverlay)
+                    .foregroundStyle(.onboardingBackground)
             }
             
         }
@@ -39,5 +40,5 @@ struct CustomTF: View {
 }
 
 #Preview {
-    CustomTF(answer: .constant(""), title: "Email", tfBGtext: "Enter your email", isProfileView: true)
+    ProfileTextFields(trigger: .constant(false), answer: .constant("Test"), title: "Test", tfBGtext: "Test")
 }
