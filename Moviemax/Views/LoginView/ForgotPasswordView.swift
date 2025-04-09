@@ -38,7 +38,7 @@ struct ForgotPasswordView: View {
                     .padding(.leading, 35) // ???
             }
             
-            CustomTF(answer: $viewModel.emailForPasswordChange, title: "Email", tfBGtext: "Enter your email")
+            CustomTF(answer: $viewModel.emailForPasswordChange, title: "Email", tfBGtext: "Enter your email", isProfileView: false)
             
             Spacer()
             

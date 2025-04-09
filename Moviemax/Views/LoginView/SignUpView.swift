@@ -29,9 +29,9 @@ struct SignUpView: View {
             VStack (spacing: 20){
                 Spacer()
                 
-                CustomTF(answer: $viewModel.firstName, title: "First name", tfBGtext: "Enter your name")
-                CustomTF(answer: $viewModel.lastName, title: "Last name", tfBGtext: "Enter your surname")
-                CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
+                CustomTF(answer: $viewModel.firstName, title: "First name", tfBGtext: "Enter your name", isProfileView: false)
+                CustomTF(answer: $viewModel.lastName, title: "Last name", tfBGtext: "Enter your surname", isProfileView: false)
+                CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address", isProfileView: false)
                 
                 CustomSecretPasswordTFView(visible: $seePassword, answer: $viewModel.userPassword, title: "Password")
                 

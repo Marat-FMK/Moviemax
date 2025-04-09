@@ -12,6 +12,9 @@ struct CustomTF: View {
     let title: String
     let tfBGtext: String
     
+    let isProfileView: Bool
+    
+    
     var body: some View {
         VStack( alignment: .leading) {
             Text(title)
@@ -29,7 +32,7 @@ struct CustomTF: View {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 24).stroke(lineWidth: 1)
-                    .foregroundStyle(.tfOverlay)
+                    .foregroundStyle( isProfileView ? .onboardingBackground : .tfOverlay)
             }
             
         }
@@ -37,5 +40,5 @@ struct CustomTF: View {
 }
 
 #Preview {
-    CustomTF(answer: .constant(""), title: "Email", tfBGtext: "Enter your email")
+    CustomTF(answer: .constant(""), title: "Email", tfBGtext: "Enter your email", isProfileView: true)
 }

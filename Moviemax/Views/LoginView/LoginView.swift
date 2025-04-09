@@ -22,8 +22,8 @@ struct LoginView: View {
                 Spacer()
                 
                 VStack (alignment: .leading, spacing: 10) {
-                    CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
-                    CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password")
+                    CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address", isProfileView: false)
+                    CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password", isProfileView: false)
                     
                     RememberHStackView(value: $viewModel.rememberMe)
                     .padding(.top, 20)
