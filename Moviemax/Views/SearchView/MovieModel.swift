@@ -7,16 +7,17 @@
 
 import Foundation
 
-struct Movie {
-    let title: String
-    let time: String
-    let date: String
-    let image: String
-    let urlTrailer: String
-    var favorite: Bool
-    let rating: Int
-    let category: String
-    let castAndCrew: String
-    let id = UUID()
+struct Movie: Identifiable {
+	let title: String
+	let time: Int
+	let date: String
+	let image: String
+	let urlTrailer: String
+	var favorite: Bool
+	let rating: Double
+	let category: String
+	let castAndCrew: String
+	let id = UUID()
+	let responders: Int
 }
 
