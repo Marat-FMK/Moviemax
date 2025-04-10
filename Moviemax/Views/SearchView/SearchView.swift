@@ -22,10 +22,12 @@ struct SearchView: View {
                         .padding(.horizontal, 24)
                     
                     //CATEGORIES
+                 //  CategoryButtonsScroll(categories: viewModel.selectedCategories, valueCheckAction: viewModel.checkCategoryName, chooseCategoryAction: viewModel.chooseCategory)
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(viewModel.selectedCategories, id: \.self) { category in
-								FilterCategoriesButton(categryIsChosen: viewModel.checkCategoryName(category: category), categoryName: category, action: viewModel.chooseCategory)
+                                CategoryFilterButton(title: category, value: viewModel.checkCategoryName(category: category), action: viewModel.chooseCategory)
                             }
                         }
                         .padding(.leading,24)
