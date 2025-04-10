@@ -1,17 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "luck.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "film_detail_mock@2x.png",
+      "filename" : "Director@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "film_detail_mock@3x.png",
+      "filename" : "Director@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -36,14 +36,15 @@ struct OnboardingView: View {
 									Spacer()
 									Text(pages[index].title)
 										.fontWeight(.bold)
-										.font(.system(size: 24))
+										.customFont(name: .plusJacartaBold, size: 24)
 										.padding(.bottom, 8)
 										.multilineTextAlignment(.center)
 										.padding(.horizontal, 48)
 									Text(pages[index].description)
-										.foregroundStyle(.onboardingDescription)
+										.foregroundStyle(.subtextGray)
 										.multilineTextAlignment(.center)
 										.padding(.horizontal, 48)
+										.customFont(name: .plusJacartaRegular, size: 14)
 									Spacer()
 									MiddleButtonView(action: {
 										if currentPage < pages.count - 1 {
