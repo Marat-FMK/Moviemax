@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//import PhotosUI
 
 enum Gender: String {
     case male = "Male"
@@ -120,7 +119,6 @@ struct ProfileView: View {
                                     .foregroundStyle(.onboardingBackground)
                             }
                         
-//                        Spacer(minLength: 50)
                         
                         if viewModel.checkCangeInProfile(name: firstName, surname: lastName, emailAdress: email, birthday: dateOfBirdth, gend: gender, loc: location) {
                             VStack(spacing: 16) {

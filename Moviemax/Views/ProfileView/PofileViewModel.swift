@@ -36,7 +36,6 @@ class ProfileViewModel: ObservableObject {
         self.location = userInfo.location
     }
     
-    
     func saveChanges(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) {
         // all in firebase
         

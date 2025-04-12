@@ -26,6 +26,7 @@ struct AvatarVeiw: View {
                     Rectangle().frame(height: 2)
                         .foregroundStyle(.categoryTitle)
                     
+                    //CAMERA BUTTON
                     Button {
                          // go to camera
                     } label: {
@@ -44,7 +45,7 @@ struct AvatarVeiw: View {
                         }
                     }
                     
-                    // DeleteAvater
+                    // DeleteAvater BUTTON
                     Button{
                         action()
                     } label: {
