@@ -38,6 +38,9 @@ struct ProfileView: View {
     @State private var presentAlert = false
     @State private var blurValue = 0
     
+    @State private var presentCalendar = false
+    @State var chooseDate = Date.now
+    
     var body: some View {
             ZStack {
                 
@@ -91,9 +94,16 @@ struct ProfileView: View {
                         ProfileTextFields(trigger: $trigger, answer: $lastName, title: "LastName", tfBGtext: "Enter your surname")
                         ProfileTextFields(trigger: $trigger, answer: $email, title: "Email", tfBGtext: "Enter your email")
                         
-                        // Calendar
+                        // CALENDAR Date picker
+                        BirthDayTextView(presentCalendar: $presentCalendar, date: chooseDate, title: "Date of Birth")
                         
-                        //                    DatePicker
+                        if presentCalendar{
+                            DatePicker("Please, enter date", selection: $chooseDate, in: Date.now...)
+                                .datePickerStyle(.compact)
+                                .onChange(of: chooseDate) { oldValue, newValue in
+                                    viewModel.setBDDate(date: chooseDate)
+                                }
+                        }
                         
                         //GENDER
                         Text("Gender")
