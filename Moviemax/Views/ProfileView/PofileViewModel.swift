@@ -49,6 +49,10 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
+    func setBDDate(date: Date) {
+        // dateOfBirth = date to string format
+    }
+    
     func setAvatar()-> Image {
         guard let currentImage = selectedImage else {return Image("profile")}
         return currentImage
