@@ -9,60 +9,57 @@ import SwiftUI
 import PhotosUI
 
 struct AvatarVeiw: View {
-    
     @Binding var pickerItem: PhotosPickerItem?
     @Binding var selectedImage: Image?
+    let action: () -> Void
     
     var body: some View {
-        NavigationView{
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
-                    .foregroundStyle(.green) // white
-                VStack(spacing: 10) {
+                    .foregroundStyle(.white) // white
+                VStack(spacing: 15) {
                     
                     Text("Change your picture")
                         .customFont(name: .plusJacartaSemiBold, size: 20)
+                        .frame(height: 60)
                     
                     Rectangle().frame(height: 2)
                         .foregroundStyle(.categoryTitle)
                     
-                    NavigationLink {
-                        VStack {
-                            Text("Camera View")
-                            Text("take foto and make avatar")
-                        }
-                        .background(.purple)
+                    Button {
+                         // go to camera
                     } label: {
                         AvatarButton(imageName: "camera.fill", text: "Take a photo", destructive: false)
                     }
-                    
                     
                     // PHOTOPICKER
                     PhotosPicker(selection: $pickerItem) {
                         AvatarButton(imageName: "folder.fill", text: "Choose from your file", destructive: false)
                     }
-                    .frame(width:105, height: 105)
-                    .padding(.vertical,10)
                     .onChange(of: pickerItem) { oldValue, newValue in
                         Task {
-                            selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
+                            if let item = newValue {
+                                selectedImage = try? await item.loadTransferable(type: Image.self)
+                            }
                         }
                     }
                     
-                    // DeletePhoto
+                    // DeleteAvater
                     Button{
-                        //
+                        action()
                     } label: {
-                        AvatarButton(imageName: "", text: "Delete Photo", destructive: true)
+                        AvatarButton(imageName: "xmark.bin.fill", text: "Delete Photo", destructive: true)
                     }
+                    .buttonStyle(.plain)
+                    
                     
                 }
             }
             .frame(width: 328, height: 340)
-        }
+        
     }
 }
 
 //#Preview {
-//    AvatarVeiw(pickerItem: <#Binding<PhotosPickerItem?>#>, selectedImage: <#Binding<Image?>#>)
+//    AvatarVeiw(viewModel: ProfileViewModel())
 //}
