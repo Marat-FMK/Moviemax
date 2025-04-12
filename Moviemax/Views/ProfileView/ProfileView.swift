@@ -39,62 +39,47 @@ struct ProfileView: View {
     @State private var presentAlert = false
     @State private var blurValue = 0
     
-//    @State private var pickerItem: PhotosPickerItem?
-//    @State private var selectedImage: Image? = Image(systemName: "square.and.arrow.up.circle.fill")
-        
-    //                    // PHOTOPICKER
-    //                    PhotosPicker(selection: $pickerItem) {
-    //                                        selectedImage?
-    //                                            .resizable()
-    //                                            .scaledToFill()
-    //                                            .foregroundStyle(.liteGray)
-    //                                            .clipShape(Circle())
-    //                                            .overlay(content: {
-    //                                                Circle().stroke(lineWidth: 7)
-    //                                                    .foregroundStyle(.white)
-    //                                                    .shadow(color: .gray.opacity(0.5), radius: 5)
-    //                                            })
-    //                                    }
-    //                                    .frame(width:105, height: 105)
-    //                                    .padding(.vertical,10)
-    //                                    .onChange(of: pickerItem) { oldValue, newValue in
-    //                                        Task {
-    //                                            selectedImage = try await pickerItem?.loadTransferable(type: Image.self)
-    //                                        }
-    //                                    }
-    
     var body: some View {
-        NavigationView {
-            
-            ZStack{
+            ZStack {
+                
                 if presentAlert {
-                    
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 24)
-                            .foregroundStyle(.white)
-                        
-                        Text("Change your picture")
-                            .customFont(name: .plusJacartaSemiBold, size: 20)
-                    }
-                    .frame(width: 328, height: 340)
-                    
+                    AvatarVeiw(pickerItem: $viewModel.pickerItem, selectedImage: $viewModel.selectedImage, action: viewModel.deleteAvatar)
+                        .zIndex(1.0)
+                    Spacer()
                 }
+                
+                NavigationView {
                 ScrollView(showsIndicators: false) {
                     
                     Button {
-                        presentAlert.toggle()
-                        blurValue = 4
+                        presentAlert.toggle() // = true
+                        if blurValue == 0 {
+                            blurValue = 5
+                        } else {
+                            blurValue = 0
+                        }
                     } label: {
-                        Image(systemName: "square.and.arrow.up.circle.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .foregroundStyle(.liteGray)
-                            .clipShape(Circle())
-                            .overlay(content: {
-                                Circle().stroke(lineWidth: 7)
-                                    .foregroundStyle(.white)
-                                    .shadow(color: .gray.opacity(0.5), radius: 5)
-                            })
+                        ZStack {
+                            viewModel.setAvatar()
+                                .resizable()
+                                .scaledToFill()
+                                .foregroundStyle(.liteGray)
+                                .clipShape(Circle())
+                                .overlay(content: {
+                                    Circle().stroke(lineWidth: 7)
+                                        .foregroundStyle(.white)
+                                        .shadow(color: .gray.opacity(0.5), radius: 5)
+                                })
+                            Image(systemName: "pencil.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20)
+                                .background(.buttonPurple)
+                                .foregroundStyle(.white)
+                                .clipShape(Circle())
+                                .offset(x: 35, y: 35)
+                               
+                        }
                     }
                     .frame(width:105, height: 105)
                     .padding(.top, 40)
@@ -135,7 +120,7 @@ struct ProfileView: View {
                                     .foregroundStyle(.onboardingBackground)
                             }
                         
-                        Spacer(minLength: 50)
+//                        Spacer(minLength: 50)
                         
                         if viewModel.checkCangeInProfile(name: firstName, surname: lastName, emailAdress: email, birthday: dateOfBirdth, gend: gender, loc: location) {
                             VStack(spacing: 16) {
