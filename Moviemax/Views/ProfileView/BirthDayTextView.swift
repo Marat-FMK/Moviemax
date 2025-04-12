@@ -9,16 +9,14 @@ import SwiftUI
 
 struct BirthDayTextView: View {
     @Binding var presentCalendar: Bool
-    @Binding var date: String
+    let date: Date
     let title: String
-    let tfBGtext: String
     
     var body: some View {
         VStack( alignment: .leading) {
             Text(title)
                 .foregroundStyle(.loginTitle)
                 .customFont(name: .plusJacartaSemiBold, size: 14)
-//                .minimumScaleFactor(0.5)
             
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
@@ -26,10 +24,16 @@ struct BirthDayTextView: View {
                     .foregroundStyle(.tf)
                 
                 HStack {
-                    TextField(tfBGtext, text: $date)
-                        .textInputAutocapitalization(.never)
+//                    TextField(tfBGtext, text: $date)
+//                        .textInputAutocapitalization(.never)
+                    Text( date.description )
+                    
+                    Spacer()
+                    
                     Button{
-                        presentCalendar.toggle()
+                        withAnimation {
+                            presentCalendar.toggle()
+                        }
                     } label: {
                         Image(systemName: "calendar")
                             .resizable()
@@ -49,6 +53,6 @@ struct BirthDayTextView: View {
     }
 }
 
-#Preview {
-    BirthDayTextView(presentCalendar: .constant(false), date: .constant("23 sept 2024"), title: "Date of Birth", tfBGtext: "Enter ///")
-}
+//#Preview {
+//    BirthDayTextView(presentCalendar: .constant(false), date: .constant(Date.now), title: "Date of Birth")
+//}
