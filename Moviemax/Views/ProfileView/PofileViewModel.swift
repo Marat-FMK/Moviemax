@@ -6,8 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
+import PhotosUI
 
 class ProfileViewModel: ObservableObject {
+    
+    @Published var pickerItem: PhotosPickerItem?
+    @Published var selectedImage: Image?
     
     @Published var firstName = ""
     @Published var lastName = ""
@@ -30,7 +35,6 @@ class ProfileViewModel: ObservableObject {
         self.gender = userInfo.gender
         self.location = userInfo.location
     }
-
     
     
     func saveChanges(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) {
@@ -44,6 +48,17 @@ class ProfileViewModel: ObservableObject {
         } else {
             return false
         }
+    }
+    
+    func setAvatar()-> Image {
+        guard let currentImage = selectedImage else {return Image("profile")}
+        return currentImage
+        
+    }
+    
+    func deleteAvatar() {
+        selectedImage = Image("profile")
+        //delete image in firebase
     }
     
 }
