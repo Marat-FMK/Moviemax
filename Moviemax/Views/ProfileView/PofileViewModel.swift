@@ -24,6 +24,8 @@ class ProfileViewModel: ObservableObject {
     @Published var userGender: Gender? = nil
     @Published var userInfo: User
     
+    @State var triggerSaveButton = false
+    
     init() {
         // fetch user info
         self.userInfo = User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "", gender: "", location: "")
@@ -38,11 +40,11 @@ class ProfileViewModel: ObservableObject {
     
     func saveChanges(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) {
         // all in firebase
-        
+        triggerSaveButton = false
     }
     
     func checkCangeInProfile(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) -> Bool {
-        if firstName == name && surname == lastName && emailAdress == email && birthday == dateOfBirth && gender == gend && loc == location {
+        if firstName == name && surname == lastName && emailAdress == email && birthday == dateOfBirth && gender == gend && loc == location && triggerSaveButton == false {
             return true
         } else {
             return false
@@ -50,7 +52,12 @@ class ProfileViewModel: ObservableObject {
     }
     
     func setBDDate(date: Date) {
-        // dateOfBirth = date to string format
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d.M.yyyy"
+        dateFormatter.dateStyle = .medium
+        let formattedDate = dateFormatter.string(from: date)
+        
+        dateOfBirth = formattedDate
     }
     
     func setAvatar()-> Image {

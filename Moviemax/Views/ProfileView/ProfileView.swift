@@ -95,13 +95,20 @@ struct ProfileView: View {
                         ProfileTextFields(trigger: $trigger, answer: $email, title: "Email", tfBGtext: "Enter your email")
                         
                         // CALENDAR Date picker
-                        BirthDayTextView(presentCalendar: $presentCalendar, date: chooseDate, title: "Date of Birth")
+                       
+                        BirthDayTextView(presentCalendar: $presentCalendar, date: viewModel.dateOfBirth, title: "Date of Birth")
                         
                         if presentCalendar{
-                            DatePicker("Please, enter date", selection: $chooseDate, in: Date.now...)
+                            DatePicker("Select a date", selection: $chooseDate, displayedComponents: .date)
                                 .datePickerStyle(.compact)
                                 .onChange(of: chooseDate) { oldValue, newValue in
+                                    if newValue != oldValue{
+                                        viewModel.triggerSaveButton = true
+                                    }
                                     viewModel.setBDDate(date: chooseDate)
+                                    withAnimation {
+                                        presentCalendar = false
+                                    }
                                 }
                         }
                         
