@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BirthDayTextView: View {
     @Binding var presentCalendar: Bool
-    let date: Date
+    let date: String
     let title: String
     
     var body: some View {
@@ -26,7 +26,7 @@ struct BirthDayTextView: View {
                 HStack {
 //                    TextField(tfBGtext, text: $date)
 //                        .textInputAutocapitalization(.never)
-                    Text( date.description )
+                    Text(date)
                     
                     Spacer()
                     
