@@ -28,7 +28,7 @@ class ProfileViewModel: ObservableObject {
     
     init() {
         // fetch user info
-        self.userInfo = User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "", gender: "", location: "")
+        self.userInfo = User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "21 Sept 1993", gender: "Male", location: "")
         
         self.firstName = userInfo.firstName
         self.lastName = userInfo.lastName
@@ -52,9 +52,10 @@ class ProfileViewModel: ObservableObject {
     }
     
     func setBDDate(date: Date) {
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d.M.yyyy"
-        dateFormatter.dateStyle = .medium
+        dateFormatter.dateStyle = .long
         let formattedDate = dateFormatter.string(from: date)
         
         dateOfBirth = formattedDate

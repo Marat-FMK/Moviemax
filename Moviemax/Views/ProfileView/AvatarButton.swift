@@ -18,9 +18,9 @@ struct AvatarButton: View {
                 .resizable()
                 .scaledToFit()
                 .frame(height: 20)
-                .foregroundStyle(destructive ? .red : .black)
+                .foregroundStyle(destructive ? .red : .filterCategoriesText)
             Text(text)
-                .foregroundStyle(destructive ? .red : .black)
+                .foregroundStyle(destructive ? .red : .filterCategoriesText)
                 .customFont(name: .plusJacartaRegular, size: 14)
             Spacer()
         }
@@ -34,5 +34,5 @@ struct AvatarButton: View {
 }
 
 #Preview {
-    AvatarButton(imageName: "camera.fill", text: "Take a photo", destructive: true)
+    AvatarButton(imageName: "camera.fill", text: "Take a photo", destructive: false)
 }

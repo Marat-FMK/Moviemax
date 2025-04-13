@@ -42,15 +42,15 @@ struct ProfileView: View {
     @State var chooseDate = Date.now
     
     var body: some View {
-            ZStack {
-                
-                if presentAlert {
-                    AvatarVeiw(pickerItem: $viewModel.pickerItem, selectedImage: $viewModel.selectedImage, action: viewModel.deleteAvatar)
-                        .zIndex(1.0)
-                    Spacer()
-                }
-                
-                NavigationView {
+        ZStack {
+            
+            if presentAlert {
+                AvatarVeiw(pickerItem: $viewModel.pickerItem, selectedImage: $viewModel.selectedImage, action: viewModel.deleteAvatar)
+                    .zIndex(1.0)
+                Spacer()
+            }
+            
+            NavigationView {
                 ScrollView(showsIndicators: false) {
                     
                     Button {
@@ -69,7 +69,7 @@ struct ProfileView: View {
                                 .clipShape(Circle())
                                 .overlay(content: {
                                     Circle().stroke(lineWidth: 7)
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(.liteGray)
                                         .shadow(color: .gray.opacity(0.5), radius: 5)
                                 })
                             Image(systemName: "pencil.circle")
@@ -80,7 +80,7 @@ struct ProfileView: View {
                                 .foregroundStyle(.white)
                                 .clipShape(Circle())
                                 .offset(x: 35, y: 35)
-                               
+                            
                         }
                     }
                     .frame(width:105, height: 105)
@@ -95,16 +95,13 @@ struct ProfileView: View {
                         ProfileTextFields(trigger: $trigger, answer: $email, title: "Email", tfBGtext: "Enter your email")
                         
                         // CALENDAR Date picker
-                       
                         BirthDayTextView(presentCalendar: $presentCalendar, date: viewModel.dateOfBirth, title: "Date of Birth")
                         
                         if presentCalendar{
-                            DatePicker("Select a date", selection: $chooseDate, displayedComponents: .date)
+                            DatePicker("Select your birthday", selection: $chooseDate, displayedComponents: .date)
                                 .datePickerStyle(.compact)
                                 .onChange(of: chooseDate) { oldValue, newValue in
-                                    if newValue != oldValue{
-                                        viewModel.triggerSaveButton = true
-                                    }
+                                    viewModel.triggerSaveButton = true
                                     viewModel.setBDDate(date: chooseDate)
                                     withAnimation {
                                         presentCalendar = false
@@ -182,7 +179,27 @@ struct ProfileView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .padding(.horizontal, 24)
                 }
+                .toolbar(content: {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            ZStack{
+                                Circle()
+                                    .frame(width: 48, height: 48)
+                                    .foregroundStyle(.backButtonBG)
+                                
+                                Image(systemName: "arrow.left")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 14)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                })
                 .blur(radius: CGFloat(blurValue))
+                
             }
         }
     }

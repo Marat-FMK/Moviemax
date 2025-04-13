@@ -15,16 +15,18 @@ struct AvatarVeiw: View {
     
     var body: some View {
             ZStack {
+                
                 RoundedRectangle(cornerRadius: 24)
-                    .foregroundStyle(.white) // white
+                    .foregroundStyle(.whiteBackground)
+                    .shadow(color: . gray, radius: 20)
                 VStack(spacing: 15) {
                     
                     Text("Change your picture")
                         .customFont(name: .plusJacartaSemiBold, size: 20)
                         .frame(height: 60)
                     
-                    Rectangle().frame(height: 2)
-                        .foregroundStyle(.categoryTitle)
+                    Rectangle().frame(height: 1)
+                        .foregroundStyle(.heartNoFill)
                     
                     //CAMERA BUTTON
                     Button {

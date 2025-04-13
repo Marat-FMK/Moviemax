@@ -29,13 +29,13 @@ struct GenderButton: View {
                             Image(systemName: "checkmark")
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.tf)
                                 .frame(height: 10)
                         }
                     }
                     
                     Text(genderName.rawValue)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.filterCategoriesText)
                         .padding(.leading, 20)
                     
                     Spacer()
