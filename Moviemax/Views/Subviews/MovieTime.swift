@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieTime: View {
-    let time: String
+	let time: Int
     var body: some View {
         HStack(spacing: 5) {
             Image(systemName: "clock.fill")
@@ -16,10 +16,7 @@ struct MovieTime: View {
                 .scaledToFit()
                 .frame(height: 16)
                 .foregroundStyle(.infoIcon)
-            Text(time)
-                .customFont(name: .montserrat, size: 12)
-                .foregroundStyle(.filmInfoGray)
-            Text("Minutes")
+            Text("\(time) Minutes")
                 .customFont(name: .montserrat, size: 12)
                 .foregroundStyle(.filmInfoGray)
         }
@@ -27,5 +24,5 @@ struct MovieTime: View {
 }
 
 #Preview {
-    MovieTime(time: "128")
+    MovieTime(time: 128)
 }

@@ -2,7 +2,7 @@
 //  MiddleButtonView.swift
 //  Moviemax
 //
-//  Created by Julia Martcenko on 03/04/2025.
+//  Created by Julia Martcenko on 04/04/2025.
 //
 
 import SwiftUI
@@ -15,11 +15,10 @@ struct MiddleButtonView: View {
 		Button(action: action) {
 			Text(label)
 				.foregroundColor(.white)
-				.font(.callout)
-				.fontWeight(.semibold)
+				.customFont(name: .plusJacartaSemiBold, size: 16)
 				.padding(16)
 				.frame(maxWidth: .infinity)
-				.background(.onboardingBackground)
+				.background(.accentPurple)
 				.cornerRadius(24
 				)
 		}
@@ -29,3 +28,4 @@ struct MiddleButtonView: View {
 #Preview {
 	MiddleButtonView(action: {}, label: "Button")
 }
+

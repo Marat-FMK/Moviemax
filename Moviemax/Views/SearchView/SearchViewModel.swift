@@ -7,27 +7,13 @@
 
 import SwiftUI
 
-
-struct Movie {
-    let title: String
-    let time: String
-    let date: String
-    let image: String
-    let urlTrailer: String
-    var favorite: Bool
-    let rating: Int
-    let category: String
-    let castAndCrew: String
-    let id = UUID()
-}
-
 class SearchViewModel: ObservableObject {
   
     @Published var searchText = ""
     
     //FILTER
     @Published var presentFilter = false
-    @Published var selectedCategories = ["All", "Adventure"]
+    @Published var selectedCategories = ["All", "Action", "Adventure", "Mystery", "Fantasy", "Others"]
     @Published var temporaryCategories: [String] = []
     @Published var chooseCategory = "All"
     
@@ -36,17 +22,17 @@ class SearchViewModel: ObservableObject {
     @Published var chooseRating = 4
     
     var foundMovies: [Movie] = [
-        Movie(title: "Drifting Home", time: "148", date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5, category: "All", castAndCrew: "no no"),
-        Movie(title: "Luck", time: "150", date: "19 Nov 1992", image: "luck", urlTrailer: "", favorite: false, rating: 3, category: "Action", castAndCrew: "no no no"),
-        Movie(title: "Fistful", time: "212", date: "21 Jun 2024", image: "fistful", urlTrailer: "", favorite: false, rating: 2, category: "Fantasy", castAndCrew: "no no"),
-        Movie(title: "Jurassic world", time: "215", date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no")
+		Movie(title: "Drifting Home", time: 148, date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5, category: "All", castAndCrew: "no no", responders: 53),
+		Movie(title: "Luck", time: 150, date: "19 Nov 1992", image: "luck", urlTrailer: "", favorite: false, rating: 3, category: "Action", castAndCrew: "no no no", responders: 53),
+		Movie(title: "Fistful", time: 212, date: "21 Jun 2024", image: "fistful", urlTrailer: "", favorite: false, rating: 2, category: "Fantasy", castAndCrew: "no no", responders: 53),
+		Movie(title: "Jurassic world", time: 215, date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no", responders: 53)
         ]
     
     var currentCategoryMovies: [Movie] = [
-        Movie(title: "Drifting Home", time: "148", date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5, category: "All", castAndCrew: "no no"),
-        Movie(title: "Luck", time: "150", date: "19 Nov 1992", image: "luck", urlTrailer: "", favorite: false, rating: 3, category: "Action", castAndCrew: "no no no"),
-        Movie(title: "Fistful", time: "212", date: "21 Jun 2024", image: "fistful", urlTrailer: "", favorite: false, rating: 2, category: "Fantasy", castAndCrew: "no no"),
-        Movie(title: "Jurassic world", time: "215", date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no")
+		Movie(title: "Drifting Home", time: 148, date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5, category: "All", castAndCrew: "no no", responders: 34),
+		Movie(title: "Luck", time: 150, date: "19 Nov 1992", image: "luck", urlTrailer: "", favorite: false, rating: 3, category: "Action", castAndCrew: "no no no", responders: 67),
+		Movie(title: "Fistful", time: 212, date: "21 Jun 2024", image: "fistful", urlTrailer: "", favorite: false, rating: 2, category: "Fantasy", castAndCrew: "no no", responders: 25),
+		Movie(title: "Jurassic world", time: 215, date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no", responders: 115)
         ]
     
     func searchFilms() {
