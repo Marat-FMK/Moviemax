@@ -100,7 +100,7 @@ struct ProfileView: View {
                         if presentCalendar{
                             DatePicker("Select your birthday", selection: $chooseDate, displayedComponents: .date)
                                 .datePickerStyle(.compact)
-                                .onChange(of: chooseDate) { oldValue, newValue in
+                                .onChange(of: chooseDate) {  newValue in
                                     viewModel.triggerSaveButton = true
                                     viewModel.setBDDate(date: chooseDate)
                                     withAnimation {
@@ -179,25 +179,25 @@ struct ProfileView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .padding(.horizontal, 24)
                 }
-                .toolbar(content: {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            ZStack{
-                                Circle()
-                                    .frame(width: 48, height: 48)
-                                    .foregroundStyle(.backButtonBG)
-                                
-                                Image(systemName: "arrow.left")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 14)
-                            }
-                        }
-                        .buttonStyle(.plain)
-                    }
-                })
+//                .toolbar(content: {
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        Button {
+//                            dismiss()
+//                        } label: {
+//                            ZStack{
+//                                Circle()
+//                                    .frame(width: 48, height: 48)
+//                                    .foregroundStyle(.backButtonBG)
+//                                
+//                                Image(systemName: "arrow.left")
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .frame(height: 14)
+//                            }
+//                        }
+//                        .buttonStyle(.plain)
+//                    }
+//                })
                 .blur(radius: CGFloat(blurValue))
                 
             }

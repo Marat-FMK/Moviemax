@@ -39,7 +39,7 @@ struct AvatarVeiw: View {
                     PhotosPicker(selection: $pickerItem) {
                         AvatarButton(imageName: "folder.fill", text: "Choose from your file", destructive: false)
                     }
-                    .onChange(of: pickerItem) { oldValue, newValue in
+                    .onChange(of: pickerItem) { newValue in
                         Task {
                             if let item = newValue {
                                 selectedImage = try? await item.loadTransferable(type: Image.self)
