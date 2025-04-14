@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>RecentViewActive</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Tab-Bar-Lite" transform="translate(-78, -6)">
+            <g id="RecentViewActive" transform="translate(78, 6)">
+                <rect id="Rectangle" x="0" y="0" width="64" height="64"></rect>
+                <path d="M32,22 C37.5228475,22 42,26.4771525 42,32 C42,37.5228475 37.5228475,42 32,42 C26.4771525,42 22,37.5228475 22,32 C22,26.4771525 26.4771525,22 32,22 Z M30.693,28.1542 C29.934,27.7056 29,28.2895 29,29.2132 L29,34.7868 C29,35.7105 29.934,36.2944 30.693,35.8458 L35.414,33.059 C36.195,32.5974 36.195,31.4026 35.414,30.941 Z" id="Combined-Shape" stroke="#514EB6" stroke-width="1.5"></path>
+            </g>
+        </g>
+    </g>
+</svg>

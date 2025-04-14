@@ -10,10 +10,14 @@ import SwiftUI
 struct DetailView: View {
     @Environment(\.dismiss) var dismiss
     
-    @StateObject var viewModel = DetailViewModel()
+    @StateObject var viewModel: DetailViewModel
     
     private var screenWidth: CGFloat {
         UIScreen.main.bounds.width
+    }
+    
+    init(film: FilmModel) {
+        _viewModel = StateObject(wrappedValue: DetailViewModel(film: film))
     }
     
     var body: some View {
@@ -23,12 +27,13 @@ struct DetailView: View {
                     Image(viewModel.film.image)
                         .resizable()
                         .scaledToFill()
+                        .frame(width: ((screenWidth * 9) / 16) , height: screenWidth)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .frame(width: screenWidth * 0.75 , height: screenWidth)
                         .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
+                        .padding(.top, 20)
                     Text(viewModel.film.title)
 						.foregroundStyle(.textBlack)
-                        .padding(.top, -24)
+                        .padding(.top, 24)
 						.customFont(name: .plusJacartaBold, size: 24)
                     HStack(alignment: .center, spacing: 20) {
                         MovieTimeView(time: viewModel.film.timing)
@@ -69,6 +74,7 @@ struct DetailView: View {
             }
 			.scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Movie Detail")
@@ -77,16 +83,18 @@ struct DetailView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-						viewModel.changeFavorite()
+                        viewModel.changeFavorite()
                     } label: {
-						Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
-							.foregroundColor(viewModel.isFavorite ? .accentPurple : Color.textBlack)
+                        Image(
+                            systemName: viewModel.isFavorite
+                            ? "heart.fill"
+                            : "heart"
+                        )
+                        .foregroundColor(viewModel.isFavorite ? .accentPurple : Color.textBlack)
                     }
                 }
-				ToolbarItem(placement: .topBarLeading) {
-					BackButtonView(action: {
-						dismiss()
-					})
+				ToolbarItem(placement: .navigationBarLeading) {
+					BackButtonView(action: { dismiss() })
 				}
             }
 			.background(.whiteBackground)
@@ -95,6 +103,7 @@ struct DetailView: View {
                     .padding(20)
                     .padding(.horizontal, 30)
                     .background(.whiteBackground)
+                    .background(.ultraThinMaterial)
                     .shadow(radius: 60)
             }
 			.onAppear {
@@ -177,5 +186,24 @@ struct ExpandableText: View {
 }
 
 #Preview {
-    DetailView()
+    DetailView(
+        film: FilmModel(
+            id: UUID(),
+            image: "luck",
+            title: "Luck",
+            date: .now,
+            rating: 4,
+            timing: 148,
+            category: "Action",
+            description:
+                """
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+                """,
+            castCrew: [
+                CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+                CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+                CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+            ]
+        )
+    )
 }

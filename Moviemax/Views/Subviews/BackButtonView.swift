@@ -16,8 +16,8 @@ struct BackButtonView: View {
 		} label: {
 			ZStack{
 				Circle()
-					.frame(width: 48, height: 48)
-					.foregroundStyle(.backButtonBG)
+					.frame(width: 32, height: 32)
+                    .foregroundStyle(.thinMaterial)
 
 				Image(systemName: "arrow.left")
 					.resizable()
