@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
 	@StateObject var viewModel: MainViewModel = .init()
+    @State private var selectedMovie: Movie? = nil
 
 	var body: some View {
 		NavigationStack {
@@ -29,7 +30,6 @@ struct MainView: View {
 							.foregroundStyle(.subtextGray)
 					}
 				}
-				.padding(.horizontal, 24)
 				VStack(alignment: .center) {
 					CarouselView(images: viewModel.currentCategoryMovies, currentIndex: $viewModel.currentIndex)
 					ScrollerIndicatorView(currentIndex: viewModel.currentIndex)
@@ -37,7 +37,6 @@ struct MainView: View {
 				.frame(maxWidth: .infinity, alignment: .center)
 				VStack(alignment: .leading) {
 					Text("Category")
-						.padding(.leading, 24)
 						.customFont(name: .plusJacartaSemiBold, size: 16)
 					ScrollView(.horizontal, showsIndicators: false) {
 						HStack {
@@ -45,7 +44,6 @@ struct MainView: View {
 								FilterCategoriesButton(categryIsChosen: viewModel.checkCategoryName(category: category), categoryName: category, action: viewModel.chooseCategory)
 							}
 						}
-						.padding(.leading,24)
 					}
 					ScrollView {
 						HStack {
@@ -57,20 +55,33 @@ struct MainView: View {
 							}
 							.foregroundStyle(.buttonPurple)
 						}
-						.padding(.horizontal, 24)
-						ForEach(viewModel.currentCategoryMovies) { movie in
-							MainViewFilmCardView(isFavourite: Binding(
-								get: { viewModel.isFavorite(movie: movie) },
-								set: { _ in viewModel.toggleFavorite(movie: movie) }
-							), movie: movie)
-						}
-						.padding(.horizontal, 24)
+                        ForEach(viewModel.currentCategoryMovies) { movie in
+                            NavigationLink(destination: DetailView(film: FilmModel(id: UUID(), image: movie.image, title: movie.title, date: Date(), rating: Int(movie.rating), timing: movie.time, category: movie.category, description: movie.title, castCrew: []))) {
+                                MainViewFilmCardView(isFavourite: Binding(
+                                    get: { viewModel.isFavorite(movie: movie) },
+                                    set: { _ in viewModel.toggleFavorite(movie: movie) }
+                                ), movie: movie)
+                            }
+                        }
 					}
 					.scrollIndicators(.hidden)
 				}
 			}
-
+            .padding(.horizontal, 24)
 		}
+        .sheet(item: $selectedMovie) { movie in
+            DetailView(film: FilmModel(
+                id: UUID(),
+                image: movie.image,
+                title: movie.title,
+                date: Date(),
+                rating: Int(movie.rating),
+                timing: movie.time,
+                category: movie.category,
+                description: movie.title,
+                castCrew: []
+            ))
+        }
     }
 }
 

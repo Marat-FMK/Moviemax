@@ -36,6 +36,7 @@ struct TabBarView: View {
             OnboardingView()
         }
         .onAppear {
+            
             // обращаемся за данными пользователя и передаем из в окружении
         }
     }
