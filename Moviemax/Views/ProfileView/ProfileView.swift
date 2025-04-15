@@ -12,19 +12,8 @@ enum Gender: String {
     case famale = "Female"
 }
 
-struct User: Identifiable {
-    let id: String
-    var firstName: String
-    var lastName: String
-    let password: String
-    var email: String
-    let dateOfBirth: String
-    let gender: String
-    let location: String
-}
-
 struct ProfileView: View {
-    @StateObject var viewModel = ProfileViewModel()
+	@StateObject var viewModel: ProfileViewModel
     @Environment(\.dismiss) var dismiss
     @State private var trigger = false
     
@@ -40,7 +29,11 @@ struct ProfileView: View {
     
     @State private var presentCalendar = false
     @State var chooseDate = Date.now
-    
+
+	init(user: User) {
+		_viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+	}
+
     var body: some View {
         ZStack {
             
@@ -201,10 +194,11 @@ struct ProfileView: View {
                 .blur(radius: CGFloat(blurValue))
                 
             }
+			.navigationBarBackButtonHidden(true)
         }
     }
 }
 
 #Preview {
-    ProfileView()
+	ProfileView(user: User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "21 Sept 1993", gender: "Male", location: "", login: "@nik123"))
 }

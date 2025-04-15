@@ -26,10 +26,10 @@ class ProfileViewModel: ObservableObject {
     
     @State var triggerSaveButton = false
     
-    init() {
+	init(user: User) {
         // fetch user info
-        self.userInfo = User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "21 Sept 1993", gender: "Male", location: "")
-        
+		self.userInfo = user
+
         self.firstName = userInfo.firstName
         self.lastName = userInfo.lastName
         self.email = userInfo.email

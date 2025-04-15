@@ -6,15 +6,30 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class SettingsViewModel: ObservableObject {
-	@Published var name: String
-	@Published var surname: String
+	@Published var firstName: String
+	@Published var lastName: String
 	@Published var login: String
 
-	init(name: String, surname: String, login: String) {
-		self.name = name
-		self.surname = surname
-		self.login = login
+	@Published var user: User
+	@Published var isLoggedOut = false
+
+	init(user: User) {
+		self.user = user
+
+		self.firstName = user.firstName
+		self.lastName = user.lastName
+		self.login = user.login
+	}
+
+	func logOut() {
+		do {
+			try Auth.auth().signOut()
+			isLoggedOut = true
+		} catch {
+			print("Error logging out: \(error.localizedDescription)")
+		}
 	}
 }

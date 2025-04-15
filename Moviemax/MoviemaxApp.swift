@@ -20,10 +20,12 @@ class AppDelegate: NSObject, UIApplicationDelegate { //firebase
 @main
 struct MoviemaxApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate // firebase
-    
+	@AppStorage("isDarkMode") var isDarkMode: Bool = false
+
     var body: some Scene {
         WindowGroup {
             TabBarView()
+				.preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }
