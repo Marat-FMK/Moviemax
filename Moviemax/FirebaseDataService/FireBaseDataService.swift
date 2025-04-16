@@ -32,7 +32,7 @@ class FireBaseDataService: ObservableObject {
                 //save profile info
                 let db = Firestore.firestore()
                 let newUser = User(id: result?.user.uid ?? "", firstName: firstName, lastName: lastName, password: password, email: email, dateOfBirth: "", gender: "", location: "")
-                let _ = db.collection("users").addDocument(from: User)
+                let _ = db.collection("users").addDocument(from: newUser)
                 
                 self.currentUserID = result?.user.uid ?? ""
                 authComplete = true
