@@ -13,33 +13,32 @@ import FirebaseFirestoreCombineSwift
 
 
 class FireBaseDataService: ObservableObject {
-//    @FirestoreQuery(
-//        collectionPath: "users", predicates: []
-//    ) var users: [NewUser]
-   
+    
+    @FirestoreQuery(collectionPath: "users") var users: [User]
+    
     @Published var currentUserID = ""
     @Published var authComplete = false
     
-    @Published var usersInfo: [NewUser] = []
-   
-    var users = [NewUser]()
     
-
+    
+    
     
     func signUP(email: String, password: String,firstName: String, lastName: String, completion: @escaping (Bool)-> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if result != nil {
                 completion(true)
                 print("firebase new user registration - TRUE")
-               
+                
                 //save profile info
                 let db = Firestore.firestore()
-                let newUser = NewUser(id: result?.user.uid ?? "", name: firstName, surname: lastName, email: email, birthday: "", gender: "", location: "")
-                let _ = db.collection("users").addDocument(from: newUser)
+                let newUser = User(id: result?.user.uid ?? "", firstName: firstName, lastName: lastName, password: password, email: email, dateOfBirth: "", gender: "", location: "")
+                let _ = db.collection("users").addDocument(from: User)
                 
                 self.currentUserID = result?.user.uid ?? ""
+                authComplete = true
                 
-                // verification with email
+                // firebase verification with email
+                
             } else {
                 completion(false)
                 print("firebase new user registration - FALSE")
@@ -57,7 +56,42 @@ class FireBaseDataService: ObservableObject {
             }
         }
     }
-    
+   
+        func fetchUsers() {
+            let db = Firestore.firestore()
+            db.collection("users").getDocuments { snapshot, error in
+                if let error = error {
+                    print("Ошибка загрузки: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("Документов нет")
+                    return
+                }
+
+                for doc in documents {
+                    do {
+                        let user = try doc.data(as: User.self)
+                        print("✅ Успешно декодирован:", user)
+                    } catch {
+                        print("❌ Ошибка декодирования:", error)
+                    }
+                }
+            }
+        }
+}
+
+
+
+
+
+
+
+
+// /// //
+///
+///
 //    func fetchUsersInfo() async {
 //        
 //        let db = Firestore.firestore()
@@ -95,29 +129,29 @@ class FireBaseDataService: ObservableObject {
 //        
 //    }
     
+//
+//    func fetchUsersInfo() {
+//        
+//       let db = Firestore.firestore()
+//       let ref = db.collection("users")
+//        
+//        ref.addSnapshotListener( {( querySnapshot, error ) in
+//            
+//            guard let documents = querySnapshot?.documents else {
+//                print("No documents found")
+//                return
+//            }
+//            
+//         
+//            self.usersInfo = documents.compactMap {
+//                queryDocumentSnapshot -> NewUser? in
+//                
+//                return try? queryDocumentSnapshot.data(as: NewUser.self)
+//            }
+//        })
+//        
+//        print("users : ///")
+//        print(usersInfo)
+//    }
     
-    func fetchUsersInfo() {
-        
-       let db = Firestore.firestore()
-       let ref = db.collection("users")
-        
-        ref.addSnapshotListener( {( querySnapshot, error ) in
-            
-            guard let documents = querySnapshot?.documents else {
-                print("No documents found")
-                return
-            }
-            
-         
-            self.usersInfo = documents.compactMap {
-                queryDocumentSnapshot -> NewUser? in
-                
-                return try? queryDocumentSnapshot.data(as: NewUser.self)
-            }
-        })
-        
-        print("users : ///")
-        print(usersInfo)
-    }
-    
-}
+

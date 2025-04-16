@@ -12,17 +12,6 @@ enum Gender: String {
     case famale = "Female"
 }
 
-struct User: Identifiable {
-    let id: String
-    var firstName: String
-    var lastName: String
-    let password: String
-    var email: String
-    let dateOfBirth: String
-    let gender: String
-    let location: String
-}
-
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @Environment(\.dismiss) var dismiss
