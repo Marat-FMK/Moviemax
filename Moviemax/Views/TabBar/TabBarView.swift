@@ -31,6 +31,7 @@ struct TabBarView: View {
                 .tag(index)
             }
         }
+        .navigationBarBackButtonHidden(true) // Marat
         .labelsHidden()
         .fullScreenCover(isPresented: $showOnboarding) {
             OnboardingView()

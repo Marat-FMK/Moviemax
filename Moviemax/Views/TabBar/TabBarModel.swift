@@ -50,7 +50,7 @@ extension TabBarItem {
         TabBarItem(
             title: "Profile",
             iconName: "ProfileView",
-            view: AnyTabView(Text("Profile"))
+            view: AnyTabView(ProfileView())
         ),
     ]
 }
