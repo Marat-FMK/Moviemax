@@ -22,24 +22,28 @@ class ProfileViewModel: ObservableObject {
     @Published var location = ""
     
     @Published var userGender: Gender? = nil
-    @Published var userInfo: User
     
     @State var triggerSaveButton = false
     
     init() {
         // fetch user info
-        self.userInfo = User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "21 Sept 1993", gender: "Male", location: "")
+        let user = FireBaseDataService.shared.currentUser
+        self.firstName = user?.firstName ?? ""
+        self.lastName = user?.lastName ?? ""
+        self.email = user?.email ?? ""
+        self.dateOfBirth = user?.dateOfBirth ?? ""
+        self.gender = user?.gender ?? ""
+        self.location = user?.location ?? ""
         
-        self.firstName = userInfo.firstName
-        self.lastName = userInfo.lastName
-        self.email = userInfo.email
-        self.dateOfBirth = userInfo.dateOfBirth
-        self.gender = userInfo.gender
-        self.location = userInfo.location
     }
     
     func saveChanges(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) {
         // all in firebase
+        
+        if emailAdress != email {
+            //func for set new adress in firebase
+        }
+        
         triggerSaveButton = false
     }
     
