@@ -27,6 +27,10 @@ class MainViewModel: ObservableObject {
 	@Published var currentIndex: Int = 1
 	@Published var profile = ProfileModel(name: "Julia", avatar: "avatar")
 
+    init() {
+        profile.name = FireBaseDataService.shared.firstName
+    }
+    
 	var allMovies: [Movie] = [
 		Movie(title: "Drifting Home", time: 148, date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5.1, category: "All", castAndCrew: "no no", responders: 53),
 		Movie(title: "Luck", time: 150, date: "19 Nov 1992", image: "luck", urlTrailer: "", favorite: false, rating: 3.3, category: "Action", castAndCrew: "no no no", responders: 25),
