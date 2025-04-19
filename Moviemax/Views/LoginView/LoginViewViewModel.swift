@@ -19,7 +19,7 @@ import GoogleSignIn
 
 class LoginViewViewModel: ObservableObject {
     
-    var firestoreService = FireBaseDataService()
+    var firestoreService = FireBaseDataService.shared
     
     @Published var firstName = ""
     @Published var lastName = ""
@@ -36,8 +36,11 @@ class LoginViewViewModel: ObservableObject {
         }
     }
     
-    func signIn() {
-        firestoreService.signIn(email: userEmail, password: userPassword)
+    func signIn(completion: @escaping(Bool)->Void) {
+        firestoreService.signIn(email: userEmail, password: userPassword){result in
+            completion(result)
+        }
+        
     }
     
     func passwordСhange() {
