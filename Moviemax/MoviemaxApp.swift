@@ -7,6 +7,8 @@
 
 import SwiftUI
 import FirebaseCore
+import Firebase
+import FirebaseAuth
 
 class AppDelegate: NSObject, UIApplicationDelegate { //firebase
   func application(_ application: UIApplication,
@@ -21,9 +23,15 @@ class AppDelegate: NSObject, UIApplicationDelegate { //firebase
 struct MoviemaxApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate // firebase
     
+    var authComplete = UserDefaults.standard.bool(forKey: "authComplete")
+    
     var body: some Scene {
         WindowGroup {
-            TabBarView()
+            if authComplete {
+               TabBarView()
+            } else {
+               LoginView()
+            }
         }
     }
 }
