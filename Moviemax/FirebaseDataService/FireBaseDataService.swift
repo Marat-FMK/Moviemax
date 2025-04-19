@@ -9,20 +9,32 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import Firebase
-import FirebaseFirestoreCombineSwift
-
+import SwiftUI
 
 class FireBaseDataService: ObservableObject {
+//    @FirestoreQuery(collectionPath: "users",
+//                    predicates: [.whereField("id", isEqualTo: currentUserID)]
+//    ) var users: [User]
     
-    @FirestoreQuery(collectionPath: "users") var users: [User]
+    @Published var currentUser: User?
     
-    @Published var currentUserID = ""
-    @Published var authComplete = false
+    @AppStorage("currentUserID") var currentUserID = ""
+    @AppStorage("authComplete") var authComplete = false
     
+    @AppStorage("firstName") var firstName = ""
+    @AppStorage("lastName") var lastName = ""
+    @AppStorage("email") var email = ""
+    @AppStorage("password") var password = ""
+    @AppStorage("birthday") var birthday = ""
+    @AppStorage("gender") var gender = ""
+    @AppStorage("location") var location = ""
     
+    static let shared = FireBaseDataService()
     
+    private init() {
+    }
     
-    
+    //Регистрация
     func signUP(email: String, password: String,firstName: String, lastName: String, completion: @escaping (Bool)-> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if result != nil {
@@ -31,11 +43,10 @@ class FireBaseDataService: ObservableObject {
                 
                 //save profile info
                 let db = Firestore.firestore()
-                let newUser = User(id: result?.user.uid ?? "", firstName: firstName, lastName: lastName, password: password, email: email, dateOfBirth: "", gender: "", location: "")
+                let newUser = User(id: result?.user.uid, firstName: firstName, lastName: lastName, password: password, email: email, dateOfBirth: "", gender: "", location: "")
                 let _ = db.collection("users").addDocument(from: newUser)
                 
                 self.currentUserID = result?.user.uid ?? ""
-                authComplete = true
                 
                 // firebase verification with email
                 
@@ -46,41 +57,91 @@ class FireBaseDataService: ObservableObject {
         }
     }
     
-    func signIn(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { result,error  in
+    //Вход
+    func signIn(email: String, password: String, completion: @escaping(Bool)->Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if result != nil {
                 self.authComplete = true
-                print("auth COMPLETE")
+                self.currentUserID = result?.user.uid ?? ""
+                
+                self.fetchUsers { fetchedUsers in
+                    if let foundUser = fetchedUsers.first(where: { $0.id == self.currentUserID }) {
+                        
+                        self.currentUser = User(id: foundUser.id, firstName: foundUser.firstName, lastName: foundUser.lastName, password: foundUser.password, email: foundUser.email, dateOfBirth: foundUser.dateOfBirth, gender: foundUser.gender, location: foundUser.location)
+                        
+                        //save to UD AppStotage
+                        self.firstName = foundUser.firstName ?? ""
+                        self.lastName = foundUser.lastName ?? ""
+                        self.email = foundUser.email ?? ""
+                        self.password = foundUser.password ?? ""
+                        self.birthday = foundUser.dateOfBirth ?? ""
+                        self.gender = foundUser.gender ?? ""
+                        self.location = foundUser.location ?? ""
+                        
+                        completion(true)
+                        print("✅ CURRENT USER INFO -->>>")
+                        print(self.currentUserID)
+                        print(self.currentUser ?? User(id: "", firstName: "", lastName: "", password: "", email: "", dateOfBirth: "", gender: "", location: ""))
+                        print("auth COMPLETE")
+                    } else {
+                        print("❌ Пользователь не найден в списке")
+                    }
+                }
             } else {
-                print("auth ERROR")
+                print("❌ auth ERROR")
+                completion(false)
             }
         }
     }
-   
-        func fetchUsers() {
-            let db = Firestore.firestore()
-            db.collection("users").getDocuments { snapshot, error in
-                if let error = error {
-                    print("Ошибка загрузки: \(error.localizedDescription)")
-                    return
-                }
-
-                guard let documents = snapshot?.documents else {
-                    print("Документов нет")
-                    return
-                }
-
-                for doc in documents {
-                    do {
-                        let user = try doc.data(as: User.self)
-                        print("✅ Успешно декодирован:", user)
-                    } catch {
-                        print("❌ Ошибка декодирования:", error)
-                    }
+    
+    //Загрузка данных пользователя
+    func fetchUsers(completion: @escaping ([User]) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").getDocuments { snapshot, error in
+            if let error = error {
+                print("Ошибка загрузки: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("Документов нет")
+                completion([])
+                return
+            }
+            
+            var fetchedUsers: [User] = []
+            
+            for doc in documents {
+                do {
+                    let user = try doc.data(as: User.self)
+                    fetchedUsers.append(user)
+                } catch {
+                    print("❌ Ошибка декодирования:", error)
                 }
             }
+            
+            DispatchQueue.main.async {
+//                self.users = fetchedUsers
+                completion(fetchedUsers)
+            }
         }
+    }
+    
+    //Выход пользователя
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            
+            currentUser = nil
+            authComplete = false
+        } catch {
+            print("error - signOut")
+        }
+        
+    }
 }
+    
 
 
 
@@ -89,9 +150,81 @@ class FireBaseDataService: ObservableObject {
 
 
 
-// /// //
-///
-///
+
+
+
+
+
+
+
+
+
+
+
+//    func fetchUsers() {
+//        let db = Firestore.firestore()
+//        db.collection("users").getDocuments { snapshot, error in
+//            if let error = error {
+//                print("Ошибка загрузки: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            guard let documents = snapshot?.documents else {
+//                print("Документов нет")
+//                return
+//            }
+//            
+//            var fetchedUsers: [User] = []
+//            
+//            for doc in documents {
+//                do {
+//                    let user = try doc.data(as: User.self)
+//                    fetchedUsers.append(user)
+//                } catch {
+//                    print("❌ Ошибка декодирования:", error)
+//                }
+//            }
+//            
+//            // Обновляем массив пользователей на главном потоке
+//            DispatchQueue.main.async {
+//                self.users = fetchedUsers
+//                print(fetchedUsers)
+//                print(self.users)
+//                print("✅ Загружено пользователей: \(self.users.count)")
+//            }
+//        }
+//        print( "Users->>>> " , users)
+//    }
+
+//    func fetchUsers() {
+//
+//        let db = Firestore.firestore()
+//        db.collection("users").getDocuments { snapshot, error in
+//            if let error = error {
+//                print("Ошибка загрузки: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            guard let documents = snapshot?.documents else {
+//                print("Документов нет")
+//                return
+//            }
+//
+//            for doc in documents {
+//
+//                do {
+//                    let user = try doc.data(as: User.self)
+//
+////                    print("✅ Успешно декодирован:", user)
+//
+//                } catch {
+////                    print("❌ Ошибка декодирования:", error)
+//                }
+//            }
+//        }
+//    }
+
+
 //    func fetchUsersInfo() async {
 //        
 //        let db = Firestore.firestore()
