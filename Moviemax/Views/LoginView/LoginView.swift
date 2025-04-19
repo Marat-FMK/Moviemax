@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var viewModel = LoginViewViewModel()
     
+    @StateObject var viewModel = LoginViewViewModel()
     @State var presentSignUP = false
+    @State var authComplete = false
     
     var body: some View {
         NavigationStack {
@@ -28,9 +29,29 @@ struct LoginView: View {
                     RememberHStackView(value: $viewModel.rememberMe)
                     .padding(.top, 20)
                     
-                    //BUTTONs
+                    //buttons
                     VStack(spacing: 16) {
-                        PurpleButton(title: "Sign In", action: viewModel.signIn)
+
+//                        PurpleButton(authComplete: $authComplete, title: "Sign In", action: viewModel.signIn)
+                        VStack(spacing: 16) {
+                            Button {
+                                viewModel.signIn { result in
+                                    authComplete = true
+                                }
+                            } label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .frame(height: 56)
+                                        .foregroundStyle(.buttonPurple)
+                                    
+                                    Text("SignIn")
+                                        .customFont(name: .plusJacartaSemiBold, size: 16)
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        
                     //divider
                         HStack {
                             Rectangle()
@@ -71,6 +92,9 @@ struct LoginView: View {
                 .padding(.bottom, 20)
             }
             .padding(.horizontal, 24)
+            .navigationDestination(isPresented: $authComplete, destination: {
+                TabBarView()
+            })
             .sheet(isPresented: $presentSignUP, onDismiss: {
                 viewModel.clearUserInfo()
             }, content: {
@@ -81,6 +105,6 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    LoginView()
-}
+//#Preview {
+//    LoginView()
+//}
