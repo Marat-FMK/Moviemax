@@ -50,7 +50,7 @@ class ProfileViewModel: ObservableObject {
         }
         
         if emailAdress != email {
-            FireBaseDataService.shared.uploudAuthEmail(email: emailAdress)
+            FireBaseDataService.shared.updateUserEmail(newEmail: emailAdress)
         }
         
         triggerSaveButton = false
