@@ -155,6 +155,12 @@ struct ProfileView: View {
                                 .buttonStyle(.plain)
                             }
                         }
+                        Button{
+                            viewModel.signOut()
+                        } label: {
+                            Text("Log Out")
+                                .foregroundStyle(.red)
+                        }
                     }
                     .onAppear {
                         firstName = viewModel.firstName
