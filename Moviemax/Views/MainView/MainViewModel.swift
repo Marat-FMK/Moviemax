@@ -68,5 +68,9 @@ class MainViewModel: ObservableObject {
 			favoriteFilmIDs.insert(filmID)
 		}
 	}
+    
+    func loudUserName() {
+        profile.name = UserDefaults.standard.string(forKey: "firstName") ?? ""
+    }
 
 }

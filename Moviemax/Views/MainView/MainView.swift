@@ -69,6 +69,9 @@ struct MainView: View {
 			}
             .padding(.horizontal, 24)
 		}
+        .onAppear {
+            viewModel.loudUserName()
+        }
         .sheet(item: $selectedMovie) { movie in
             DetailView(film: FilmModel(
                 id: UUID(),
