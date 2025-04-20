@@ -16,7 +16,6 @@ class FireBaseDataService: ObservableObject {
 //                    predicates: [.whereField("id", isEqualTo: currentUserID)]
 //    ) var users: [User]
     
-    
     @AppStorage("currentUserID") var currentUserID = ""
     @AppStorage("authComplete") var authComplete = false
     
@@ -147,7 +146,7 @@ class FireBaseDataService: ObservableObject {
     
     //Обновление данных пользователя
     func uploudUserInfo(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) async {
-        // Add a new document in collection "users"
+        // Add / upload document in collection "users"
         let db = Firestore.firestore()
         
         let newData = [ "firstName" : name,
