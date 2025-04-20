@@ -28,6 +28,8 @@ class FireBaseDataService: ObservableObject {
     @AppStorage("gender") var gender = ""
     @AppStorage("location") var location = ""
     
+    @AppStorage("userDocID") var userDocId = ""
+    
     static let shared = FireBaseDataService()
     
     private init() {
@@ -63,7 +65,7 @@ class FireBaseDataService: ObservableObject {
                 self.authComplete = true
                 self.currentUserID = result?.user.uid ?? ""
                 
-                self.fetchUsers { fetchedUsers in
+                self.fetchUsers { fetchedUsers, docID in
                     if let foundUser = fetchedUsers.first(where: { $0.id == self.currentUserID }) {
                         
                         
@@ -76,9 +78,13 @@ class FireBaseDataService: ObservableObject {
                         self.gender = foundUser.gender ?? ""
                         self.location = foundUser.location ?? ""
                         
+                        self.userDocId = docID
+                        
                         completion(true)
-                        print("✅ CURRENT USER INFO -->>>")
+                        print("✅ CURRENT USER ID -->>>")
                         print(self.currentUserID)
+                        print("USER DOC ID -->>>")
+                        print(self.userDocId)
                         print("auth COMPLETE")
                     } else {
                         print("❌ Пользователь не найден в списке")
@@ -92,27 +98,31 @@ class FireBaseDataService: ObservableObject {
     }
     
     //Загрузка данных пользователя
-    func fetchUsers(completion: @escaping ([User]) -> Void) {
+    func fetchUsers(completion: @escaping ([User], String) -> Void) {
         let db = Firestore.firestore()
         db.collection("users").getDocuments { snapshot, error in
             if let error = error {
                 print("Ошибка загрузки: \(error.localizedDescription)")
-                completion([])
+                completion([], "")
                 return
             }
             
             guard let documents = snapshot?.documents else {
                 print("Документов нет")
-                completion([])
+                completion([], "")
                 return
             }
             
             var fetchedUsers: [User] = []
-            
+            var userDocID = ""
             for doc in documents {
                 do {
                     let user = try doc.data(as: User.self)
                     fetchedUsers.append(user)
+                    if user.id == self.currentUserID {
+                        userDocID = String(doc.documentID)
+                    }
+                    
                 } catch {
                     print("❌ Ошибка декодирования:", error)
                 }
@@ -120,7 +130,7 @@ class FireBaseDataService: ObservableObject {
             
             DispatchQueue.main.async {
 //                self.users = fetchedUsers
-                completion(fetchedUsers)
+                completion(fetchedUsers, userDocID)
             }
         }
     }
