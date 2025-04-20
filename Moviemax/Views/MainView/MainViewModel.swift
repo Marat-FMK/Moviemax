@@ -27,9 +27,6 @@ class MainViewModel: ObservableObject {
 	@Published var currentIndex: Int = 1
 	@Published var profile = ProfileModel(name: "Julia", avatar: "avatar")
 
-    init() {
-        profile.name = FireBaseDataService.shared.firstName
-    }
     
 	var allMovies: [Movie] = [
 		Movie(title: "Drifting Home", time: 148, date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5.1, category: "All", castAndCrew: "no no", responders: 53),
@@ -70,7 +67,7 @@ class MainViewModel: ObservableObject {
 	}
     
     func loudUserName() {
-        profile.name = UserDefaults.standard.string(forKey: "firstName") ?? ""
+        profile.name = UserDefaults.standard.string(forKey: "firstName") ?? "" // можно попробовать прокинуть в инит
     }
 
 }
