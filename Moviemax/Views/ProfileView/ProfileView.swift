@@ -114,7 +114,7 @@ struct ProfileView: View {
                             .foregroundStyle(.loginTitle)
                             .padding(.top, 10)
                         
-                        TextEditor( text: $viewModel.location)
+                        TextEditor( text: $location)
                             .padding(15)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 24)
@@ -138,7 +138,7 @@ struct ProfileView: View {
                         } else {
                             VStack(spacing: 16) {
                                 Button {
-                                    viewModel.saveChanges(name: firstName, surname: lastName, emailAdress: email, birthday: dateOfBirdth, gend: gender, loc: location)
+                                    viewModel.saveChanges(name: firstName, surname: lastName, emailAdress: email, birthday: chooseDate, gend: gender, loc: location)
                                     
                                     dismiss()
                                 } label: {
