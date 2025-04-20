@@ -92,6 +92,7 @@ struct SignUpView: View {
         }
         .alert(alertTitle, isPresented: $alert, actions: {
             Button {
+                viewModel.userEmail = ""
                 viewModel.userPassword = ""
                 viewModel.confirmPassword = ""
             } label: {

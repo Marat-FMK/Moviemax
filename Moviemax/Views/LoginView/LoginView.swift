@@ -44,7 +44,7 @@ struct LoginView: View {
                                         .frame(height: 56)
                                         .foregroundStyle(.buttonPurple)
                                     
-                                    Text("SignIn")
+                                    Text("Sign In")
                                         .customFont(name: .plusJacartaSemiBold, size: 16)
                                         .foregroundStyle(.white)
                                 }
@@ -96,7 +96,9 @@ struct LoginView: View {
                 TabBarView()
             })
             .sheet(isPresented: $presentSignUP, onDismiss: {
-                viewModel.clearUserInfo()
+//                viewModel.clearUserInfo()
+                viewModel.userPassword = ""
+                viewModel.confirmPassword = ""
             }, content: {
                 SignUpView(viewModel: viewModel)
             })
