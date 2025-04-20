@@ -143,8 +143,41 @@ class FireBaseDataService: ObservableObject {
         } catch {
             print("error - signOut")
         }
+    }
+    
+    //Обновление данных пользователя
+    func uploudUserInfo(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) async {
+        // Add a new document in collection "users"
+        let db = Firestore.firestore()
+        
+        let newData = [ "firstName" : name,
+                        "lastName" : surname,
+                        "dateOfBirth" : birthday,
+                        "email" : emailAdress,
+                        "gender" : gend,
+                        "location" : loc,
+                        "id" : currentUserID]
+        
+        do {
+            try await db.collection("users").document(userDocId).setData(newData)
+            
+            self.firstName = name
+            self.lastName = surname
+            self.email = emailAdress
+            self.birthday = birthday
+            self.gender = gend
+            self.location = loc
+            print("Document successfully written!")
+        } catch {
+            print("Error writing document: \(error)")
+        }
         
     }
+    
+    func uploudAuthEmail(email: String) {
+        
+    }
+    
 }
     
 
