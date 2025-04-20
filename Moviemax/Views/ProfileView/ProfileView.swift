@@ -128,7 +128,7 @@ struct ProfileView: View {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 24)
                                         .frame(height: 56)
-                                        .foregroundStyle(.liteGray)  /// ???
+                                        .foregroundStyle(.liteGray) //?
                                     
                                     Text("Save Changes")
                                         .customFont(name: .plusJacartaSemiBold, size: 16)
@@ -163,6 +163,8 @@ struct ProfileView: View {
                         }
                     }
                     .onAppear {
+                        viewModel.loudFromUD()
+                        
                         firstName = viewModel.firstName
                         lastName = viewModel.lastName
                         email = viewModel.email

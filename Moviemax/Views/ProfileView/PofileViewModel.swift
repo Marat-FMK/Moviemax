@@ -26,15 +26,15 @@ class ProfileViewModel: ObservableObject {
     @State var triggerSaveButton = false
     
     init() {
-        // fetch user info
-        let firebase = FireBaseDataService.shared
-        self.firstName = firebase.firstName
-        self.lastName = firebase.lastName
-        self.email = firebase.email
-        self.dateOfBirth = firebase.birthday
-        self.gender = firebase.gender
-        self.location = firebase.location
-        
+//        // fetch user info
+//        let firebase = FireBaseDataService.shared
+//        self.firstName = firebase.firstName
+//        self.lastName = firebase.lastName
+//        self.email = firebase.email
+//        self.dateOfBirth = firebase.birthday
+//        self.gender = firebase.gender
+//        self.location = firebase.location
+//        
     }
     
     func saveChanges(name: String, surname: String, emailAdress: String, birthday: Date, gend: String, loc: String) {
@@ -46,7 +46,9 @@ class ProfileViewModel: ObservableObject {
             let formattedDate = dateFormatter.string(from: birthday)
             
             await FireBaseDataService.shared.uploudUserInfo(name: name, surname: surname, emailAdress: emailAdress, birthday: formattedDate, gend: gend, loc: loc)
+            
         }
+        
         if emailAdress != email {
             FireBaseDataService.shared.uploudAuthEmail(email: emailAdress)
         }
@@ -86,6 +88,15 @@ class ProfileViewModel: ObservableObject {
     func signOut() {
         FireBaseDataService.shared.signOut()
         UserDefaults.standard.set(false, forKey: "authComplete")
+    }
+    
+    func loudFromUD() {
+        firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
+        lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+        email = UserDefaults.standard.string(forKey: "email") ?? ""
+        dateOfBirth = UserDefaults.standard.string(forKey: "birthday") ?? ""
+        gender = UserDefaults.standard.string(forKey: "gender") ?? ""
+        location = UserDefaults.standard.string(forKey: "location") ?? ""
     }
     
 }
