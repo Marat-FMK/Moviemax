@@ -37,11 +37,18 @@ class ProfileViewModel: ObservableObject {
         
     }
     
-    func saveChanges(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) {
-        // all in firebase
-        
+    func saveChanges(name: String, surname: String, emailAdress: String, birthday: Date, gend: String, loc: String) {
+        Task {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "d.M.yyyy"
+            dateFormatter.dateStyle = .long
+            let formattedDate = dateFormatter.string(from: birthday)
+            
+            await FireBaseDataService.shared.uploudUserInfo(name: name, surname: surname, emailAdress: emailAdress, birthday: formattedDate, gend: gend, loc: loc)
+        }
         if emailAdress != email {
-            //func for set new adress in firebase
+            FireBaseDataService.shared.uploudAuthEmail(email: emailAdress)
         }
         
         triggerSaveButton = false
