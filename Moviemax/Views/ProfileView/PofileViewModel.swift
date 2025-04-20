@@ -27,13 +27,13 @@ class ProfileViewModel: ObservableObject {
     
     init() {
         // fetch user info
-        let user = FireBaseDataService.shared.currentUser
-        self.firstName = user?.firstName ?? ""
-        self.lastName = user?.lastName ?? ""
-        self.email = user?.email ?? ""
-        self.dateOfBirth = user?.dateOfBirth ?? ""
-        self.gender = user?.gender ?? ""
-        self.location = user?.location ?? ""
+        let firebase = FireBaseDataService.shared
+        self.firstName = firebase.firstName
+        self.lastName = firebase.lastName
+        self.email = firebase.email
+        self.dateOfBirth = firebase.birthday
+        self.gender = firebase.gender
+        self.location = firebase.location
         
     }
     
@@ -74,6 +74,11 @@ class ProfileViewModel: ObservableObject {
     func deleteAvatar() {
         selectedImage = Image("profile")
         //delete image in firebase
+    }
+    
+    func signOut() {
+        FireBaseDataService.shared.signOut()
+        UserDefaults.standard.set(false, forKey: "authComplete")
     }
     
 }
