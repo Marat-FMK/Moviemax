@@ -13,7 +13,7 @@ import SwiftUI
 
 class FireBaseDataService: ObservableObject {
 //    @FirestoreQuery(collectionPath: "users",
-//                    predicates: [.whereField("id", isEqualTo: currentUserID)]
+//                    predicates: [.whereField("id", isEqualTo: self.currentUserID)]
 //    ) var users: [User]
     
     @AppStorage("currentUserID") var currentUserID = ""
@@ -32,6 +32,7 @@ class FireBaseDataService: ObservableObject {
     static let shared = FireBaseDataService()
     
     private init() {
+        currentUserID = Auth.auth().getUserID() ?? ""
     }
     
     //Регистрация
@@ -173,10 +174,29 @@ class FireBaseDataService: ObservableObject {
         
     }
     
-    func uploudAuthEmail(email: String) {
-        
+    func sendEmailVerification() {
+        Auth.auth().currentUser?.sendEmailVerification { error in
+          // ...
+        }
+    }
+    func updateUserEmail(newEmail: String) {
+//        Auth.auth().languageCode = "ru"
+        Auth.auth().currentUser?.sendEmailVerification(beforeUpdatingEmail: newEmail) { error in
+            // ...
+          }
     }
     
+    func passwordResetWithEmail(email: String) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            // ...
+          }
+    }
+    
+    func updatePassword(password: String) {
+        Auth.auth().currentUser?.updatePassword(to: password) { error in
+          // ...
+        }
+    }
 }
     
 
