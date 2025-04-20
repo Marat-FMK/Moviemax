@@ -16,7 +16,6 @@ class FireBaseDataService: ObservableObject {
 //                    predicates: [.whereField("id", isEqualTo: currentUserID)]
 //    ) var users: [User]
     
-    @Published var currentUser: User?
     
     @AppStorage("currentUserID") var currentUserID = ""
     @AppStorage("authComplete") var authComplete = false
@@ -67,7 +66,6 @@ class FireBaseDataService: ObservableObject {
                 self.fetchUsers { fetchedUsers in
                     if let foundUser = fetchedUsers.first(where: { $0.id == self.currentUserID }) {
                         
-                        self.currentUser = User(id: foundUser.id, firstName: foundUser.firstName, lastName: foundUser.lastName, password: foundUser.password, email: foundUser.email, dateOfBirth: foundUser.dateOfBirth, gender: foundUser.gender, location: foundUser.location)
                         
                         //save to UD AppStotage
                         self.firstName = foundUser.firstName ?? ""
@@ -81,7 +79,6 @@ class FireBaseDataService: ObservableObject {
                         completion(true)
                         print("✅ CURRENT USER INFO -->>>")
                         print(self.currentUserID)
-                        print(self.currentUser ?? User(id: "", firstName: "", lastName: "", password: "", email: "", dateOfBirth: "", gender: "", location: ""))
                         print("auth COMPLETE")
                     } else {
                         print("❌ Пользователь не найден в списке")
@@ -132,8 +129,6 @@ class FireBaseDataService: ObservableObject {
     func signOut() {
         do {
             try Auth.auth().signOut()
-            
-            currentUser = nil
             authComplete = false
         } catch {
             print("error - signOut")
