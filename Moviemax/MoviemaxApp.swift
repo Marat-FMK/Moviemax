@@ -24,13 +24,17 @@ struct MoviemaxApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate // firebase
     
     var authComplete = UserDefaults.standard.bool(forKey: "authComplete")
-    
+    var rememberMe = UserDefaults.standard.bool(forKey: "rememberMe")
     var body: some Scene {
         WindowGroup {
             if authComplete {
-               TabBarView()
+                if rememberMe {
+                    TabBarView()
+                } else {
+                    LoginView()
+                }
             } else {
-               LoginView()
+                LoginView()
             }
         }
     }

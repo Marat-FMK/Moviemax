@@ -18,6 +18,7 @@ class FireBaseDataService: ObservableObject {
     
     @AppStorage("currentUserID") var currentUserID = ""
     @AppStorage("authComplete") var authComplete = false
+    @AppStorage("rememberMe") var rememberMe = true
     
     @AppStorage("firstName") var firstName = ""
     @AppStorage("lastName") var lastName = ""
@@ -26,6 +27,7 @@ class FireBaseDataService: ObservableObject {
     @AppStorage("birthday") var birthday = ""
     @AppStorage("gender") var gender = ""
     @AppStorage("location") var location = ""
+    
     
     @AppStorage("userDocID") var userDocId = ""
     @AppStorage("emailVerified") var emailVerified = false

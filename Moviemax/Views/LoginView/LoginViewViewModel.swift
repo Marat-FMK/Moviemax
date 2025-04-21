@@ -27,8 +27,16 @@ class LoginViewViewModel: ObservableObject {
     @Published var userPassword = ""
     @Published var confirmPassword = ""
     
-    @Published var rememberMe = true
     @Published var emailForPasswordChange = ""
+
+    @Published var rememberMe = UserDefaults.standard.bool(forKey: "rememberMe") {
+        didSet {
+            UserDefaults.standard.set(rememberMe, forKey: "rememberMe")
+        }
+    }
+    
+    
+    
     
     func signUp(completion: @escaping(Bool)->Void) {
         firestoreService.signUP(email: userEmail, password: userPassword, firstName: firstName, lastName: lastName) { result in
