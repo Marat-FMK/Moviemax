@@ -44,8 +44,8 @@ class LoginViewViewModel: ObservableObject {
     }
     
     func passwordСhange() {
-        // firebase
-        // and clear emailForPasswordChange
+        FireBaseDataService.shared.passwordResetWithEmail(email: emailForPasswordChange)
+        emailForPasswordChange = ""
     }
     func authWithGoogle() {
         //firebase // Обновил plist ^ дошел до OAuth

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ForgotPasswordView: View {
-    @StateObject var viewModel = LoginViewViewModel()
     @Environment(\.dismiss) var dismiss
+    @Binding var emailForPasswordChange: String
+    let action: ( ) -> Void
     
     var body: some View {
         
@@ -17,7 +18,7 @@ struct ForgotPasswordView: View {
             
             HStack {
 				BackButtonView(action: {
-                    viewModel.emailForPasswordChange =  ""
+                    emailForPasswordChange =  ""
                     dismiss()
                 })
                 
@@ -26,11 +27,11 @@ struct ForgotPasswordView: View {
                     .padding(.leading, 35) // ???
             }
             
-            CustomTF(answer: $viewModel.emailForPasswordChange, title: "Email", tfBGtext: "Enter your email")
+            CustomTF(answer: $emailForPasswordChange, title: "Email", tfBGtext: "Enter your email")
             
             Spacer()
             
-            PurpleButton(title: "Submit", action: viewModel.passwordСhange)
+            PurpleButton(title: "Submit", action: action)
                 .padding(.bottom, 20)
         }
         .navigationBarBackButtonHidden(true)
@@ -38,6 +39,6 @@ struct ForgotPasswordView: View {
     }
 }
 
-#Preview {
-    ForgotPasswordView()
-}
+//#Preview {
+//    ForgotPasswordView()
+//}

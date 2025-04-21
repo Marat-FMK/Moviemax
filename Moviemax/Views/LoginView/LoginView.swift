@@ -26,7 +26,7 @@ struct LoginView: View {
                     CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
                     CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password")
                     
-                    RememberHStackView(value: $viewModel.rememberMe)
+                    RememberHStackView(value: $viewModel.rememberMe, emailForPasswordChange: $viewModel.emailForPasswordChange, action: viewModel.passwordСhange)
                     .padding(.top, 20)
                     
                     //buttons
