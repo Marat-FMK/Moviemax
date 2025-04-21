@@ -9,11 +9,9 @@ import Foundation
 import SwiftUI
 
 struct User: Identifiable, Codable {
-    
     let id: String?
     let firstName: String?
     let lastName: String?
-    let password: String?
     let email: String?
     let dateOfBirth: String?
     let gender: String?

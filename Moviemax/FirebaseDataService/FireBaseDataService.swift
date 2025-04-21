@@ -23,7 +23,6 @@ class FireBaseDataService: ObservableObject {
     @AppStorage("firstName") var firstName = ""
     @AppStorage("lastName") var lastName = ""
     @AppStorage("email") var email = ""
-    @AppStorage("password") var password = ""
     @AppStorage("birthday") var birthday = ""
     @AppStorage("gender") var gender = ""
     @AppStorage("location") var location = ""
@@ -47,7 +46,7 @@ class FireBaseDataService: ObservableObject {
                 
                 //save profile info
                 let db = Firestore.firestore()
-                let newUser = User(id: result?.user.uid, firstName: firstName, lastName: lastName, password: password, email: email, dateOfBirth: "", gender: "", location: "")
+                let newUser = User(id: result?.user.uid, firstName: firstName, lastName: lastName, email: email, dateOfBirth: "", gender: "", location: "")
                 let _ = db.collection("users").addDocument(from: newUser)
                 
                 self.currentUserID = result?.user.uid ?? ""
@@ -77,7 +76,6 @@ class FireBaseDataService: ObservableObject {
                         self.firstName = foundUser.firstName ?? ""
                         self.lastName = foundUser.lastName ?? ""
                         self.email = foundUser.email ?? ""
-                        self.password = foundUser.password ?? ""
                         self.birthday = foundUser.dateOfBirth ?? ""
                         self.gender = foundUser.gender ?? ""
                         self.location = foundUser.location ?? ""
@@ -193,7 +191,9 @@ class FireBaseDataService: ObservableObject {
             print( "📧 check email verification, verified -->> \(emailVerified)")
     }
     func updateUserEmail(newEmail: String) {
-//        Auth.auth().languageCode = "ru" // "RUS" ???
+//        Auth.auth().languageCode = "ru" // отправит письмо на заданном языке/ На счет "ru" не уверен
+//        Auth.auth().useAppLanguage() // отправит письмо на языке приложения
+        
         Auth.auth().currentUser?.sendEmailVerification(beforeUpdatingEmail: newEmail) { error in
             if error != nil {
                 print( "❌ update email error", error?.localizedDescription ?? "")
@@ -216,6 +216,37 @@ class FireBaseDataService: ObservableObject {
             }
         }
     }
+    
+    func deleteUser() {
+        let user = Auth.auth().currentUser
+        
+        user?.delete { error in
+          if let error = error {
+              print("delete user error", error.localizedDescription)
+            // An error happened.
+          } else {
+            // Account deleted.
+            //Exit to LoginView
+          }
+        }
+    }
+    
+    func reauthorizaton() {
+        ////Повторная аутентификация нужна для действия связанных с безопасностью в случае если аутентификация была произведена давно. Если выдаст ошибку:  FIRAuthErrorCodeCredentialTooOld
+//        let user = Auth.auth().currentUser
+//        var credential: AuthCredential
+//
+//        // Prompt the user to re-provide their sign-in credentials
+//
+//        user?.reauthenticate(with: credential) { error in
+//          if let error = error {
+//            // An error happened.
+//          } else {
+//            // User re-authenticated.
+//          }
+//        }
+    }
+    
 }
     
 
