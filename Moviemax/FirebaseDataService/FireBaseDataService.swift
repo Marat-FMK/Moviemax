@@ -181,7 +181,9 @@ class FireBaseDataService: ObservableObject {
     func sendEmailVerification() {
 //        Auth.auth().languageCode = "ru"
         Auth.auth().currentUser?.sendEmailVerification { error in
-            print( "❌ send verification error", error?.localizedDescription ?? "")
+            if error != nil {
+                print( "❌ send verification error", error?.localizedDescription ?? "")
+            }
         }
     }
     
@@ -192,19 +194,25 @@ class FireBaseDataService: ObservableObject {
     func updateUserEmail(newEmail: String) {
 //        Auth.auth().languageCode = "ru" // "RUS" ???
         Auth.auth().currentUser?.sendEmailVerification(beforeUpdatingEmail: newEmail) { error in
-            print( "❌ update email error", error?.localizedDescription ?? "")
-          }
+            if error != nil {
+                print( "❌ update email error", error?.localizedDescription ?? "")
+            }
+        }
     }
     
     func passwordResetWithEmail(email: String) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
-            print( "❌ passwordResetWithEmail error", error?.localizedDescription ?? "")
-          }
+            if error != nil {
+                print( "❌ passwordResetWithEmail error", error?.localizedDescription ?? "")
+            }
+        }
     }
     
     func updatePassword(password: String) {
         Auth.auth().currentUser?.updatePassword(to: password) { error in
-            print( "❌ update password error", error?.localizedDescription ?? "")
+            if error != nil {
+                print( "❌ update password error", error?.localizedDescription ?? "")
+            }
         }
     }
 }
