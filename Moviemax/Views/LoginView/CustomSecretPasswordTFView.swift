@@ -31,10 +31,10 @@ struct CustomSecretPasswordTFView: View {
                         Button{
                             visible.toggle()
                         } label: {
-                            Image(systemName: "eye.slash.fill")
+                            Image(systemName: "eye.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 24)
+                                .frame(width: 24)
                                 .foregroundStyle(.gray)
                         }
                         .buttonStyle(.plain)
@@ -51,7 +51,7 @@ struct CustomSecretPasswordTFView: View {
                             Image(systemName: "eye.slash.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 24)
+                                .frame(width: 24)
                                 .foregroundStyle(.gray)
                         }
                         .buttonStyle(.plain)
