@@ -53,6 +53,7 @@ class FireBaseDataService: ObservableObject {
                 self.currentUserID = result?.user.uid ?? ""
                 
                 // firebase verification with email
+                self.sendEmailVerification()
                 
             } else {
                 completion(false)
@@ -67,8 +68,6 @@ class FireBaseDataService: ObservableObject {
             if result != nil {
                 self.authComplete = true
                 self.currentUserID = result?.user.uid ?? ""
-                
-                self.sendEmailVerification()
                 
                 self.fetchUsers { fetchedUsers, docID in
                     if let foundUser = fetchedUsers.first(where: { $0.id == self.currentUserID }) {
