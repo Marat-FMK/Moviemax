@@ -35,7 +35,15 @@ struct SettingsView: View {
 						.foregroundStyle(.textBlack)
 					){
 						SettingsListCell(iconName: "lock", title: "Change Password", isDarkMode: isDarkMode)
+							.background(
+								NavigationLink("", destination: ChangePasswordView())
+									.opacity(0)
+							)
 						SettingsListCell(iconName: "unlock", title: "Forgot Password", isDarkMode: isDarkMode)
+							.background(
+								NavigationLink("", destination: ForgotPasswordView())
+									.opacity(0)
+							)
 						SettingsListDarkModeCell(iconName: "activity", title: "Dark Mode", isDarkMode: $isDarkMode)
 					}
 					.listRowSeparator(.hidden)
@@ -45,8 +53,6 @@ struct SettingsView: View {
 //				.scrollContentBackground(.hidden)
 //				.background(Color.clear)
 				.listStyle(PlainListStyle())
-
-				.navigationTitle("Settings")
 				.navigationBarTitleDisplayMode(.inline)
 				Button(action: {
 					viewModel.logOut()
@@ -66,6 +72,13 @@ struct SettingsView: View {
 				}
 				.padding(.horizontal, 24)
 				.padding(.bottom, 12)
+			}
+			.toolbar {
+				ToolbarItem(placement: .principal) {
+					Text("Settings")
+						.customFont(name: .plusJacartaSemiBold, size: 18)
+						.foregroundStyle(.textBlack)
+				}
 			}
 		}
 	}
