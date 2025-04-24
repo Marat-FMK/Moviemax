@@ -39,9 +39,29 @@ struct ChangePasswordView: View {
 					BackButtonView(action: { dismiss() })
 				}
 			}
-			PurpleButton(title: "Change", action: viewModel.passwordСhange)
-				.padding(.bottom, 20)
-				.padding(.horizontal, 24)
+            
+            // CHANGE BUTTON
+            
+//			PurpleButton(title: "Change", action: FireBaseDataService.shared.updatePassword(password: newPassword))
+//				.padding(.bottom, 20)
+//				.padding(.horizontal, 24)
+            VStack(spacing: 16) {
+                Button {
+                    FireBaseDataService.shared.updatePassword(password: newPassword)
+                    dismiss()
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 24)
+                            .frame(height: 56)
+                            .foregroundStyle(.buttonPurple)
+                        
+                        Text("Change")
+                            .customFont(name: .plusJacartaSemiBold, size: 16)
+                            .foregroundStyle(.white)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
 		}
     }
 }
