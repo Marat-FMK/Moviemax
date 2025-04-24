@@ -93,7 +93,7 @@ class FireBaseDataService: ObservableObject {
                     }
                 }
             } else {
-                print("❌ auth ERROR")
+                print("❌ auth ERROR check password or email")
                 completion(false)
             }
         }
@@ -142,8 +142,9 @@ class FireBaseDataService: ObservableObject {
         do {
             try Auth.auth().signOut()
             authComplete = false
+            print("😌 Log OUT OK --- >>")
         } catch {
-            print("error - signOut")
+            print("error - signOut --- >>")
         }
     }
     
@@ -213,8 +214,11 @@ class FireBaseDataService: ObservableObject {
         Auth.auth().currentUser?.updatePassword(to: password) { error in
             if error != nil {
                 print( "❌ update password error", error?.localizedDescription ?? "")
+            } else {
+                print(" ☑️ Pasword change complete")
             }
         }
+        
     }
     
     func deleteUser() {
