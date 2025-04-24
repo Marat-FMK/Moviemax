@@ -27,6 +27,7 @@ struct MoviemaxApp: App {
     var rememberMe = UserDefaults.standard.bool(forKey: "rememberMe")
     var body: some Scene {
         WindowGroup {
+            
             if authComplete {
                 if rememberMe {
                     TabBarView()
@@ -36,6 +37,7 @@ struct MoviemaxApp: App {
             } else {
                 LoginView()
             }
+            
         }
     }
 }
