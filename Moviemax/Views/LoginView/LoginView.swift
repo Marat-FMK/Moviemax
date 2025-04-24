@@ -36,7 +36,11 @@ struct LoginView: View {
                         VStack(spacing: 16) {
                             Button {
                                 viewModel.signIn { result in
-                                    authComplete = true
+                                    if result {
+                                        authComplete = true
+                                        viewModel.userEmail = ""
+                                        viewModel.userPassword = ""
+                                    }
                                 }
                             } label: {
                                 ZStack {
