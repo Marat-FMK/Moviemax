@@ -45,6 +45,7 @@ class SettingsViewModel: ObservableObject {
     func changePasswordWithEmail() {
         FireBaseDataService.shared.passwordResetWithEmail(email: emailForChangePassword)
     }
+    
 	func logOut() {
         FireBaseDataService.shared.signOut()
 	}
