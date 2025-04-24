@@ -9,8 +9,9 @@ import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
-	@StateObject var viewModel: SettingsViewModel = SettingsViewModel(user: User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "21 Sept 1993", gender: "Male", location: "", login: "@nik123"))
-	
+	@StateObject var viewModel: SettingsViewModel = SettingsViewModel()
+	@State private var presentLoginView = false
+    
 	@AppStorage("isDarkMode") private var isDarkMode: Bool = false
 
 	var body: some View {
@@ -24,7 +25,7 @@ struct SettingsView: View {
 						.customFont(name: .plusJacartaRegular, size: 12)
 						.foregroundStyle(.textBlack)
 					) {
-						NavigationLink(destination: ProfileView(user: viewModel.user)) {
+						NavigationLink(destination: ProfileView()) {
 							SettingsListCell(iconName: "person", title: "Profile", isDarkMode: isDarkMode)
 						}
 					}
@@ -41,7 +42,7 @@ struct SettingsView: View {
 							)
 						SettingsListCell(iconName: "unlock", title: "Forgot Password", isDarkMode: isDarkMode)
 							.background(
-								NavigationLink("", destination: ForgotPasswordView())
+                                NavigationLink("", destination: ForgotPasswordView(emailForPasswordChange: $viewModel.emailForChangePassword, action: viewModel.changePasswordWithEmail))
 									.opacity(0)
 							)
 						SettingsListDarkModeCell(iconName: "activity", title: "Dark Mode", isDarkMode: $isDarkMode)
@@ -56,6 +57,7 @@ struct SettingsView: View {
 				.navigationBarTitleDisplayMode(.inline)
 				Button(action: {
 					viewModel.logOut()
+//                    presentLoginView.toggle()
 				}) {
 					Text("Log Out")
 						.customFont(name: .plusJacartaBold, size: 16)
@@ -73,6 +75,10 @@ struct SettingsView: View {
 				.padding(.horizontal, 24)
 				.padding(.bottom, 12)
 			}
+            .onAppear {
+                viewModel.loudFromUD()
+            }
+//            .navigationDestination(isPresented: $presentLoginView, destination: { LoginView()})
 			.toolbar {
 				ToolbarItem(placement: .principal) {
 					Text("Settings")
@@ -143,5 +149,5 @@ struct SettingsListDarkModeCell: View {
 }
 
 #Preview {
-	SettingsView(viewModel: SettingsViewModel(user: User(id: "12121", firstName: "Nik", lastName: "Nikitov", password: "qwert", email: "nik@desc.com", dateOfBirth: "21 Sept 1993", gender: "Male", location: "", login: "@nik123")))
+	SettingsView()
 }
