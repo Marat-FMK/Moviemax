@@ -22,15 +22,8 @@ class AppDelegate: NSObject, UIApplicationDelegate { //firebase
 @main
 struct MoviemaxApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate // firebase
-
-//	@AppStorage("isDarkMode") var isDarkMode: Bool = false
-
-   // var body: some Scene {
-     //   WindowGroup {
-     //       TabBarView()
-			//	.preferredColorScheme(isDarkMode ? .dark : .light)
-
     
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     var authComplete = UserDefaults.standard.bool(forKey: "authComplete")
     var rememberMe = UserDefaults.standard.bool(forKey: "rememberMe")
     var body: some Scene {
@@ -39,11 +32,14 @@ struct MoviemaxApp: App {
             if authComplete {
                 if rememberMe {
                     TabBarView()
+                        .preferredColorScheme(isDarkMode ? .dark : .light)
                 } else {
                     LoginView()
+                        .preferredColorScheme(isDarkMode ? .dark : .light)
                 }
             } else {
                 LoginView()
+                    .preferredColorScheme(isDarkMode ? .dark : .light)
             }
             
 
