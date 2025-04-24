@@ -62,6 +62,7 @@ struct ChangePasswordView: View {
                 }
                 .buttonStyle(.plain)
             }
+            .padding(.horizontal,24)
 		}
     }
 }

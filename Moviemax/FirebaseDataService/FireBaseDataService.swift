@@ -150,6 +150,13 @@ class FireBaseDataService: ObservableObject {
     
     //Обновление данных пользователя
     func uploudUserInfo(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) async {
+        self.firstName = name
+        self.lastName = surname
+        self.email = emailAdress
+        self.birthday = birthday
+        self.gender = gend
+        self.location = loc
+        
         // Add / upload document in collection "users"
         let db = Firestore.firestore()
         
@@ -164,12 +171,6 @@ class FireBaseDataService: ObservableObject {
         do {
             try await db.collection("users").document(userDocId).setData(newData)
             
-            self.firstName = name
-            self.lastName = surname
-            self.email = emailAdress
-            self.birthday = birthday
-            self.gender = gend
-            self.location = loc
             print("Document successfully written!")
         } catch {
             print("Error writing document: \(error)")
