@@ -22,24 +22,38 @@ class ProfileViewModel: ObservableObject {
     @Published var location = ""
     
     @Published var userGender: Gender? = nil
-    @Published var userInfo: User
     
     @State var triggerSaveButton = false
     
-	init(user: User) {
-        // fetch user info
-		self.userInfo = user
 
-        self.firstName = userInfo.firstName
-        self.lastName = userInfo.lastName
-        self.email = userInfo.email
-        self.dateOfBirth = userInfo.dateOfBirth
-        self.gender = userInfo.gender
-        self.location = userInfo.location
+    init() {
+//        // fetch user info
+//        let firebase = FireBaseDataService.shared
+//        self.firstName = firebase.firstName
+//        self.lastName = firebase.lastName
+//        self.email = firebase.email
+//        self.dateOfBirth = firebase.birthday
+//        self.gender = firebase.gender
+//        self.location = firebase.location
+//        
     }
     
-    func saveChanges(name: String, surname: String, emailAdress: String, birthday: String, gend: String, loc: String) {
-        // all in firebase
+    func saveChanges(name: String, surname: String, emailAdress: String, birthday: Date, gend: String, loc: String) {
+        Task {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "d.M.yyyy"
+            dateFormatter.dateStyle = .long
+            let formattedDate = dateFormatter.string(from: birthday)
+            
+            await FireBaseDataService.shared.uploudUserInfo(name: name, surname: surname, emailAdress: emailAdress, birthday: formattedDate, gend: gend, loc: loc)
+            
+        }
+        
+        if emailAdress != email {
+            FireBaseDataService.shared.updateUserEmail(newEmail: emailAdress)
+        }
+        
         triggerSaveButton = false
     }
     
@@ -70,6 +84,20 @@ class ProfileViewModel: ObservableObject {
     func deleteAvatar() {
         selectedImage = Image("profile")
         //delete image in firebase
+    }
+    
+    func signOut() {
+        FireBaseDataService.shared.signOut()
+        UserDefaults.standard.set(false, forKey: "authComplete")
+    }
+    
+    func loudFromUD() {
+        firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
+        lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+        email = UserDefaults.standard.string(forKey: "email") ?? ""
+        dateOfBirth = UserDefaults.standard.string(forKey: "birthday") ?? ""
+        gender = UserDefaults.standard.string(forKey: "gender") ?? ""
+        location = UserDefaults.standard.string(forKey: "location") ?? ""
     }
     
 }

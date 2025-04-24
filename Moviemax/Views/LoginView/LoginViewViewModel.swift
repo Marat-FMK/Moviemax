@@ -19,7 +19,7 @@ import GoogleSignIn
 
 class LoginViewViewModel: ObservableObject {
     
-    var firestoreService = FireBaseDataService()
+    var firestoreService = FireBaseDataService.shared
     
     @Published var firstName = ""
     @Published var lastName = ""
@@ -27,8 +27,16 @@ class LoginViewViewModel: ObservableObject {
     @Published var userPassword = ""
     @Published var confirmPassword = ""
     
-    @Published var rememberMe = true
     @Published var emailForPasswordChange = ""
+
+    @Published var rememberMe = UserDefaults.standard.bool(forKey: "rememberMe") {
+        didSet {
+            UserDefaults.standard.set(rememberMe, forKey: "rememberMe")
+        }
+    }
+    
+    
+    
     
     func signUp(completion: @escaping(Bool)->Void) {
         firestoreService.signUP(email: userEmail, password: userPassword, firstName: firstName, lastName: lastName) { result in
@@ -36,13 +44,16 @@ class LoginViewViewModel: ObservableObject {
         }
     }
     
-    func signIn() {
-        firestoreService.signIn(email: userEmail, password: userPassword)
+    func signIn(completion: @escaping(Bool)->Void) {
+        firestoreService.signIn(email: userEmail, password: userPassword){result in
+            completion(result)
+        }
+        
     }
     
     func passwordСhange() {
-        // firebase
-        // and clear emailForPasswordChange
+        FireBaseDataService.shared.passwordResetWithEmail(email: emailForPasswordChange)
+        emailForPasswordChange = ""
     }
     func authWithGoogle() {
         //firebase // Обновил plist ^ дошел до OAuth

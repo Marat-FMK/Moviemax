@@ -118,7 +118,7 @@ struct ProfileView: View {
                             .foregroundStyle(.loginTitle)
                             .padding(.top, 10)
                         
-                        TextEditor( text: $viewModel.location)
+                        TextEditor( text: $location)
                             .padding(15)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 24)
@@ -132,7 +132,7 @@ struct ProfileView: View {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 24)
                                         .frame(height: 56)
-                                        .foregroundStyle(.liteGray)  /// ???
+                                        .foregroundStyle(.liteGray) //?
                                     
                                     Text("Save Changes")
                                         .customFont(name: .plusJacartaSemiBold, size: 16)
@@ -142,7 +142,7 @@ struct ProfileView: View {
                         } else {
                             VStack(spacing: 16) {
                                 Button {
-                                    viewModel.saveChanges(name: firstName, surname: lastName, emailAdress: email, birthday: dateOfBirdth, gend: gender, loc: location)
+                                    viewModel.saveChanges(name: firstName, surname: lastName, emailAdress: email, birthday: chooseDate, gend: gender, loc: location)
                                     
                                     dismiss()
                                 } label: {
@@ -159,8 +159,16 @@ struct ProfileView: View {
                                 .buttonStyle(.plain)
                             }
                         }
+                        Button{
+                            viewModel.signOut()
+                        } label: {
+                            Text("Log Out")
+                                .foregroundStyle(.red)
+                        }
                     }
                     .onAppear {
+                        viewModel.loudFromUD()
+                        
                         firstName = viewModel.firstName
                         lastName = viewModel.lastName
                         email = viewModel.email

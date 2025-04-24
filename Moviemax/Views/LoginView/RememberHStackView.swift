@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RememberHStackView: View {
     @Binding var value: Bool
+    @Binding var emailForPasswordChange: String
+    let action: ()->Void
     
     var body: some View {
         HStack {
@@ -21,7 +23,7 @@ struct RememberHStackView: View {
             
             
             NavigationLink {
-                ForgotPasswordView()
+                ForgotPasswordView(emailForPasswordChange: $emailForPasswordChange, action: action)
             } label: {
                 Text("Forgot password?")
                     .foregroundStyle(.toogle)
@@ -30,6 +32,6 @@ struct RememberHStackView: View {
     }
 }
 
-#Preview {
-    RememberHStackView(value: .constant(true))
-}
+//#Preview {
+//    RememberHStackView(value: .constant(true))
+//}

@@ -48,6 +48,7 @@ extension TabBarItem {
             view: AnyTabView(FavoritesView())
         ),
         TabBarItem(
+
             title: "Settings",
             iconName: "SettingsView",
 			view: AnyTabView(SettingsView())
