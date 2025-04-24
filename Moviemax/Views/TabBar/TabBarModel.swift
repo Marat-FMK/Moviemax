@@ -48,9 +48,10 @@ extension TabBarItem {
             view: AnyTabView(FavoritesView())
         ),
         TabBarItem(
-            title: "Profile",
-            iconName: "ProfileView",
-            view: AnyTabView(ProfileView())
+
+            title: "Settings",
+            iconName: "SettingsView",
+			view: AnyTabView(SettingsView())
         ),
     ]
 }

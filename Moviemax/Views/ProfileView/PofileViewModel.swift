@@ -25,6 +25,7 @@ class ProfileViewModel: ObservableObject {
     
     @State var triggerSaveButton = false
     
+
     init() {
 //        // fetch user info
 //        let firebase = FireBaseDataService.shared
