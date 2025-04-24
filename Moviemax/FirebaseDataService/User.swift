@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct User: Identifiable, Codable {
+    
     let id: String?
     let firstName: String?
     let lastName: String?
@@ -16,4 +17,5 @@ struct User: Identifiable, Codable {
     let dateOfBirth: String?
     let gender: String?
     let location: String?
+    
 }
