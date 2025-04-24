@@ -33,3 +33,34 @@ struct PurpleButton: View {
 #Preview {
     PurpleButton(title: "Sign In", action: {} )
 }
+
+
+
+
+//FOR ESCAPING FUNC BUTTON
+//struct PurpleButton: View {
+//    @Binding var authComplete: Bool
+//    let title: String
+//    let action: (@escaping(Bool)->Void) -> Void
+//
+//    var body: some View {
+//        VStack(spacing: 16) {
+//            Button {
+//                action { result in
+//                    authComplete = true
+//                }
+//            } label: {
+//                ZStack {
+//                    RoundedRectangle(cornerRadius: 24)
+//                        .frame(height: 56)
+//                        .foregroundStyle(.buttonPurple)
+//
+//                    Text(title)
+//                        .customFont(name: .plusJacartaSemiBold, size: 16)
+//                        .foregroundStyle(.white)
+//                }
+//            }
+//            .buttonStyle(.plain)
+//        }
+//    }
+//}

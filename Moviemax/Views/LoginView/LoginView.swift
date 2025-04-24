@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var viewModel = LoginViewViewModel()
     
+    @StateObject var viewModel = LoginViewViewModel()
     @State var presentSignUP = false
+    @State var authComplete = false
     
     var body: some View {
         NavigationStack {
@@ -25,12 +26,32 @@ struct LoginView: View {
                     CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
                     CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password")
                     
-                    RememberHStackView(value: $viewModel.rememberMe)
+                    RememberHStackView(value: $viewModel.rememberMe, emailForPasswordChange: $viewModel.emailForPasswordChange, action: viewModel.passwordСhange)
                     .padding(.top, 20)
                     
-                    //BUTTONs
+                    //buttons
                     VStack(spacing: 16) {
-                        PurpleButton(title: "Sign In", action: viewModel.signIn)
+
+//                        PurpleButton(authComplete: $authComplete, title: "Sign In", action: viewModel.signIn)
+                        VStack(spacing: 16) {
+                            Button {
+                                viewModel.signIn { result in
+                                    authComplete = true
+                                }
+                            } label: {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .frame(height: 56)
+                                        .foregroundStyle(.buttonPurple)
+                                    
+                                    Text("Sign In")
+                                        .customFont(name: .plusJacartaSemiBold, size: 16)
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        
                     //divider
                         HStack {
                             Rectangle()
@@ -71,8 +92,13 @@ struct LoginView: View {
                 .padding(.bottom, 20)
             }
             .padding(.horizontal, 24)
+            .navigationDestination(isPresented: $authComplete, destination: {
+                TabBarView()
+            })
             .sheet(isPresented: $presentSignUP, onDismiss: {
-                viewModel.clearUserInfo()
+//                viewModel.clearUserInfo()
+                viewModel.userPassword = ""
+                viewModel.confirmPassword = ""
             }, content: {
                 SignUpView(viewModel: viewModel)
             })
@@ -81,6 +107,6 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    LoginView()
-}
+//#Preview {
+//    LoginView()
+//}

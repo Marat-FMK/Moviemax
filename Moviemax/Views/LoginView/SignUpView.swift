@@ -14,11 +14,11 @@ struct SignUpView: View {
     @State private var seePassword = false
     @State private var seeConfirmPassword = false
     
-    @State var presentLogin = false
-    
     @State private var alert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    
+    //    @State var presentLogin = false
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -44,16 +44,16 @@ struct SignUpView: View {
                         if viewModel.checkPassword() {
                             viewModel.signUp { result in
                                 if result {
-                                    presentLogin.toggle()
+                                    dismiss()
                                 } else {
-                                    alertTitle = "Please, try again"
-                                    alertMessage = "server error"
+                                    alertTitle = "Server error"
+                                    alertMessage = "Please, try again and check entered data."
                                     alert.toggle()
                                 }
                             }
                         } else {
                             alertTitle = "Please, check password"
-                            alertMessage = "6+ characters"
+                            alertMessage = "Enter more than 6 characters."
                             alert = true
                         }
                     } label: {
@@ -92,6 +92,7 @@ struct SignUpView: View {
         }
         .alert(alertTitle, isPresented: $alert, actions: {
             Button {
+                viewModel.userEmail = ""
                 viewModel.userPassword = ""
                 viewModel.confirmPassword = ""
             } label: {
