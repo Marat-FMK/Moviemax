@@ -8,16 +8,21 @@
 import Foundation
 
 struct Movie: Identifiable, Equatable {
+	let id = UUID()
 	let title: String
-	let time: Int
-	let date: String
+	let date: Date
 	let image: String
 	let urlTrailer: String
-	var favorite: Bool
 	let rating: Double
-	let category: String
-	let castAndCrew: String
-	let id = UUID()
+	let timing: Int
 	let responders: Int
+	let category: String
+	let description: String
+	let castCrew: [CrewMemberModel]
 }
 
+struct CrewMemberModel: Hashable, Equatable {
+	let image: String
+	let name: String
+	let role: String
+}

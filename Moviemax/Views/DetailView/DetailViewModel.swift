@@ -8,16 +8,16 @@
 import Foundation
 
 class DetailViewModel: ObservableObject {
-	@Published var film: FilmModel
+	@Published var movie: Movie
 	@Published var isFavorite: Bool = false
 
-    init(film: FilmModel) {
-        self.film = film
-        self.isFavorite = UserDefaults.standard.isFavorite(filmID: film.id.uuidString) // Если используется сохранение в UserDefaults
+    init(movie: Movie) {
+        self.movie = movie
+        self.isFavorite = UserDefaults.standard.isFavorite(filmID: movie.id.uuidString) // Если используется сохранение в UserDefaults
     }
     
 	func changeFavorite() {
-		UserDefaults.standard.toggleFavorite(filmID: film.id.uuidString)
+		UserDefaults.standard.toggleFavorite(filmID: movie.id.uuidString)
 		isFavorite.toggle()
 	}
 }

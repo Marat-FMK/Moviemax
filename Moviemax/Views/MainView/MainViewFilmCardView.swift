@@ -41,7 +41,7 @@ struct MainViewFilmCardView: View {
 					.foregroundStyle(.textBlack)
 					.padding(.bottom, 8)
 				HStack {
-					MovieTime(time: movie.time)
+					MovieTimeView(time: movie.timing)
 					Spacer()
 					MainFilmCardRatingView(rating: movie.rating, responders: movie.responders)
 				}
@@ -72,5 +72,11 @@ struct MainFilmCardRatingView: View {
 }
 
 #Preview {
-	MainViewFilmCardView(isFavourite: .constant(true), movie: Movie(title: "Luck", time: 148, date: "12.11.25", image: "luck", urlTrailer: "", favorite: true, rating: 4.4, category: "Adventure", castAndCrew: "", responders: 54))
+	MainViewFilmCardView(isFavourite: .constant(true), movie: Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
+ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+ """, castCrew: [
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+ ]))
 }

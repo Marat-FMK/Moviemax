@@ -29,10 +29,34 @@ class MainViewModel: ObservableObject {
 
     
 	var allMovies: [Movie] = [
-		Movie(title: "Drifting Home", time: 148, date: "17 Sep 2021", image: "drifting", urlTrailer: "", favorite: true, rating: 5.1, category: "All", castAndCrew: "no no", responders: 53),
-		Movie(title: "Luck", time: 150, date: "19 Nov 1992", image: "luck", urlTrailer: "", favorite: false, rating: 3.3, category: "Action", castAndCrew: "no no no", responders: 25),
-		Movie(title: "Fistful", time: 212, date: "21 Jun 2024", image: "fistful", urlTrailer: "", favorite: false, rating: 2, category: "Fantasy", castAndCrew: "no no", responders: 46),
-		Movie(title: "Jurassic world", time: 215, date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no", responders: 115)
+		Movie(title: "Drifting Home", date: .now, image: "drifting", urlTrailer: "", rating: 5.1, timing: 112, responders: 105, category: "All", description: """
+ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+ """, castCrew: [
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+ ]),
+		Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
+ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+ """, castCrew: [
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+ ]),
+		Movie(title: "Fistful", date: .now, image: "fistful", urlTrailer: "", rating: 3.2, timing: 212, responders: 45, category: "Fantasy", description: """
+ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+ """, castCrew: [
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+ ]),
+		Movie(title: "Jurassic world", date: .now, image: "", urlTrailer: "", rating: 5, timing: 215, responders: 115, category: "Adventure", description: """
+ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+ """, castCrew: [
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+ ])
 	]
 
 	var currentCategoryMovies: [Movie] {
