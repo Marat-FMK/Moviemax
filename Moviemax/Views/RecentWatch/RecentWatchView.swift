@@ -32,7 +32,7 @@ struct RecentWatchView: View {
                 ScrollView( showsIndicators: false) {
                     VStack( spacing: 10) {
                         ForEach(viewModel.chooseCategoryMovies, id: \.id) { movie in
-                            MovieCard(movie: movie, changeFavorite: viewModel.changeFavorite)
+							MovieCard(movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite)
                         }
                     }
                 }

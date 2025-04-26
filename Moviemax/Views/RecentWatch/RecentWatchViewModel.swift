@@ -13,7 +13,9 @@ class RecentWatchViewModel: ObservableObject {
     var allFilms = [Movie]()
     @Published var chooseCategoryMovies = [Movie]()
     @Published var choosedCategory = "All"
-    
+
+	@AppStorage("favoriteFilmIDs") var favourite: Bool = false
+
     init() {
         //  allFilms =   fetch movies from CoreData
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MovieCard: View {
     let movie: Movie
+	@Binding var favorite: Bool
     let changeFavorite: (UUID) -> Void
     
     var body: some View {
@@ -40,11 +41,11 @@ struct MovieCard: View {
                     .bold()
                 
                 //TIME
-                MovieTime(time: movie.time)
-                
+				MovieTimeView(time: movie.timing)
+
                 //DATE
-                MovieDate(date: movie.date)
-                
+				MovieDateVIew(date: movie.date)
+
                 //TRAILER BUTTON
                 MovieCardPlayButton(category: movie.category, action: {} ) // action - play trailer action
             }
@@ -52,13 +53,14 @@ struct MovieCard: View {
             Spacer()
             
             Button{
-                changeFavorite(movie.id)
+//                changeFavorite(movie.id)
+				favorite.toggle()
             } label: {
-                Image(systemName: movie.favorite ? "heart.fill" : "heart")
+                Image(systemName: favorite ? "heart.fill" : "heart")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 20)
-                    .foregroundStyle(movie.favorite ? .buttonPurple : .heartNoFill)
+                    .foregroundStyle(favorite ? .buttonPurple : .heartNoFill)
             }
         }
         .padding(.vertical, 10)
@@ -66,5 +68,11 @@ struct MovieCard: View {
 }
 
 #Preview {
-	MovieCard(movie: Movie(title: "Jurassic world", time: 215, date: "9 Sep 2016", image: "", urlTrailer: "", favorite: true, rating: 5, category: "Fantasy", castAndCrew: "no no", responders: 115), changeFavorite: {_ in })
+	MovieCard(movie: Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
+ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+ """, castCrew: [
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+ ]), favorite: .constant(true), changeFavorite: {_ in })
 }
