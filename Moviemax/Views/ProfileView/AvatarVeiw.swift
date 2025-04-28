@@ -43,6 +43,10 @@ struct AvatarVeiw: View {
                         Task {
                             if let item = newValue {
                                 selectedImage = try? await item.loadTransferable(type: Image.self)
+                                let data = try? await item.loadTransferable(type: Data.self)
+                                print("data ---->> save")
+                                UserDefaults.standard.set(data, forKey: "avatar")
+                                
                             }
                         }
                     }
