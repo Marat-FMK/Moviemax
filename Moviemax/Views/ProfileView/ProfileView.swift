@@ -38,7 +38,7 @@ struct ProfileView: View {
         ZStack {
             
             if presentAlert {
-                AvatarVeiw(pickerItem: $viewModel.pickerItem, selectedImage: $viewModel.selectedImage, action: viewModel.deleteAvatar)
+                AvatarVeiw(pickerItem: $viewModel.pickerItem, selectedImage: $viewModel.selectedImage, action: viewModel.deleteAvatar, presentAlert: $presentAlert, blurValue: $blurValue)
                     .zIndex(1.0)
                 Spacer()
             }

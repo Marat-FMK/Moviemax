@@ -12,6 +12,8 @@ struct AvatarVeiw: View {
     @Binding var pickerItem: PhotosPickerItem?
     @Binding var selectedImage: Image?
     let action: () -> Void
+    @Binding var presentAlert: Bool
+    @Binding var blurValue: Int
     
     var body: some View {
             ZStack {
@@ -46,7 +48,10 @@ struct AvatarVeiw: View {
                                 let data = try? await item.loadTransferable(type: Data.self)
                                 print("data ---->> save")
                                 UserDefaults.standard.set(data, forKey: "avatar")
-                                
+                            }
+                            withAnimation {
+                                presentAlert.toggle()
+                                blurValue = 0
                             }
                         }
                     }
