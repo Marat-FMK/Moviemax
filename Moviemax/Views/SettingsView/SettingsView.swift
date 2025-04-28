@@ -91,13 +91,14 @@ struct SettingsView: View {
 }
 
 struct ProfileImageView: View {
+    @StateObject var viewModel = ProfileViewModel()
 	let firstName: String
 	let lastName: String
 	let login: String
-
+    
 	var body: some View {
 		HStack {
-			Image("profile")
+            viewModel.selectedImage! // UNWRAP
 				.resizable()
 				.scaledToFill()
 				.frame(width: 56, height: 56)
@@ -113,7 +114,19 @@ struct ProfileImageView: View {
 					.foregroundStyle(.subtextGray)
 			}
 		}
+        .onAppear {
+            viewModel.setAvatar()
+        }
 	}
+    
+//    func loudImage() -> Image {
+//        var currentAvatar = Image("profile")
+//        
+//        guard let data = UserDefaults.standard.data(forKey: "avatar") else { return currentAvatar}
+//        guard let uiImage = UIImage(data: data) else { return currentAvatar}
+//        currentAvatar = Image(uiImage: uiImage)
+//        return currentAvatar
+//    }
 }
 
 struct SettingsListCell: View {
