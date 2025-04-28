@@ -73,7 +73,8 @@ struct FilterView: View {
             
             PurpleButton(title: "Apply Filters", action: viewModel.applyFilters)
                 .onSubmit {
-                    dismiss()
+//                    viewModel.presentFilter = false
+//                    dismiss()
                 }
             
         }
