@@ -27,15 +27,7 @@ class ProfileViewModel: ObservableObject {
     
 
     init() {
-//        // fetch user info
-//        let firebase = FireBaseDataService.shared
-//        self.firstName = firebase.firstName
-//        self.lastName = firebase.lastName
-//        self.email = firebase.email
-//        self.dateOfBirth = firebase.birthday
-//        self.gender = firebase.gender
-//        self.location = firebase.location
-//        
+        setAvatar()
     }
     
     func saveChanges(name: String, surname: String, emailAdress: String, birthday: Date, gend: String, loc: String) {
@@ -75,10 +67,17 @@ class ProfileViewModel: ObservableObject {
         dateOfBirth = formattedDate
     }
     
-    func setAvatar()-> Image {
-        guard let currentImage = selectedImage else {return Image("profile")}
-        return currentImage
-        
+    func setAvatar() {
+        var currentImage = Image("profile")
+        if UserDefaults.standard.data(forKey: "avatar") != nil {
+            guard let data = UserDefaults.standard.data(forKey: "avatar") else { return}
+            guard let uiimage = UIImage(data: data) else { return }
+            currentImage = Image(uiImage: uiimage)
+            self.selectedImage = currentImage
+        }
+//        return currentImage
+//        guard let currentImage = selectedImage else {return Image("profile")}
+//        return currentImage
     }
     
     func deleteAvatar() {
@@ -99,5 +98,5 @@ class ProfileViewModel: ObservableObject {
         gender = UserDefaults.standard.string(forKey: "gender") ?? ""
         location = UserDefaults.standard.string(forKey: "location") ?? ""
     }
-    
+  
 }

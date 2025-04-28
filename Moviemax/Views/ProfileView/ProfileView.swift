@@ -55,7 +55,7 @@ struct ProfileView: View {
                         }
                     } label: {
                         ZStack {
-                            viewModel.setAvatar()
+                            viewModel.selectedImage!
                                 .resizable()
                                 .scaledToFill()
                                 .foregroundStyle(.liteGray)
