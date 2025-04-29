@@ -35,8 +35,16 @@ struct SearchView: View {
                     
                     //MOVIECARDS
                     ScrollView(showsIndicators: false) {
-                        ForEach(viewModel.currentCategoryMovies, id: \.title ) { movie in
-							MovieCard(movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite)
+//                        ForEach(viewModel.currentCategoryMovies, id: \.title ) { movie in
+//							MovieCard(movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite)
+//                        }
+                        ForEach(viewModel.currentCategoryMovies, id: \.name) { movie in
+                            HStack{
+                                Text(movie.name ?? "no name")
+                                Divider()
+                                Text(String(movie.rating?.imdb ?? 0.0))
+                            }
+                            
                         }
                         .padding(.bottom, 80)
                     }
