@@ -56,6 +56,7 @@ class ApiService {
             do {
                 let decoded = try JSONDecoder().decode(Movies.self, from: data)
                 DispatchQueue.main.async {
+                    print(decoded.docs)
                     completion(decoded.docs)
                 }
             } catch {

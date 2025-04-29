@@ -44,6 +44,7 @@ struct ApiMovie: Identifiable, Codable {
     let movieLenght: Int?
     let rating: Rating?
     let poster: Poster?
+    let createdAt: String?
 }
 
 struct Genre: Codable {

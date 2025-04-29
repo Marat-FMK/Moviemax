@@ -38,7 +38,7 @@ struct SearchView: View {
 //                        ForEach(viewModel.currentCategoryMovies, id: \.title ) { movie in
 //							MovieCard(movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite)
 //                        }
-                        ForEach(viewModel.currentCategoryMovies, id: \.name) { movie in
+                        ForEach(viewModel.currentCategoryMovies, id: \.id) { movie in
                             HStack{
                                 Text(movie.name ?? "no name")
                                 Divider()
