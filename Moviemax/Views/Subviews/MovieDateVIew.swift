@@ -19,7 +19,7 @@ struct MovieDateVIew: View {
 //			Text(date, format: Date.FormatStyle(date: .abbreviated, time: .omitted))
 //				.customFont(name: .montserrat, size: 12)
 //				.foregroundStyle(.subtextGray)
-            Text(date)
+            Text( "\(date) year" )
 		}
     }
 }

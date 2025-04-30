@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MovieCard: View {
+    let movieCategory: String
     let movie: Movie
     @Binding var favorite: Bool
     
@@ -17,9 +18,9 @@ struct MovieCard: View {
         HStack(alignment:.top, spacing: 12) {
             
             NavigationLink {
-                DetailView(movie: movie)
+                DetailView(id: movie.id ?? 0)
             } label: {
-                AsyncImage(url: URL(string: movie.image)) { Image in
+                AsyncImage(url: URL(string: movie.poster?.url ?? "")) { Image in
                     Image
                         .resizable()
                         .frame(width: 120, height: 160)
@@ -37,19 +38,19 @@ struct MovieCard: View {
             }
             
             VStack(alignment: .leading, spacing: 15) {
-                Text(movie.title)
+                Text(movie.name ?? "no name")
                     .customFont(name: .plusJacartaBold, size: 18)
                     .foregroundStyle(.filterCategoriesText)
                     .bold()
                 
                 //TIME
-				MovieTimeView(time: movie.timing)
+				MovieTimeView(time: movie.movieLenght ?? 000)
 
                 //DATE
-				MovieDateVIew(date: movie.date)
+				MovieDateVIew(date: String(movie.year ?? 0))
 
                 //TRAILER BUTTON
-                MovieCardPlayButton(category: movie.category, action: {} ) // action - play trailer action
+                MovieCardPlayButton(category: movieCategory == "All" ? movie.genres?[0].name ?? "all" : movieCategory, action: {} ) // action - play trailer action
             }
             
             Spacer()
@@ -69,12 +70,12 @@ struct MovieCard: View {
     }
 }
 
-#Preview {
-	MovieCard(movie: Movie(title: "Luck", date: "2004", image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ]), favorite: .constant(true), changeFavorite: {_ in })
-}
+//#Preview {
+//	MovieCard(movie: Movie(title: "Luck", date: "2004", image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
+// Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+// """, castCrew: [
+//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+// ]), favorite: .constant(true), changeFavorite: {_ in })
+//}

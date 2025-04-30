@@ -16,32 +16,43 @@ struct DetailView: View {
         UIScreen.main.bounds.width
     }
     
-    init(movie: Movie) {
-        _viewModel = StateObject(wrappedValue: DetailViewModel(movie: movie))
+    init(id: Int) {
+        _viewModel = StateObject(wrappedValue: DetailViewModel(id: id))
     }
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    Image(viewModel.movie.image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: ((screenWidth * 9) / 16) , height: screenWidth)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
-                        .padding(.top, 20)
-                    Text(viewModel.movie.title)
+                    AsyncImage(url: URL(string: viewModel.movie.poster?.url ?? "")) { Image in
+                        Image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: ((screenWidth * 9) / 16) , height: screenWidth)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
+                            .padding(.top, 20)
+                    } placeholder: {
+                        Image("profile")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: ((screenWidth * 9) / 16) , height: screenWidth)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
+                            .padding(.top, 20)
+                    }
+
+                    Text(viewModel.movie.name ?? "no name")
 						.foregroundStyle(.textBlack)
                         .padding(.top, 24)
 						.customFont(name: .plusJacartaBold, size: 24)
                     HStack(alignment: .center, spacing: 20) {
-                        MovieTimeView(time: viewModel.movie.timing)
-                        MovieDateVIew(date: viewModel.movie.date)
-                        MovieCategoryView(category: viewModel.movie.category)
+                        MovieTimeView(time: viewModel.movie.movieLenght ?? 0)
+                        MovieDateVIew(date: String(viewModel.movie.year ?? 0))
+                        MovieCategoryView(category: viewModel.movie.genres?[0].name ?? "all")
                     }
                     .padding(.vertical, 17)
-                    RatingStarView(rating: Int(viewModel.movie.rating))
+                    RatingStarView(rating: Int(viewModel.movie.rating?.imdb ?? 0.0))
                         .padding(.bottom, 32)
                     
                     VStack(alignment: .leading) {
@@ -50,7 +61,7 @@ struct DetailView: View {
                             .padding(.bottom, 16)
 							.foregroundStyle(.textBlack)
 
-                        ExpandableText(viewModel.movie.description, lineLimit: 6)
+                        ExpandableText(viewModel.movie.description ?? "no description", lineLimit: 6)
 							.customFont(name: .plusJacartaRegular, size: 14)
 							.foregroundStyle(.subtextGray)
                             .padding(.bottom, 24)
@@ -60,8 +71,8 @@ struct DetailView: View {
 							.foregroundStyle(.textBlack)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(viewModel.movie.castCrew, id: \.self) { crewMember in
-                                    CrewMemberView(image: crewMember.image, name: crewMember.name, role: crewMember.role)
+                                ForEach(viewModel.persons, id: \.id) { person in
+                                    CrewMemberView(image: person.photo ?? "", name: person.name ?? "???", role: person.profession ?? "no info")
                                 }
                             }
                         }
@@ -107,7 +118,8 @@ struct DetailView: View {
                     .shadow(radius: 60)
             }
 			.onAppear {
-				viewModel.isFavorite = UserDefaults.standard.isFavorite(filmID: viewModel.movie.id.uuidString)
+//				viewModel.isFavorite = UserDefaults.standard.isFavorite(filmID: viewModel.movie.id.uuidString)
+                viewModel.fetchFullInfoAboutFilm(id: viewModel.filmId)
 			}
         }
     }
