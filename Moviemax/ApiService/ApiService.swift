@@ -9,13 +9,15 @@ import Foundation
 import SwiftUI
 
 class ApiService {
-//    let link = "https://api.kinopoisk.dev/"
-    let apiKey = "39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1" // X-API-KEY -->> 39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1
 
+    // https://kinopoisk.dev/
+    let linkForSearch = "https://api.kinopoisk.dev/v1.4/movie/search"
     
-    func searchMovies(searchText: String, completion: @escaping ([ApiMovie]) -> Void) {
+    let apiKey = "39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1" // header X-API-KEY -->> 39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1 limit  // 200requests/day
+    
+    func searchMovies(searchText: String, completion: @escaping ([Movie]) -> Void) {
         
-        guard let url = URL(string: "https://api.kinopoisk.dev/v1.4/movie/search") else {
+        guard let url = URL(string: linkForSearch) else {
             completion([])
             return
         }
