@@ -29,30 +29,31 @@ class MainViewModel: ObservableObject {
 
     
 	var allMovies: [Movie] = [
-		Movie(title: "Drifting Home", date: .now, image: "drifting", urlTrailer: "", rating: 5.1, timing: 112, responders: 105, category: "All", description: """
+		Movie(title: "Drifting Home", date: "2005", image: "drifting", urlTrailer: "", rating: 5.1, timing: 112, responders: 105, category: "All", description: """
  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
  """, castCrew: [
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
  ]),
-		Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
+		Movie(title: "Luck", date: "2002", image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
  """, castCrew: [
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
  ]),
-		Movie(title: "Fistful", date: .now, image: "fistful", urlTrailer: "", rating: 3.2, timing: 212, responders: 45, category: "Fantasy", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+		Movie(title: "Fistful", date: "2004", image: "fistful", urlTrailer: "", rating: 3.2, timing: 212, responders: 45, category: "Fantasy", description: """
+ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
  """, castCrew: [
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
  ]),
-		Movie(title: "Jurassic world", date: .now, image: "", urlTrailer: "", rating: 5, timing: 215, responders: 115, category: "Adventure", description: """
+		Movie(title: "Jurassic world", date: "2232", image: "", urlTrailer: "", rating: 5, timing: 215, responders: 115, category: "Adventure", description: """
  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
+ """
+              , castCrew: [
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
