@@ -15,7 +15,7 @@ class SearchViewModel: ObservableObject {
     
     //FILTER
     @Published var presentFilter = false
-    @Published var selectedCategories = ["All", "Action", "Adventure", "Mystery", "Fantasy", "Others"]
+    @Published var selectedCategories = ["All", "комедия", "драма", "детектив", "боевик", "криминал", "приключения"]
     @Published var temporaryCategories: [String] = []
     @Published var chooseCategory = "All"
     
@@ -23,29 +23,46 @@ class SearchViewModel: ObservableObject {
     @Published var temporaryRating = [Int]()
     @Published var chooseRating = 4
     
-    //    var currentCategoryMovies: [ApiMovie] {
-    //        if chooseCategory == "All"{
-    //            return foundMovies
-    //        } else {
-    ////            return foundMovies.filter {  $0.genres.  } -->> !!!
-    //            return foundMovies
-    //        }
-    //    }
-    
-    
-    @Published var currentCategoryMovies: [ApiMovie] = []
-    var foundMovies: [ApiMovie] = []
+    @Published var currentCategoryMovies: [Movie] = []
+    var foundMovies: [Movie] = []
 
     func searchFilms() {
         ApiService().searchMovies(searchText: searchText) { movies in
-            self.currentCategoryMovies = movies
+            
+            var currentMovies: [Movie] = []
+            for movie in movies {
+                if movie.description != nil && movie.description != "" && movie.poster?.url != nil && movie.name != "" {
+                    currentMovies.append(movie)
+                }
+            }
+            self.foundMovies = currentMovies
+            self.updateCurrentCategoryMovies()
         }
     }
     
+    func checkGenreInMovie(genre: [Genre]) -> Bool{
+            var bool = false
+            for genre in genre {
+                if genre.name == chooseCategory {
+                    bool = true
+                }
+            }
+            return bool
+    }
+
+    func updateCurrentCategoryMovies() {
+            if chooseCategory == "ALL" {
+                currentCategoryMovies = foundMovies
+            } else {
+                currentCategoryMovies = foundMovies.filter{ checkGenreInMovie(genre: $0.genres ?? [])} // ??
+            }
+    }
+        
     func chooseUserCategory(category: String) {
         chooseCategory = category
         //search films with choose categoty
         //currentCategoryMovies = searchedFilms
+        updateCurrentCategoryMovies()
     }
     
     func changeFavorite(id: UUID) {
