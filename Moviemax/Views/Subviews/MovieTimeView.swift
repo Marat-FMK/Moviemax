@@ -17,7 +17,8 @@ struct MovieTimeView: View {
 				.scaledToFit()
 				.frame(height: 16)
 				.foregroundStyle(.infoIcon)
-			Text(String.localizedStringWithFormat("%d Minute%@", time, time == 1 ? "" : "s"))
+//			Text(String.localizedStringWithFormat("%d Minute%@", time, time == 1 ? "" : "s"))
+            Text("\(String(time)) minutes ")
 				.customFont(name: .montserrat, size: 12)
 				.foregroundStyle(.subtextGray)
 		}
