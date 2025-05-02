@@ -161,7 +161,7 @@ struct ProfileView: View {
                         }
                     }
                     .onAppear {
-                        viewModel.loudFromUD()
+                        viewModel.loadFromUD()
                         
                         firstName = viewModel.firstName
                         lastName = viewModel.lastName

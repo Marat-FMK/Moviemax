@@ -8,16 +8,24 @@
 import Foundation
 
 class DetailViewModel: ObservableObject {
+	let firebaseManager = FireBaseDataService.shared
+
 	@Published var movie: Movie
 	@Published var isFavorite: Bool = false
 
-    init(movie: Movie) {
+	let favouriteManager = FavouriteManager.shared
+
+	init(movie: Movie) {
         self.movie = movie
-        self.isFavorite = UserDefaults.standard.isFavorite(filmID: movie.id.uuidString) // Если используется сохранение в UserDefaults
+		self.isFavorite = favouriteManager.isFavourite(userId: firebaseManager.currentUserID, movieId: movie.id.uuidString)
     }
-    
+
+	func getFavourite() {
+		isFavorite = favouriteManager.isFavourite(userId: firebaseManager.currentUserID, movieId: movie.id.uuidString)
+	}
+
 	func changeFavorite() {
-		UserDefaults.standard.toggleFavorite(filmID: movie.id.uuidString)
+		favouriteManager.toggleFavourite(userId: firebaseManager.currentUserID, movieId: movie.id.uuidString)
 		isFavorite.toggle()
 	}
 }

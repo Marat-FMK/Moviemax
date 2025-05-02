@@ -90,7 +90,7 @@ class MainViewModel: ObservableObject {
 		}
 	}
     
-    func loudUserName() {
+    func loadUserName() {
         profile.name = UserDefaults.standard.string(forKey: "firstName") ?? "" // можно попробовать прокинуть в инит
     }
 

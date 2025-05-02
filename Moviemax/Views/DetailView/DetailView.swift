@@ -16,8 +16,8 @@ struct DetailView: View {
         UIScreen.main.bounds.width
     }
     
-    init(movie: Movie) {
-        _viewModel = StateObject(wrappedValue: DetailViewModel(movie: movie))
+	init(movie: Movie) {
+		_viewModel = StateObject(wrappedValue: DetailViewModel(movie: movie))
     }
     
     var body: some View {
@@ -107,7 +107,7 @@ struct DetailView: View {
                     .shadow(radius: 60)
             }
 			.onAppear {
-				viewModel.isFavorite = UserDefaults.standard.isFavorite(filmID: viewModel.movie.id.uuidString)
+				viewModel.getFavourite()
 			}
         }
     }
@@ -193,6 +193,5 @@ struct ExpandableText: View {
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
 	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ])
-	)
+ ]))
 }

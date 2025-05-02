@@ -91,7 +91,7 @@ class ProfileViewModel: ObservableObject {
         UserDefaults.standard.set(false, forKey: "authComplete")
     }
     
-    func loudFromUD() {
+    func loadFromUD() {
         firstName = UserDefaults.standard.string(forKey: "firstName") ?? ""
         lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
         email = UserDefaults.standard.string(forKey: "email") ?? ""

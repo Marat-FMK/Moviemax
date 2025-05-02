@@ -70,7 +70,7 @@ struct MainView: View {
             .padding(.horizontal, 24)
 		}
         .onAppear {
-            viewModel.loudUserName()
+            viewModel.loadUserName()
         }
         .sheet(item: $selectedMovie) { movie in
 			DetailView(movie: movie)
