@@ -105,6 +105,26 @@ struct SignUpView: View {
 //            LoginView()
 //        })
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    ZStack{
+                        Circle()
+                            .frame(width: 32, height: 32)
+                            .foregroundStyle(.thinMaterial)
+
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 14)
+                            .foregroundStyle(.textBlack)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+        }
         .padding(.horizontal,24)
         .padding(.bottom,20)
     }

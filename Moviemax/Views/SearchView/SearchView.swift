@@ -27,7 +27,7 @@ struct SearchView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(viewModel.selectedCategories, id: \.self) { category in
-                                CategoryFilterButton(title: category, value: viewModel.checkCategoryName(category: category), action: viewModel.chooseCategory)
+                                CategoryFilterButton(title: category, value: viewModel.checkCategoryName(category: category), action: viewModel.chooseUserCategory)
                             }
                         }
                         .padding(.leading,24)

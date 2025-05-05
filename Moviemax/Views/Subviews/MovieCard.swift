@@ -9,29 +9,31 @@ import SwiftUI
 
 struct MovieCard: View {
     let movie: Movie
-	@Binding var favorite: Bool
+    @Binding var favorite: Bool
+    
     let changeFavorite: (UUID) -> Void
     
     var body: some View {
         HStack(alignment:.top, spacing: 12) {
-            AsyncImage(url: URL(string: movie.image)) { Image in
-                Image
-                    .resizable()
-                    .frame(width: 120, height: 160)
-                    .clipShape(
-                        RoundedRectangle.init(cornerRadius: 16)
-                    )
-            } placeholder: {
-                Image("luck") // Shimmer
-                    .resizable()
-                    .frame(width: 120, height: 160)
-                    .clipShape(
-                        RoundedRectangle.init(cornerRadius: 16)
-                    )
-            }
-            .onTapGesture {
-                // go to detail View
-                print("go to detail View")
+            
+            NavigationLink {
+                DetailView(movie: movie)
+            } label: {
+                AsyncImage(url: URL(string: movie.image)) { Image in
+                    Image
+                        .resizable()
+                        .frame(width: 120, height: 160)
+                        .clipShape(
+                            RoundedRectangle.init(cornerRadius: 16)
+                        )
+                } placeholder: {
+                    Image("luck") // Shimmer
+                        .resizable()
+                        .frame(width: 120, height: 160)
+                        .clipShape(
+                            RoundedRectangle.init(cornerRadius: 16)
+                        )
+                }
             }
             
             VStack(alignment: .leading, spacing: 15) {

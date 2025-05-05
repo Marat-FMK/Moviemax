@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct ChangePasswordView: View {
-	@StateObject var viewModel = LoginViewViewModel()
+//	@StateObject var viewModel = LoginViewViewModel()
 	@Environment(\.dismiss) var dismiss
 
 	@State private var newPassword: String = ""
 	@State private var repeatNewPassword: String = ""
 
+    @State private var presentAlert = false
+    
     var body: some View {
 		VStack {
 			List {
 				Section {
-					CustomTF(answer: $viewModel.userPassword, title: "Currant password", tfBGtext: "Enter your current password")
+//					CustomTF(answer: $viewModel.userPassword, title: "Currant password", tfBGtext: "Enter your current password")
 					CustomTF(answer: $newPassword, title: "New password", tfBGtext: "Enter new password")
 					CustomTF(answer: $repeatNewPassword, title: "Repeat new password", tfBGtext: "Repeat new password")
 				}
@@ -47,8 +49,12 @@ struct ChangePasswordView: View {
 //				.padding(.horizontal, 24)
             VStack(spacing: 16) {
                 Button {
-                    FireBaseDataService.shared.updatePassword(password: newPassword)
-                    dismiss()
+                    if newPassword == repeatNewPassword {
+                        FireBaseDataService.shared.updatePassword(password: newPassword)
+                        dismiss()
+                    } else {
+                        presentAlert.toggle()
+                    }
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 24)
@@ -64,6 +70,18 @@ struct ChangePasswordView: View {
             }
             .padding(.horizontal,24)
 		}
+        .alert("Passwords don't match", isPresented: $presentAlert) {
+            Button {
+                repeatNewPassword = ""
+            } label: {
+                Text("OK")
+            }
+            .buttonStyle(.plain)
+        } message: {
+            Text("Please,check the entered data")
+        }
+
+
     }
 }
 

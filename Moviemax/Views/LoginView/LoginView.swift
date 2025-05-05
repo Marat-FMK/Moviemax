@@ -12,6 +12,8 @@ struct LoginView: View {
     @StateObject var viewModel = LoginViewViewModel()
     @State var presentSignUP = false
     @State var authComplete = false
+    @State var visible = false
+    @State private var presentAlert = false
     
     var body: some View {
         NavigationStack {
@@ -24,7 +26,9 @@ struct LoginView: View {
                 
                 VStack (alignment: .leading, spacing: 10) {
                     CustomTF(answer: $viewModel.userEmail, title: "Email", tfBGtext: "Enter your address")
-                    CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password")
+//                    CustomTF(answer: $viewModel.userPassword, title: "Password", tfBGtext: "Enter your password")
+                    CustomSecretPasswordTFView(visible: $visible, answer: $viewModel.userPassword, title: "Password")
+                    
                     
                     RememberHStackView(value: $viewModel.rememberMe, emailForPasswordChange: $viewModel.emailForPasswordChange, action: viewModel.passwordСhange)
                     .padding(.top, 20)
@@ -39,6 +43,10 @@ struct LoginView: View {
                                     if result {
                                         authComplete = true
                                         viewModel.userEmail = ""
+                                        viewModel.userPassword = ""
+                                    } else {
+                                        presentAlert = true
+                                        authComplete = false
                                         viewModel.userPassword = ""
                                     }
                                 }
@@ -95,17 +103,23 @@ struct LoginView: View {
                 }
                 .padding(.bottom, 20)
             }
+            .alert("Auth error", isPresented: $presentAlert, actions: {}, message: {
+                Text("Please, check your password or email")
+            })
             .padding(.horizontal, 24)
             .navigationDestination(isPresented: $authComplete, destination: {
                 TabBarView()
             })
-            .sheet(isPresented: $presentSignUP, onDismiss: {
-//                viewModel.clearUserInfo()
-                viewModel.userPassword = ""
-                viewModel.confirmPassword = ""
-            }, content: {
+            .navigationDestination(isPresented: $presentSignUP, destination: {
                 SignUpView(viewModel: viewModel)
             })
+//            .sheet(isPresented: $presentSignUP, onDismiss: {
+////                viewModel.clearUserInfo()
+//                viewModel.userPassword = ""
+//                viewModel.confirmPassword = ""
+//            }, content: {
+//                SignUpView(viewModel: viewModel)
+//            })
             .navigationBarBackButtonHidden(true)
         }
     }
