@@ -23,38 +23,15 @@ class SearchViewModel: ObservableObject {
     @Published var temporaryRating = [Int]()
     @Published var chooseRating = 4
     
+    var currentCategoryMovies: [Movie] {
+        if chooseCategory == "All"{
+            return foundMovies
+        } else {
+            return foundMovies.filter {$0.category == chooseCategory}
+        }
+    }
+    
 	var foundMovies: [Movie] = [
-		Movie(title: "Drifting Home", date: .now, image: "drifting", urlTrailer: "", rating: 5.1, timing: 112, responders: 105, category: "All", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ]),
-		Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ]),
-		Movie(title: "Fistful", date: .now, image: "fistful", urlTrailer: "", rating: 3.2, timing: 212, responders: 45, category: "Fantasy", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ]),
-		Movie(title: "Jurassic world", date: .now, image: "", urlTrailer: "", rating: 5, timing: 215, responders: 115, category: "Adventure", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ])
-	]
-
-	var currentCategoryMovies: [Movie] = [
 		Movie(title: "Drifting Home", date: .now, image: "drifting", urlTrailer: "", rating: 5.1, timing: 112, responders: 105, category: "All", description: """
  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
  """, castCrew: [
@@ -89,7 +66,7 @@ class SearchViewModel: ObservableObject {
         // go to network for array of movies with choosedCategory
     }
     
-    func chooseCategory(category: String) {
+    func chooseUserCategory(category: String) {
         chooseCategory = category
         //search films with choose categoty
         //currentCategoryMovies = searchedFilms
@@ -137,6 +114,8 @@ class SearchViewModel: ObservableObject {
         print(selectedRating)
         print(chooseCategory)
         print(chooseRating)
+        
+        presentFilter.toggle()
     }
     
     func setTemporaryFilterArrays() {

@@ -15,7 +15,7 @@ struct MainView: View {
 		NavigationStack {
 			VStack(alignment: .leading) {
 				HStack {
-					Image("profile")
+                    ProfileViewModel().selectedImage!
 						.resizable()
 						.scaledToFill()
 						.frame(width: 40, height: 40)
