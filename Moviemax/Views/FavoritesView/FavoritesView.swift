@@ -14,8 +14,8 @@ struct FavoritesView: View {
         NavigationView {
             VStack{
                 ScrollView(showsIndicators: false) {
-                    ForEach(viewModel.favoriteMovies, id: \.title ) { movie in
-						MovieCard(movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite)
+                    ForEach(viewModel.favoriteMovies, id: \.name ) { movie in
+                        MovieCard(movieCategory: "all", movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite) // Movie Category !!!
                     }
                     .padding(.bottom, 80)
                 }
