@@ -71,7 +71,7 @@ struct CaruselCardView: View {
 	let degrees: CGFloat
 
 	var body: some View {
-		Image(image.image)
+        Image("drifting")
 			.resizable()
 			.scaledToFill()
 			.frame(width: imageWidth, height: imageHeight)
@@ -90,7 +90,7 @@ struct CaruselCenterCardView: View {
 
 	var body: some View {
 		ZStack {
-			Image(movie.image)
+			Image("drifting")
 				.resizable()
 				.scaledToFill()
 				.frame(width: imageWidth, height: imageHeight)
@@ -107,7 +107,7 @@ struct CaruselCenterCardView: View {
 			HStack {
 				VStack(alignment: .leading) {
 					Spacer()
-					Button(movie.category) {
+					Button("all") {
 						action()
 					}
 					.padding(.horizontal, 8)
@@ -116,7 +116,7 @@ struct CaruselCenterCardView: View {
 					.customFont(name: .plusJacartaRegular, size: 10)
 					.clipShape(Capsule())
 					.foregroundStyle(.totalWhiteText)
-					Text(movie.title)
+					Text(movie.name ?? "")
 						.customFont(name: .plusJacartaBold, size: 14)
 
 				}

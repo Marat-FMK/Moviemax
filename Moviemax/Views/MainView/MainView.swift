@@ -56,7 +56,7 @@ struct MainView: View {
 							.foregroundStyle(.buttonPurple)
 						}
                         ForEach(viewModel.currentCategoryMovies) { movie in
-							NavigationLink(destination: DetailView(movie: movie)) {
+                            NavigationLink(destination: DetailView(id: 8213)) { // ID !!!
                                 MainViewFilmCardView(isFavourite: Binding(
                                     get: { viewModel.isFavorite(movie: movie) },
                                     set: { _ in viewModel.toggleFavorite(movie: movie) }
@@ -73,7 +73,7 @@ struct MainView: View {
             viewModel.loudUserName()
         }
         .sheet(item: $selectedMovie) { movie in
-			DetailView(movie: movie)
+            DetailView(id: movie.id ?? 18952)
         }
     }
 }
