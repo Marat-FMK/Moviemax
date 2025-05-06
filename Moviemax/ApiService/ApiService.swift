@@ -8,6 +8,12 @@
 import Foundation
 import SwiftUI
 
+enum NetworkError: String, Error {
+    case url = "bad url"
+    case data = "no data in request"
+    case decode = "error in decode model from json"
+    case request = "request error"
+}
 class ApiService {
 
     // https://kinopoisk.dev/
@@ -60,7 +66,7 @@ class ApiService {
                 let decoded = try JSONDecoder().decode(Movies.self, from: data)
                 DispatchQueue.main.async {
                     print(decoded.docs)
-                    completion(decoded.docs)
+                    completion(decoded.docs ?? [])
                 }
             } catch {
                 print("Ошибка декодирования: \(error.localizedDescription)")
@@ -69,9 +75,10 @@ class ApiService {
         }.resume()
     }
     
-    func fetchFilmInfo(id: Int, completion: @escaping (Movie?) -> Void ) {
+    func fetchFilmInfo(id: Int, completion: @escaping ( Result<Movie,NetworkError> ) -> Void ) {
+        
         guard let url = URL(string: linkFilmIdInfo + String(id)) else {
-            completion(nil)
+            completion(.failure(.url))
             return
         }
         
@@ -87,25 +94,25 @@ class ApiService {
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print("Ошибка запроса: \(error!.localizedDescription)")
-                completion(nil)
+                completion(.failure(.request))
                 return
             }
             
             guard let data = data else {
                 print("Пустые данные")
-                completion(nil)
+                completion(.failure(.data))
                 return
             }
             
             do {
-                let decoded = try JSONDecoder().decode(Movie.self, from: data)
+                let movie = try JSONDecoder().decode(Movie.self, from: data)
                 DispatchQueue.main.async {
-                    print( "Detail Film INFO ----- >>> ", decoded)
-                    completion(decoded)
+                    print( "Detail Film INFO ----- >>> ", movie)
+                    completion(.success(movie))
                 }
             } catch {
                 print("Ошибка декодирования: \(error.localizedDescription)")
-                completion(nil)
+                completion(.failure(.decode))
             }
         }.resume()
     }
