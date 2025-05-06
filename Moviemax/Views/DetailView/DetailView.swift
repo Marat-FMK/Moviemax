@@ -7,90 +7,142 @@
 
 import SwiftUI
 
+
+struct DetailImage: View { // marat
+    
+    let imageURL: String
+    let height: CGFloat
+    let width: CGFloat
+    
+    var body: some View {
+        AsyncImage(url: URL(string: imageURL)) { Image in
+            Image
+                .resizable()
+                .scaledToFill()
+                .frame(width: width , height: height)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
+                .padding(.top, 20)
+        } placeholder: {
+            Image("profile")
+                .resizable()
+                .scaledToFill()
+                .frame(width: width, height: height)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
+                .padding(.top, 20)
+        }
+    }
+}
+
+struct DetailVStack: View { //  marat
+    
+    let description: String
+    let persons: [Person]
+    
+    var body: some View {
+    VStack(alignment: .leading) {
+        Text("Story Line")
+            .customFont(name: .plusJacartaSemiBold, size: 16)
+            .padding(.bottom, 16)
+            .foregroundStyle(.textBlack)
+        
+        ExpandableText(description, lineLimit: 6)
+            .customFont(name: .plusJacartaRegular, size: 14)
+            .foregroundStyle(.subtextGray)
+            .padding(.bottom, 24)
+        Text("Cast and Crew")
+            .customFont(name: .plusJacartaSemiBold, size: 16)
+            .padding(.bottom, 16)
+            .foregroundStyle(.textBlack)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(persons, id: \.id) { person in
+                    CrewMemberView(image: person.photo ?? "", name: person.name ?? "???", role: person.profession ?? "no info")
+                }
+            }
+        }
+        .frame(height: 41)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+}
+}
+
+
 struct DetailView: View {
     @Environment(\.dismiss) var dismiss
-    
-    @StateObject var viewModel: DetailViewModel
+    let id: Int
+    @StateObject var viewModel =  DetailViewModel()
     
     private var screenWidth: CGFloat {
         UIScreen.main.bounds.width
     }
     
-    init(id: Int) {
-        _viewModel = StateObject(wrappedValue: DetailViewModel(id: id))
-    }
-    
     var body: some View {
+
         NavigationStack {
+            
+            if viewModel.movie == Movie.empty {
+                Image("serverError")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            Text("Movie Detail")
+                                .customFont(name: .plusJacartaBold, size: 18)
+                                .foregroundStyle(.textBlack)
+                        }
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                viewModel.changeFavorite()
+                            } label: {
+                                Image(
+                                    systemName: viewModel.isFavorite
+                                    ? "heart.fill"
+                                    : "heart"
+                                )
+                                .foregroundColor(viewModel.isFavorite ? .accentPurple : Color.textBlack)
+                            }
+                        }
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            BackButtonView(action: { dismiss() })
+                        }
+                    }
+                
+            } else {
             ScrollView {
                 VStack(spacing: 0) {
-                    AsyncImage(url: URL(string: viewModel.movie.poster?.url ?? "")) { Image in
-                        Image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: ((screenWidth * 9) / 16) , height: screenWidth)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
-                            .padding(.top, 20)
-                    } placeholder: {
-                        Image("profile")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: ((screenWidth * 9) / 16) , height: screenWidth)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .shadow(color: .imageShadow, radius: 10, x: 0, y: 0)
-                            .padding(.top, 20)
-                    }
-
+                    // .frame(width: ((screenWidth * 9) / 16) , height: screenWidth)
+                    DetailImage(imageURL: viewModel.movie.poster?.url ?? "", height: screenWidth, width: ((screenWidth * 9) / 16)) // Marat
+                    
                     Text(viewModel.movie.name ?? "no name")
-						.foregroundStyle(.textBlack)
+                        .foregroundStyle(.textBlack)
                         .padding(.top, 24)
-						.customFont(name: .plusJacartaBold, size: 24)
+                        .customFont(name: .plusJacartaBold, size: 24)
                     HStack(alignment: .center, spacing: 20) {
-                        MovieTimeView(time: viewModel.movie.movieLenght ?? 0)
+                        MovieTimeView(time: viewModel.movie.movieLength ?? 0)
                         MovieDateVIew(date: String(viewModel.movie.year ?? 0))
-                        MovieCategoryView(category: viewModel.movie.genres?[0].name ?? "all")
+                        //                        MovieCategoryView(category: viewModel.movie.genres?.first?.name ?? "all")
                     }
                     .padding(.vertical, 17)
                     RatingStarView(rating: Int(viewModel.movie.rating?.imdb ?? 0.0))
                         .padding(.bottom, 32)
                     
-                    VStack(alignment: .leading) {
-                        Text("Story Line")
-							.customFont(name: .plusJacartaSemiBold, size: 16)
-                            .padding(.bottom, 16)
-							.foregroundStyle(.textBlack)
-
-                        ExpandableText(viewModel.movie.description ?? "no description", lineLimit: 6)
-							.customFont(name: .plusJacartaRegular, size: 14)
-							.foregroundStyle(.subtextGray)
-                            .padding(.bottom, 24)
-                        Text("Cast and Crew")
-							.customFont(name: .plusJacartaSemiBold, size: 16)
-                            .padding(.bottom, 16)
-							.foregroundStyle(.textBlack)
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                ForEach(viewModel.persons, id: \.id) { person in
-                                    CrewMemberView(image: person.photo ?? "", name: person.name ?? "???", role: person.profession ?? "no info")
-                                }
-                            }
-                        }
-                        .frame(height: 41)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    DetailVStack(description: viewModel.movie.description ?? "", persons: viewModel.movie.persons ?? []) //MARAT
+                    
                 }
                 .padding(.horizontal, 30)
                 .padding(.bottom, 20)
             }
-			.scrollIndicators(.hidden)
+            .scrollIndicators(.hidden)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Movie Detail")
-						.customFont(name: .plusJacartaBold, size: 18)
-						.foregroundStyle(.textBlack)
+                        .customFont(name: .plusJacartaBold, size: 18)
+                        .foregroundStyle(.textBlack)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -104,11 +156,11 @@ struct DetailView: View {
                         .foregroundColor(viewModel.isFavorite ? .accentPurple : Color.textBlack)
                     }
                 }
-				ToolbarItem(placement: .navigationBarLeading) {
-					BackButtonView(action: { dismiss() })
-				}
+                ToolbarItem(placement: .navigationBarLeading) {
+                    BackButtonView(action: { dismiss() })
+                }
             }
-			.background(.whiteBackground)
+            .background(.whiteBackground)
             .safeAreaInset(edge: .bottom) {
                 MiddleButtonView(action: {}, label: "Watch now")
                     .padding(20)
@@ -117,15 +169,19 @@ struct DetailView: View {
                     .background(.ultraThinMaterial)
                     .shadow(radius: 60)
             }
-			.onAppear {
-//				viewModel.isFavorite = UserDefaults.standard.isFavorite(filmID: viewModel.movie.id.uuidString)
-                viewModel.fetchFullInfoAboutFilm(id: viewModel.filmId)
-			}
         }
+        }
+        .onAppear {
+            viewModel.fetchFullInfoAboutFilm(id: id)
+        }// end nav
+        
+        
     }
 }
 
-struct CrewMemberView: View {
+
+
+struct CrewMemberView:  View {
     let image: String
     let name: String
     let role: String
@@ -197,14 +253,6 @@ struct ExpandableText: View {
     }
 }
 
-//#Preview {
-//	DetailView(
-//		movie: Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4, timing: 148, responders: 53, category: "Action", description: """
-// Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
-// """, castCrew: [
-//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
-// ])
-//	)
-//}
+#Preview {
+	DetailView(id: 659613)
+}
