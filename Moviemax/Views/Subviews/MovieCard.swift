@@ -18,7 +18,7 @@ struct MovieCard: View {
         HStack(alignment:.top, spacing: 12) {
             
             NavigationLink {
-                DetailView(id: movie.id ?? 0)
+                DetailView(id: movie.id ?? 18952)
             } label: {
                 AsyncImage(url: URL(string: movie.poster?.url ?? "")) { Image in
                     Image
@@ -44,7 +44,7 @@ struct MovieCard: View {
                     .bold()
                 
                 //TIME
-				MovieTimeView(time: movie.movieLenght ?? 000)
+				MovieTimeView(time: movie.movieLength ?? 000)
 
                 //DATE
 				MovieDateVIew(date: String(movie.year ?? 0))

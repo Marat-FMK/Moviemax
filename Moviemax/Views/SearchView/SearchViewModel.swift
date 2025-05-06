@@ -23,6 +23,7 @@ class SearchViewModel: ObservableObject {
     @Published var temporaryRating = [Int]()
     @Published var chooseRating = 4
     
+    @State private var selectedMovieId: Int? = nil
     @Published var currentCategoryMovies: [Movie] = []
     var foundMovies: [Movie] = []
 
@@ -40,7 +41,7 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    func checkGenreInMovie(genre: [Genre]) -> Bool{
+    func checkGenreInMovie(genre: [SimpleName]) -> Bool{
             var bool = false
             for genre in genre {
                 if genre.name == chooseCategory {
