@@ -20,8 +20,8 @@ class DetailViewModel: ObservableObject {
         ApiService().fetchFilmInfo(id: id) { result in
             
             switch result {
-            case .failure(let error):  print(error)
-            case .success(let movie): self.movie = movie ; print("✅ movie --->>> ",movie) ; self.setPersons(); print(self.movieCrew)
+            case .failure(let error): print("❌Movie ID --->>> \(id)");print(error)
+            case .success(let movie): self.movie = movie ; print("✅ movie --->>>\(id)") ; self.setPersons()/*; print(self.movieCrew)*/
             }
         }
 //        setPersons()

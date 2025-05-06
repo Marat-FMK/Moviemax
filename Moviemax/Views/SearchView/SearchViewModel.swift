@@ -32,7 +32,7 @@ class SearchViewModel: ObservableObject {
             
             var currentMovies: [Movie] = []
             for movie in movies {
-                if movie.description != nil && movie.description != "" && movie.poster?.url != nil && movie.name != "" {
+                if movie.description != nil && movie.description != "" && movie.poster?.url != nil && movie.name != "" && movie.movieLength != nil && movie.genres != nil{
                     currentMovies.append(movie)
                 }
             }
