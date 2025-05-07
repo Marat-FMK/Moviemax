@@ -163,7 +163,7 @@ struct DetailView: View {
             }
         }
         .onAppear {
-            viewModel.fetchFullInfoAboutFilm(id: id)
+//            viewModel.fetchFullInfoAboutFilm(id: id) // РАСКРЫТЬ // закрыл, что бы не тратить запросы по токену
         }// end nav
         
         
