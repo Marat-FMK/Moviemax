@@ -32,7 +32,7 @@ class ApiService {
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems = [
             URLQueryItem(name: "page", value: "1"),
-            URLQueryItem(name: "limit", value: "50"),
+            URLQueryItem(name: "limit", value: "100"),
             URLQueryItem(name: "query", value: searchText)
         ]
         
