@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct DetailImage: View { // marat
+struct DetailImage: View {
     
     let imageURL: String
     let height: CGFloat
@@ -32,7 +32,7 @@ struct DetailImage: View { // marat
     }
 }
 
-struct DetailVStack: View { //  marat
+struct DetailVStack: View {
     
     let description: String
     let persons: [Person]
@@ -87,7 +87,6 @@ struct DetailView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 310)
-                    Spacer()
                 }
                     .toolbar {
                         ToolbarItem(placement: .principal) {
@@ -112,8 +111,6 @@ struct DetailView: View {
                         HStack(alignment: .center, spacing: 20) {
                             MovieTimeView(time: viewModel.movie.movieLength ?? 0)
                             MovieDateVIew(date: String(viewModel.movie.year ?? 0))
-                            
-                            // ???
                             MovieCategoryView(category: viewModel.movie.genres?.first?.name ?? "All")
                         }
                         .padding(.vertical, 17)
@@ -121,7 +118,6 @@ struct DetailView: View {
                             .padding(.bottom, 32)
                         
                         DetailVStack(description: viewModel.movie.description ?? "", persons: viewModel.movie.persons ?? [])
-                        
                     }
                     .padding(.horizontal, 30)
                     .padding(.bottom, 20)
@@ -154,7 +150,6 @@ struct DetailView: View {
                 .background(.whiteBackground)
                 .safeAreaInset(edge: .bottom) {
                     MiddleButtonView(action: {}, label: "Watch now")
-//                        .padding(20)
                         .padding(.horizontal, 30)
                         .background(.ultraThinMaterial.opacity(0.6))
                         .shadow(radius: 40)
@@ -163,7 +158,7 @@ struct DetailView: View {
             }
         }
         .onAppear {
-//            viewModel.fetchFullInfoAboutFilm(id: id) // РАСКРЫТЬ // закрыл, что бы не тратить запросы по токену
+            viewModel.fetchFullInfoAboutFilm(id: id) // 200 requests / 1 day API key
         }// end nav
         
         
