@@ -50,7 +50,7 @@ struct MovieCard: View {
 				MovieDateVIew(date: String(movie.year ?? 0))
 
                 //TRAILER BUTTON
-                MovieCardPlayButton(category: movieCategory == "All" ? movie.genres?[0].name ?? "all" : movieCategory, action: {} ) // action - play trailer action
+                MovieCardPlayButton(category: movieCategory, action: {} ) // action - play trailer action
             }
             
             Spacer()
