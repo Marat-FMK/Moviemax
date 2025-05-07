@@ -19,6 +19,7 @@ class ApiService {
     // https://kinopoisk.dev/
     let linkForSearch = "https://api.kinopoisk.dev/v1.4/movie/search"
     let linkFilmIdInfo = "https://api.kinopoisk.dev/v1.4/movie/" //+FilmID
+    let linkAwordMovies = "https://api.kinopoisk.dev/v1.4/movie"
     let apiKey = "39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1" // header X-API-KEY -->> 39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1 limit  // 200requests/day
     
     func searchMovies(searchText: String, completion: @escaping ([Movie]) -> Void) {
@@ -114,6 +115,43 @@ class ApiService {
             }
         }.resume()
     }
+    
+    func fetchAwardsFilms() async -> [Movie] { // Dont Worked Func *(
+           guard let url = URL(string: linkAwordMovies) else {
+               print("❌ Error url awards Films")
+               return []
+           }
+           
+           var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+           components.queryItems = [
+               URLQueryItem(name: "page", value: "1"),
+               URLQueryItem(name: "limit", value: "249"),
+               URLQueryItem(name: "lists", value: "top250")
+           ]
+           
+           guard let finalURL = components.url else {
+               print("❌ Error constructing final URL")
+               return []
+           }
+           
+           var request = URLRequest(url: finalURL)
+           request.httpMethod = "GET"
+           request.timeoutInterval = 10
+           request.allHTTPHeaderFields = [
+               "accept": "application/json",
+               "X-API-KEY": "39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1"
+           ]
+           
+           do {
+               let (data, _) = try await URLSession.shared.data(for: request)
+               let movies = try JSONDecoder().decode(Movies.self, from: data)
+               print( "✅ Awards movies complete", movies, "❗️end")
+               return movies.docs ?? []
+           } catch {
+               print("❌ Fetch error: \(error.localizedDescription)")
+               return []
+           }
+       }
     
 }
 
