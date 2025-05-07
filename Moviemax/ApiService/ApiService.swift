@@ -19,7 +19,6 @@ class ApiService {
     // https://kinopoisk.dev/
     let linkForSearch = "https://api.kinopoisk.dev/v1.4/movie/search"
     let linkFilmIdInfo = "https://api.kinopoisk.dev/v1.4/movie/" //+FilmID
-    
     let apiKey = "39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1" // header X-API-KEY -->> 39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1 limit  // 200requests/day
     
     func searchMovies(searchText: String, completion: @escaping ([Movie]) -> Void) {
@@ -32,7 +31,7 @@ class ApiService {
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems = [
             URLQueryItem(name: "page", value: "1"),
-            URLQueryItem(name: "limit", value: "30"),
+            URLQueryItem(name: "limit", value: "50"),
             URLQueryItem(name: "query", value: searchText)
         ]
         
@@ -51,13 +50,13 @@ class ApiService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
-                print("Ошибка запроса: \(error!.localizedDescription)")
+                print("Ошибка запроса text: \(error!.localizedDescription)")
                 completion([])
                 return
             }
             
             guard let data = data else {
-                print("Пустые данные")
+                print("Пустые данные text")
                 completion([])
                 return
             }
@@ -65,11 +64,10 @@ class ApiService {
             do {
                 let decoded = try JSONDecoder().decode(Movies.self, from: data)
                 DispatchQueue.main.async {
-                    print(decoded.docs)
                     completion(decoded.docs ?? [])
                 }
             } catch {
-                print("Ошибка декодирования: \(error.localizedDescription)")
+                print("Ошибка декодирования text: \(error.localizedDescription)")
                 completion([])
             }
         }.resume()
