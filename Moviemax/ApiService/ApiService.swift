@@ -20,7 +20,9 @@ class ApiService {
     let linkForSearch = "https://api.kinopoisk.dev/v1.4/movie/search"
     let linkFilmIdInfo = "https://api.kinopoisk.dev/v1.4/movie/" //+FilmID
     let linkAwordMovies = "https://api.kinopoisk.dev/v1.4/movie"
-    let apiKey = "39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1" // header X-API-KEY -->> 39FFZDY-7NWM6ZM-QN4P3EQ-42T55X1 limit  // 200requests/day
+    
+#warning("API key")
+    let apiKey = ""     // limit 200requests/day
     
     func searchMovies(searchText: String, completion: @escaping ([Movie]) -> Void) {
         
