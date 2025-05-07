@@ -52,7 +52,7 @@ class SearchViewModel: ObservableObject {
     }
 
     func updateCurrentCategoryMovies() {
-            if chooseCategory == "ALL" {
+            if chooseCategory == "All" {
                 currentCategoryMovies = foundMovies
             } else {
                 currentCategoryMovies = foundMovies.filter{ checkGenreInMovie(genre: $0.genres ?? [])} // ??
@@ -141,6 +141,11 @@ class SearchViewModel: ObservableObject {
             } else {
                 temporaryRating.append(rating)
             }
+    }
+    
+    func movieCategoryIfChooseAllCategory(movie: Movie) -> String {
+        guard let movieGanre = movie.genres?.first?.name else { return "all"}
+        return movieGanre
     }
     
 }

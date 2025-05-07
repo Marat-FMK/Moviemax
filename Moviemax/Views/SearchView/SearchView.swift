@@ -36,7 +36,7 @@ struct SearchView: View {
                     //MOVIECARDS
                     ScrollView(showsIndicators: false) {
                         ForEach(viewModel.currentCategoryMovies, id: \.id) { movie in
-                            MovieCard(movieCategory: viewModel.chooseCategory, movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite)
+                            MovieCard(movieCategory: viewModel.movieCategoryIfChooseAllCategory(movie: movie), movie: movie, favorite: viewModel.$favourite, changeFavorite: viewModel.changeFavorite)
                         }
                         .padding(.bottom, 80)
                     }
