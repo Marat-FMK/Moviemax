@@ -9,13 +9,13 @@ import SwiftUI
 
 struct MainView: View {
 	@StateObject var viewModel: MainViewModel = .init()
-    @State private var selectedMovie: Movie? = nil
+//    @State private var selectedMovie: Movie? = nil
 
 	var body: some View {
 		NavigationStack {
 			VStack(alignment: .leading) {
 				HStack {
-                    ProfileViewModel().selectedImage!
+                    ProfileViewModel().selectedImage! // ?!?!?!
 						.resizable()
 						.scaledToFill()
 						.frame(width: 40, height: 40)
@@ -31,7 +31,7 @@ struct MainView: View {
 					}
 				}
 				VStack(alignment: .center) {
-					CarouselView(images: viewModel.currentCategoryMovies, currentIndex: $viewModel.currentIndex)
+					CarouselView(images: viewModel.caruselMovies, currentIndex: $viewModel.currentIndex)
 					ScrollerIndicatorView(currentIndex: viewModel.currentIndex)
 				}
 				.frame(maxWidth: .infinity, alignment: .center)
@@ -56,7 +56,7 @@ struct MainView: View {
 							.foregroundStyle(.buttonPurple)
 						}
                         ForEach(viewModel.currentCategoryMovies) { movie in
-                            NavigationLink(destination: DetailView(id: 8213)) { // ID !!!
+                            NavigationLink(destination: DetailView(id: movie.id ?? 8213)) {
                                 MainViewFilmCardView(isFavourite: Binding(
                                     get: { viewModel.isFavorite(movie: movie) },
                                     set: { _ in viewModel.toggleFavorite(movie: movie) }
@@ -70,11 +70,12 @@ struct MainView: View {
             .padding(.horizontal, 24)
 		}
         .onAppear {
+            viewModel.fetchMainFilms()
             viewModel.loudUserName()
         }
-        .sheet(item: $selectedMovie) { movie in
-            DetailView(id: movie.id ?? 18952)
-        }
+//        .sheet(item: $selectedMovie) { movie in
+//            DetailView(id: movie.id ?? 18952)
+//        }
     }
 }
 

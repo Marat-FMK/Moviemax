@@ -71,14 +71,30 @@ struct CaruselCardView: View {
 	let degrees: CGFloat
 
 	var body: some View {
-        Image("drifting")
-			.resizable()
-			.scaledToFill()
-			.frame(width: imageWidth, height: imageHeight)
-			.clipped()
-			.cornerRadius(16)
-			.rotationEffect(.degrees(degrees))
-			.offset(x: offset, y: 30)
+        AsyncImage(url: URL(string: image.poster?.url ?? "")) { Image in
+            Image
+                .resizable()
+                .scaledToFill()
+                .frame(width: imageWidth, height: imageHeight)
+                .clipped()
+                .cornerRadius(16)
+                .rotationEffect(.degrees(degrees))
+                .offset(x: offset, y: 30)
+        } placeholder: {
+            ShimmerView(width: imageWidth, height: imageHeight, color: .accentPurple)
+                .clipped()
+                .cornerRadius(16)
+                .rotationEffect(.degrees(degrees))
+                .offset(x: offset, y: 30)
+        }
+//        Image("drifting")
+//			.resizable()
+//			.scaledToFill()
+//			.frame(width: imageWidth, height: imageHeight)
+//			.clipped()
+//			.cornerRadius(16)
+//			.rotationEffect(.degrees(degrees))
+//			.offset(x: offset, y: 30)
 	}
 }
 
@@ -90,14 +106,28 @@ struct CaruselCenterCardView: View {
 
 	var body: some View {
 		ZStack {
-			Image("drifting")
-				.resizable()
-				.scaledToFill()
-				.frame(width: imageWidth, height: imageHeight)
-				.clipped()
-				.cornerRadius(20)
-				.shadow(radius: 10)
-			LinearGradient(
+            AsyncImage(url: URL(string: movie.poster?.url ?? "")) { Image in
+                Image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: imageWidth, height: imageHeight)
+                    .clipped()
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
+            } placeholder: {
+                ShimmerView(width: imageWidth, height: imageHeight, color: .accentPurple)
+                    .clipped()
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
+            }
+//			Image("drifting")
+//				.resizable()
+//				.scaledToFill()
+//				.frame(width: imageWidth, height: imageHeight)
+//				.clipped()
+//				.cornerRadius(20)
+//				.shadow(radius: 10)
+            LinearGradient(
 				gradient: Gradient(colors: [Color.gradient, Color.clear]),
 				startPoint: .bottom,
 				endPoint: .top
@@ -116,9 +146,8 @@ struct CaruselCenterCardView: View {
 					.customFont(name: .plusJacartaRegular, size: 10)
 					.clipShape(Capsule())
 					.foregroundStyle(.totalWhiteText)
-					Text(movie.name ?? "")
+                    Text(movie.name ?? "No name")
 						.customFont(name: .plusJacartaBold, size: 14)
-
 				}
 				.padding(.horizontal, 14)
 				.padding(.bottom, 20)
@@ -128,6 +157,8 @@ struct CaruselCenterCardView: View {
 		.frame(width: imageWidth, height: imageHeight)
 	}
 }
+
+
 
 //#Preview {
 //	CarouselView(images: [Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 53, category: "Adventure", description: """

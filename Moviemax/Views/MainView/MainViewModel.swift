@@ -15,7 +15,7 @@ struct ProfileModel: Identifiable {
 
 class MainViewModel: ObservableObject {
 
-	@Published var categories = ["All", "Adventure", "Fantasy", "Action"]
+	@Published var categories = ["All", "комедия", "драма", "детектив", "боевик", "криминал", "приключения"]
 	@Published var choosenCategory = "All"
 
 	@Published var favoriteFilmIDs: Set<String> = UserDefaults.standard.favoriteFilmIDs {
@@ -25,19 +25,39 @@ class MainViewModel: ObservableObject {
 	}
 
 	@Published var currentIndex: Int = 1
-	@Published var profile = ProfileModel(name: "Julia", avatar: "avatar")
+	@Published var profile = ProfileModel(name: "User Name", avatar: "avatar")
 
+    @Published var currentCategoryMovies: [Movie] = []
+    @Published var caruselMovies: [Movie] = []
+    var allMovies: [Movie] = []
+
+
+    //MARK: - API FUNC's
+    func fetchMainFilms() {
+        ApiService().searchMovies(searchText: "Simpsons") { movies in
+            var currentMovies: [Movie] = []
+            for movie in movies {
+                if movie.description != nil && movie.description != "" && movie.poster?.url != nil && movie.name != "" && movie.movieLength != nil && movie.genres != nil{
+                    currentMovies.append(movie)
+                }
+            }
+            DispatchQueue.main.async {
+                self.allMovies = currentMovies
+                self.caruselMovies = self.setCaruselMovies()
+                self.updateCurrentCategoryMovies()
+            }
+        }
+    }
     
-	var allMovies: [Movie] = []
-
-	var currentCategoryMovies: [Movie] {
-		if choosenCategory == "All" {
-			return allMovies
-		} else {
-            return allMovies.filter { checkGenreInMovie(genre: $0.genres ?? []) }
-		}
-	}
-
+    
+    func updateCurrentCategoryMovies() {
+            if choosenCategory == "All" {
+                currentCategoryMovies = allMovies
+            } else {
+                currentCategoryMovies = allMovies.filter{ checkGenreInMovie(genre: $0.genres ?? [])} // ??
+            }
+    }
+    
     func checkGenreInMovie(genre: [SimpleName]) -> Bool{
             var bool = false
             for genre in genre {
@@ -48,14 +68,23 @@ class MainViewModel: ObservableObject {
             return bool
     }
     
+    func setCaruselMovies()-> [Movie] {
+        var movies: [Movie] = []
+        for i in 0 ..< 3 {
+            movies.append(self.allMovies[i])
+        }
+        return movies
+    }
+    
+    
+    //MARK: - VIEW FUNC's
 	func checkCategoryName(category: String) -> Bool {
 		choosenCategory == category
 	}
 
 	func chooseCategory(category: String) {
 		choosenCategory = category
-		//search films with choose categoty
-		//currentCategoryMovies = searchedFilms
+        updateCurrentCategoryMovies()
 	}
 
 	func isFavorite(movie: Movie) -> Bool {
@@ -77,6 +106,15 @@ class MainViewModel: ObservableObject {
     }
 
 }
+
+
+
+
+
+
+
+
+
 
 
 //

@@ -23,10 +23,7 @@ struct MainViewFilmCardView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .clipped()
             } placeholder: {
-                Image("profile") // Shimmer
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
+                ShimmerView(width: 80, height: 80, color: .buttonPurple)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .clipped()
             }
@@ -81,6 +78,9 @@ struct MainFilmCardRatingView: View {
 		}
 	}
 }
+
+
+
 
 //#Preview {
 //	MainViewFilmCardView(isFavourite: .constant(true), movie: Movie(title: "Luck", date: "2005", image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
