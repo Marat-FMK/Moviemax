@@ -8,7 +8,6 @@
 import Foundation
 
 // API universal model
-
 struct Movies: Codable {
     let docs: [Movie]?
 }
