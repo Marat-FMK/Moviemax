@@ -103,12 +103,6 @@ struct LoginView: View {
                 }
                 .padding(.bottom, 20)
             }
-            .onAppear {
-                ApiService().fetchFilmInfo(id: 2213) { movie in
-                    print(movie)
-                    print("---->>>>> detail moVIE")
-                }
-            }
             .alert("Auth error", isPresented: $presentAlert, actions: {}, message: {
                 Text("Please, check your password or email")
             })
