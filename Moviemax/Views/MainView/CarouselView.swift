@@ -137,7 +137,7 @@ struct CaruselCenterCardView: View {
 			HStack {
 				VStack(alignment: .leading) {
 					Spacer()
-					Button("all") {
+                    Button(movie.genres?.last?.name ?? "all") {
 						action()
 					}
 					.padding(.horizontal, 8)
