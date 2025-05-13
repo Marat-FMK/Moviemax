@@ -15,7 +15,7 @@ struct MainView: View {
 		NavigationStack {
 			VStack(alignment: .leading) {
 				HStack {
-                    ProfileViewModel().selectedImage!
+					Image(viewModel.profile.avatar)
 						.resizable()
 						.scaledToFill()
 						.frame(width: 40, height: 40)
@@ -71,6 +71,7 @@ struct MainView: View {
 		}
         .onAppear {
             viewModel.loadUserName()
+			viewModel.loadFavourites()
         }
         .sheet(item: $selectedMovie) { movie in
 			DetailView(movie: movie)

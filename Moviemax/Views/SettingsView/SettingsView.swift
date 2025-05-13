@@ -98,7 +98,7 @@ struct ProfileImageView: View {
     
 	var body: some View {
 		HStack {
-            viewModel.selectedImage! // UNWRAP
+            Image("profile") // UNWRAP
 				.resizable()
 				.scaledToFill()
 				.frame(width: 56, height: 56)

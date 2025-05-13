@@ -18,11 +18,10 @@ class MainViewModel: ObservableObject {
 	@Published var categories = ["All", "Adventure", "Fantasy", "Action"]
 	@Published var choosenCategory = "All"
 
-	@Published var favoriteFilmIDs: Set<String> = UserDefaults.standard.favoriteFilmIDs {
-		didSet {
-			UserDefaults.standard.favoriteFilmIDs = favoriteFilmIDs
-		}
-	}
+	let favouriteManager = FavouriteManager.shared
+	let firebaseManager = FireBaseDataService.shared
+
+	@Published var favourites: [String: Bool] = [:]
 
 	@Published var currentIndex: Int = 1
 	@Published var profile = ProfileModel(name: "Julia", avatar: "avatar")
@@ -78,18 +77,22 @@ class MainViewModel: ObservableObject {
 	}
 
 	func isFavorite(movie: Movie) -> Bool {
-		favoriteFilmIDs.contains(movie.id.uuidString)
+		favourites[movie.id.uuidString] ?? false
 	}
 
 	func toggleFavorite(movie: Movie) {
-		let filmID = movie.id.uuidString
-		if favoriteFilmIDs.contains(filmID) {
-			favoriteFilmIDs.remove(filmID)
-		} else {
-			favoriteFilmIDs.insert(filmID)
-		}
+		let movieId = movie.id.uuidString
+		favouriteManager.toggleFavourite(userId: firebaseManager.currentUserID, movieId: movieId)
+
+		let currentState = favourites[movieId] ?? false
+		favourites[movieId] = !currentState
+
 	}
-    
+
+	func loadFavourites() {
+		favourites = favouriteManager.loadFavourites(for: firebaseManager.currentUserID)
+	}
+
     func loadUserName() {
         profile.name = UserDefaults.standard.string(forKey: "firstName") ?? "" // можно попробовать прокинуть в инит
     }
