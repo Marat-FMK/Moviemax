@@ -71,14 +71,30 @@ struct CaruselCardView: View {
 	let degrees: CGFloat
 
 	var body: some View {
-		Image(image.image)
-			.resizable()
-			.scaledToFill()
-			.frame(width: imageWidth, height: imageHeight)
-			.clipped()
-			.cornerRadius(16)
-			.rotationEffect(.degrees(degrees))
-			.offset(x: offset, y: 30)
+        AsyncImage(url: URL(string: image.poster?.url ?? "")) { Image in
+            Image
+                .resizable()
+                .scaledToFill()
+                .frame(width: imageWidth, height: imageHeight)
+                .clipped()
+                .cornerRadius(16)
+                .rotationEffect(.degrees(degrees))
+                .offset(x: offset, y: 30)
+        } placeholder: {
+            ShimmerView(width: imageWidth, height: imageHeight, color: .accentPurple)
+                .clipped()
+                .cornerRadius(16)
+                .rotationEffect(.degrees(degrees))
+                .offset(x: offset, y: 30)
+        }
+//        Image("drifting")
+//			.resizable()
+//			.scaledToFill()
+//			.frame(width: imageWidth, height: imageHeight)
+//			.clipped()
+//			.cornerRadius(16)
+//			.rotationEffect(.degrees(degrees))
+//			.offset(x: offset, y: 30)
 	}
 }
 
@@ -90,14 +106,28 @@ struct CaruselCenterCardView: View {
 
 	var body: some View {
 		ZStack {
-			Image(movie.image)
-				.resizable()
-				.scaledToFill()
-				.frame(width: imageWidth, height: imageHeight)
-				.clipped()
-				.cornerRadius(20)
-				.shadow(radius: 10)
-			LinearGradient(
+            AsyncImage(url: URL(string: movie.poster?.url ?? "")) { Image in
+                Image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: imageWidth, height: imageHeight)
+                    .clipped()
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
+            } placeholder: {
+                ShimmerView(width: imageWidth, height: imageHeight, color: .accentPurple)
+                    .clipped()
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
+            }
+//			Image("drifting")
+//				.resizable()
+//				.scaledToFill()
+//				.frame(width: imageWidth, height: imageHeight)
+//				.clipped()
+//				.cornerRadius(20)
+//				.shadow(radius: 10)
+            LinearGradient(
 				gradient: Gradient(colors: [Color.gradient, Color.clear]),
 				startPoint: .bottom,
 				endPoint: .top
@@ -107,7 +137,7 @@ struct CaruselCenterCardView: View {
 			HStack {
 				VStack(alignment: .leading) {
 					Spacer()
-					Button(movie.category) {
+                    Button(movie.genres?.last?.name ?? "all") {
 						action()
 					}
 					.padding(.horizontal, 8)
@@ -116,9 +146,8 @@ struct CaruselCenterCardView: View {
 					.customFont(name: .plusJacartaRegular, size: 10)
 					.clipShape(Capsule())
 					.foregroundStyle(.totalWhiteText)
-					Text(movie.title)
+                    Text(movie.name ?? "No name")
 						.customFont(name: .plusJacartaBold, size: 14)
-
 				}
 				.padding(.horizontal, 14)
 				.padding(.bottom, 20)
@@ -129,12 +158,14 @@ struct CaruselCenterCardView: View {
 	}
 }
 
-#Preview {
-	CarouselView(images: [Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 53, category: "Adventure", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ])], currentIndex: .constant(1))
-}
+
+
+//#Preview {
+//	CarouselView(images: [Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 53, category: "Adventure", description: """
+// Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+// """, castCrew: [
+//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+// ])], currentIndex: .constant(1))
+//}

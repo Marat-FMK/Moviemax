@@ -44,6 +44,7 @@ struct SignUpView: View {
                         if viewModel.checkPassword() {
                             viewModel.signUp { result in
                                 if result {
+                                    viewModel.userPassword = ""
                                     dismiss()
                                 } else {
                                     alertTitle = "Server error"

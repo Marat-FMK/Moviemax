@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieDateVIew: View {
-	let date: Date
+	let date: String
     var body: some View {
 		HStack(spacing: 5) {
 			Image(systemName: "calendar")
@@ -16,13 +16,14 @@ struct MovieDateVIew: View {
 				.scaledToFit()
 				.frame(height: 16)
 				.foregroundStyle(.infoIcon)
-			Text(date, format: Date.FormatStyle(date: .abbreviated, time: .omitted))
-				.customFont(name: .montserrat, size: 12)
-				.foregroundStyle(.subtextGray)
+//			Text(date, format: Date.FormatStyle(date: .abbreviated, time: .omitted))
+//				.customFont(name: .montserrat, size: 12)
+//				.foregroundStyle(.subtextGray)
+            Text( "\(date) year" )
 		}
     }
 }
 
-#Preview {
-	MovieDateVIew(date: .now)
-}
+//#Preview {
+//	MovieDateVIew(date: .now)
+//}

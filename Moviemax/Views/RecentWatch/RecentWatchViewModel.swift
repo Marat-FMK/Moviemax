@@ -22,7 +22,17 @@ class RecentWatchViewModel: ObservableObject {
     
     func chooseCategory(category: String) {
         choosedCategory = category
-        chooseCategoryMovies = allFilms.filter{ $0.category == choosedCategory}
+        chooseCategoryMovies = allFilms.filter{ checkGenreInMovie(genre: $0.genres ?? []) }
+    }
+    
+    func checkGenreInMovie(genre: [SimpleName]) -> Bool{
+            var bool = false
+            for genre in genre {
+                if genre.name == choosedCategory {
+                    bool = true
+                }
+            }
+            return bool
     }
     
     func checkChooseCategory(category: String) -> Bool {

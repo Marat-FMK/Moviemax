@@ -8,14 +8,14 @@
 import SwiftUI
 
 class SearchViewModel: ObservableObject {
-  
+    
     @Published var searchText = ""
-
-	@AppStorage("favoriteFilmIDs") var favourite: Bool = false
-
+    
+    @AppStorage("favoriteFilmIDs") var favourite: Bool = false
+    
     //FILTER
     @Published var presentFilter = false
-    @Published var selectedCategories = ["All", "Action", "Adventure", "Mystery", "Fantasy", "Others"]
+    @Published var selectedCategories = ["All", "комедия", "драма", "детектив", "боевик", "криминал", "приключения"]
     @Published var temporaryCategories: [String] = []
     @Published var chooseCategory = "All"
     
@@ -23,53 +23,47 @@ class SearchViewModel: ObservableObject {
     @Published var temporaryRating = [Int]()
     @Published var chooseRating = 4
     
-    var currentCategoryMovies: [Movie] {
-        if chooseCategory == "All"{
-            return foundMovies
-        } else {
-            return foundMovies.filter {$0.category == chooseCategory}
+    @State private var selectedMovieId: Int? = nil
+    @Published var currentCategoryMovies: [Movie] = []
+    var foundMovies: [Movie] = []
+
+    func searchFilms() {
+        ApiService().searchMovies(searchText: searchText) { movies in
+            
+            var currentMovies: [Movie] = []
+            for movie in movies {
+                if movie.description != nil && movie.description != "" && movie.poster?.url != nil && movie.name != "" && movie.movieLength != nil && movie.genres != nil{
+                    currentMovies.append(movie)
+                }
+            }
+            self.foundMovies = currentMovies
+            self.updateCurrentCategoryMovies()
         }
     }
     
-	var foundMovies: [Movie] = [
-		Movie(title: "Drifting Home", date: .now, image: "drifting", urlTrailer: "", rating: 5.1, timing: 112, responders: 105, category: "All", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ]),
-		Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ]),
-		Movie(title: "Fistful", date: .now, image: "fistful", urlTrailer: "", rating: 3.2, timing: 212, responders: 45, category: "Fantasy", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ]),
-		Movie(title: "Jurassic world", date: .now, image: "", urlTrailer: "", rating: 5, timing: 215, responders: 115, category: "Adventure", description: """
- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
- """, castCrew: [
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
-	CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
- ])
-	]
-
-    func searchFilms() {
-        // go to network for array of movies with choosedCategory
+    func checkGenreInMovie(genre: [SimpleName]) -> Bool{
+            var bool = false
+            for genre in genre {
+                if genre.name == chooseCategory {
+                    bool = true
+                }
+            }
+            return bool
     }
-    
+
+    func updateCurrentCategoryMovies() {
+            if chooseCategory == "All" {
+                currentCategoryMovies = foundMovies
+            } else {
+                currentCategoryMovies = foundMovies.filter{ checkGenreInMovie(genre: $0.genres ?? [])} // ??
+            }
+    }
+        
     func chooseUserCategory(category: String) {
         chooseCategory = category
         //search films with choose categoty
         //currentCategoryMovies = searchedFilms
+        updateCurrentCategoryMovies()
     }
     
     func changeFavorite(id: UUID) {
@@ -149,5 +143,43 @@ class SearchViewModel: ObservableObject {
             }
     }
     
+    func movieCategoryIfChooseAllCategory(movie: Movie) -> String {
+        guard let movieGanre = movie.genres?.first?.name else { return "all"}
+        return movieGanre
+    }
+    
 }
+
+
+
+//[
+//    Movie(title: "Drifting Home", date: .now, image: "drifting", urlTrailer: "", rating: 5.1, timing: 112, responders: 105, category: "All", description: """
+//Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+//""", castCrew: [
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+//]),
+//    Movie(title: "Luck", date: .now, image: "luck", urlTrailer: "", rating: 4.4, timing: 148, responders: 54, category: "Adventure", description: """
+//Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+//""", castCrew: [
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+//]),
+//    Movie(title: "Fistful", date: .now, image: "fistful", urlTrailer: "", rating: 3.2, timing: 212, responders: 45, category: "Fantasy", description: """
+//Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+//""", castCrew: [
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+//]),
+//    Movie(title: "Jurassic world", date: .now, image: "", urlTrailer: "", rating: 5, timing: 215, responders: 115, category: "Adventure", description: """
+//Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book 
+//""", castCrew: [
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director"),
+//CrewMemberModel(image: "Director", name: "Jon Watts", role: "Director")
+//])
+//]
 
