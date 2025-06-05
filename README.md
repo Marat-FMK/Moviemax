@@ -16,3 +16,7 @@
 
 ## 🛠️ Технологии
 Swift 5, IOS 16.0+, SwiftUI, MVVM, AppStorage/ UserDefaults, CoreData, URLSession, API, CoreData, Firebase
+
+## 📂Clone the repository:**
+   ```bash
+   https://github.com/JogaDevelop/NewsToDay.git
