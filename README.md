@@ -1,6 +1,6 @@
 # Moviemax
 <p align="center">
-  <img src="" alt="Moviemax app" width="1000"/>
+  <img src="https://github.com/Marat-FMK/Moviemax/blob/develop/Movie.png" alt="Moviemax app" width="1000"/>
 </p>
 
 <p align="left"> 
@@ -14,5 +14,5 @@
 На главной странице — карусель с популярными и рекомендованными фильмами. 
 Реализован удобный поиск по названию, а также фильтры по рейтингу и жанрам.
 
-##Технологии
+## 🛠️ Технологии
 Swift 5, IOS 16.0+, SwiftUI, MVVM, AppStorage/ UserDefaults, CoreData, URLSession, API, CoreData, Firebase
