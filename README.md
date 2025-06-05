@@ -1,6 +1,6 @@
 # Moviemax
 <p align="center">
-  <img src=" // // // " alt="Shoppe App" width="1000"/>
+  <img src="" alt="Moviemax app" width="1000"/>
 </p>
 
 <p align="left"> 
