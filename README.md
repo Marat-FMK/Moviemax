@@ -1,4 +1,5 @@
 # Moviemax
+
 <p align="center">
   <img src="https://github.com/Marat-FMK/Moviemax/blob/develop/Movie.png" alt="Moviemax app" width="1000"/>
 </p>
