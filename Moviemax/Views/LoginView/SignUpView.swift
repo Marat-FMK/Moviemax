@@ -13,7 +13,7 @@ struct SignUpView: View {
     
     @State private var seePassword = false
     @State private var seeConfirmPassword = false
-    
+     
     @State private var alert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
