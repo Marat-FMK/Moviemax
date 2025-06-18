@@ -11,7 +11,7 @@ struct GoogleButton: View {
     let action: ()-> Void
     
     var body: some View {
-        Button {
+        Button { 
             action()
         } label: {
             ZStack {
