@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
-import Firebase
+import Firebase 
 import SwiftUI
 
 class FireBaseDataService: ObservableObject {
