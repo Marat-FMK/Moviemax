@@ -5,7 +5,7 @@
 //  Created by Marat Fakhrizhanov on 05.04.2025.
 //
 
-import Foundation
+import Foundation 
 import SwiftUI
 
 enum fontsNames: String {
