@@ -9,7 +9,7 @@ import Foundation
 
 // API universal model
 struct Movies: Codable {
-    let docs: [Movie]?
+    let docs: [Movie]? 
 }
 
 struct Movie: Codable, Identifiable, Equatable {
