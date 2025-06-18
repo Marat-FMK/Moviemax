@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DetailImage: View {
     
-    let imageURL: String
+    let imageURL: String 
     let height: CGFloat
     let width: CGFloat
     
