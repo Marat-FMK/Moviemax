@@ -12,7 +12,7 @@ class DetailViewModel: ObservableObject {
     @Published var isFavorite: Bool = false
     
     @Published var movieCrew: [Person] = []
-    @Published var movieCrewPrew: [Person] = []
+    @Published var movieCrewPrew: [Person] = [] 
 
 
     func fetchFullInfoAboutFilm(id: Int) {
