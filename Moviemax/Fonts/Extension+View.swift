@@ -10,7 +10,7 @@ import SwiftUI
 
 enum fontsNames: String {
     case montserrat = "Montserrat-Medium"
-    case plusJacartaBold = "PlusJakartaSans-ExtraBold"
+    case plusJacartaBold = "PlusJakartaSans-ExtraBold" 
     case plusJacartaRegular = "PlusJakartaSans-Regular"
     case plusJacartaSemiBold = "PlusJakartaSans-SemiBold"
 }
