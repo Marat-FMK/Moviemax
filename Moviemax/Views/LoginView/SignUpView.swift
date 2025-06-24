@@ -9,8 +9,7 @@ import SwiftUI
 
 struct SignUpView: View {
     @ObservedObject var viewModel: LoginViewViewModel
-    @Environment(\.dismiss) var dismiss
-    
+    @Environment(\.dismiss) var dismiss 
     @State private var seePassword = false
     @State private var seeConfirmPassword = false
      
