@@ -11,7 +11,7 @@ import SwiftUI
 struct User: Identifiable, Codable {
     
     let id: String?
-    let firstName: String?
+    let firstName: String? 
     let lastName: String?
     let email: String?
     let dateOfBirth: String?
