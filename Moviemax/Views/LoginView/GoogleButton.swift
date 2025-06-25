@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GoogleButton: View {
     let action: ()-> Void
-     
+      
     var body: some View {
         Button { 
             action()
