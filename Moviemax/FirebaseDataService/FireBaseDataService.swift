@@ -12,7 +12,7 @@ import Firebase
 import SwiftUI
 
 class FireBaseDataService: ObservableObject {
-//    @FirestoreQuery(collectionPath: "users", 
+//    @FirestoreQuery(collectionPath: "users",  
 //                    predicates: [.whereField("id", isEqualTo: self.currentUserID)]
 //    ) var users: [User]
     
