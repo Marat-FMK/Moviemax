@@ -11,7 +11,7 @@ struct CustomSecretPasswordTFView: View {
     @Binding var visible: Bool
     @Binding var answer: String
     let title: String
-    var body: some View { 
+    var body: some View {  
         
         VStack( alignment: .leading) {
             Text(title)
