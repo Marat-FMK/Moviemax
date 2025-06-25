@@ -13,7 +13,7 @@ struct Movies: Codable {
 }
 
 struct Movie: Codable, Identifiable, Equatable {
-    let fees: Fees? 
+    let fees: Fees?
     let status: String?
     let externalId: ExternalID?
     let rating: Rating?
